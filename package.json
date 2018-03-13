@@ -4,9 +4,13 @@
   "private": true,
   "dependencies": {
     "firebase": "^4.11.0",
+    "firebaseui": "^2.6.2",
+    "mobx": "^4.0.0",
+    "mobx-react": "^5.0.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "reactfire": "^1.0.0",
+    "semantic-ui-css": "^2.3.0",
     "semantic-ui-react": "^0.78.3"
   },
   "devDependencies": {

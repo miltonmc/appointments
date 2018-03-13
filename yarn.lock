@@ -2125,6 +2125,10 @@ detect-port-alt@1.1.5:
     address "^1.0.1"
     debug "^2.6.0"
 
+dialog-polyfill@^0.4.7:
+  version "0.4.9"
+  resolved "https://registry.yarnpkg.com/dialog-polyfill/-/dialog-polyfill-0.4.9.tgz#c690b3727c3d82e0f947bd5b910b32af8a2ef57d"
+
 diff@^3.2.0:
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/diff/-/diff-3.5.0.tgz#800c0dd1e0a8bfbc95835c202ad220fe317e5a12"
@@ -2895,7 +2899,7 @@ find-up@^2.0.0, find-up@^2.1.0:
   dependencies:
     locate-path "^2.0.0"
 
-firebase@^4.11.0:
+firebase@^4.11.0, firebase@^4.3.1:
   version "4.11.0"
   resolved "https://registry.yarnpkg.com/firebase/-/firebase-4.11.0.tgz#e6767df3f6e208b0c58ef53130609392b765df99"
   dependencies:
@@ -2908,6 +2912,13 @@ firebase@^4.11.0:
     "@firebase/storage" "0.1.8"
     dom-storage "^2.0.2"
     xmlhttprequest "^1.8.0"
+
+firebaseui@^2.6.2:
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/firebaseui/-/firebaseui-2.6.2.tgz#bdff548b2690beee3404cc7e9852518e4907be5f"
+  dependencies:
+    dialog-polyfill "^0.4.7"
+    firebase "^4.3.1"
 
 flat-cache@^1.2.1:
   version "1.3.0"
@@ -3326,6 +3337,10 @@ hoek@2.x.x:
 hoek@4.x.x:
   version "4.2.1"
   resolved "https://registry.yarnpkg.com/hoek/-/hoek-4.2.1.tgz#9634502aa12c445dd5a7c5734b572bb8738aacbb"
+
+hoist-non-react-statics@^2.3.1:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.5.0.tgz#d2ca2dfc19c5a91c5a6615ce8e564ef0347e2a40"
 
 home-or-tmp@^2.0.0:
   version "2.0.0"
@@ -4159,6 +4174,10 @@ jest@20.0.4:
   dependencies:
     jest-cli "^20.0.4"
 
+jquery@x.*:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
+
 js-base64@^2.1.9:
   version "2.4.3"
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.4.3.tgz#2e545ec2b0f2957f41356510205214e98fad6582"
@@ -4668,6 +4687,16 @@ mkdirp@0.5.1, mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.1, mkdirp@~0.5.0, mkdi
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-0.5.1.tgz#30057438eac6cf7f8c4767f38648d6697d75c903"
   dependencies:
     minimist "0.0.8"
+
+mobx-react@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/mobx-react/-/mobx-react-5.0.0.tgz#8d5a33be376fa22b184a6f555d40a6a3a8459a16"
+  dependencies:
+    hoist-non-react-statics "^2.3.1"
+
+mobx@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/mobx/-/mobx-4.0.0.tgz#3e03d39e2ff187372120db30187b0383f51ec876"
 
 ms@2.0.0:
   version "2.0.0"
@@ -6169,6 +6198,12 @@ selfsigned@^1.9.1:
   resolved "https://registry.yarnpkg.com/selfsigned/-/selfsigned-1.10.2.tgz#b4449580d99929b65b10a48389301a6592088758"
   dependencies:
     node-forge "0.7.1"
+
+semantic-ui-css@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/semantic-ui-css/-/semantic-ui-css-2.3.0.tgz#e96d0d4069499eafff9ba0c84274bc23d2b084e7"
+  dependencies:
+    jquery x.*
 
 semantic-ui-react@^0.78.3:
   version "0.78.3"
