@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
 import firebaseui from 'firebaseui';
+import firebaseConfig from 'firebaseConfig';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import { Button, Container, Dimmer, Divider, Form, Header, Icon, Item, Label, Loader, Menu, Segment } from 'semantic-ui-react'
@@ -10,14 +11,7 @@ import 'firebaseui/dist/firebaseui.css'
 import 'semantic-ui-css/semantic.min.css';
 import './App.css';
 
-firebase.initializeApp({
-  apiKey: "AIzaSyCC7YXFC2dT2D1TtHqi-gKJ8xhdjTWtyZE",
-  authDomain: "appointments-test-01.firebaseapp.com",
-  databaseURL: "https://appointments-test-01.firebaseio.com",
-  projectId: "appointments-test-01",
-  storageBucket: "appointments-test-01.appspot.com",
-  messagingSenderId: "285401543268"
-});
+firebase.initializeApp(firebaseConfig);
 
 const uiConfig = {
   callbacks: {
@@ -333,7 +327,7 @@ const AppContent = observer(({stores}) => (
 
 class App extends React.Component {
   componentDidMount() {
-     stores.initStore.init(); 
+     stores.initStore.init();
   }
 
   render() {
