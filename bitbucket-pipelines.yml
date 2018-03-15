@@ -6,7 +6,9 @@ pipelines:
         caches:
           - node
         script: # Modify the commands below to build your repository.
+          - if [ $BITBUCKET_BRANCH == 'master' ]; then
           - npm install
           - npm run build
           - npm install -g firebase-tools
           - firebase deploy --token=$FIREBASE_TOKEN --non-interactive
+          - fi
