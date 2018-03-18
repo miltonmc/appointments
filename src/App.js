@@ -1,21 +1,32 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import firebase from "firebase";
+import Loading from "shared/Loading";
+import Login from "authentication/Login";
+import LogoutButton from "authentication/LogoutButton";
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
+  constructor(props) {
+    super(props);
+
+    this.auth = firebase.auth();
+    this.auth.onAuthStateChanged(this.handleAuthStateChanged);
+    this.state = {
+      loading: true
+    };
   }
+  render() {
+    const { loading, user } = this.state;
+    if (loading) return <Loading />;
+
+    return user ? <LogoutButton /> : <Login />;
+  }
+
+  handleAuthStateChanged = user => {
+    this.setState({
+      loading: false,
+      user: user
+    });
+  };
 }
 
 export default App;
