@@ -26,7 +26,7 @@
 ## Instalation
 ```shell
 git clone
-cd sgfp
+cd appointments
 npm install
 npm start
 ```
