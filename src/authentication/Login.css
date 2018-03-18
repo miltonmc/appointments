@@ -8,16 +8,6 @@
   text-transform: uppercase;
 }
 
-.login__button {
-  background-color: #d14836;
-  border: 0;
-  border-radius: 3px;
-  color: #fff;
-  font-size: 1rem;
-  margin-bottom: 1rem;
-  padding: 1rem 2rem;
-}
-
 .login__error {
   color: #d14836;
   font-size: .8rem;

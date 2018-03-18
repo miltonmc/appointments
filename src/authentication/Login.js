@@ -5,8 +5,9 @@ import Center from "shared/Center";
 import * as firebase from "firebase";
 import appConfig from "../appConfig";
 import { Button, Icon } from 'semantic-ui-react';
+import LoginWithEmail from "./LoginWithEmail";
 
-const handleLogin = () => {
+const handleGoogleLogin = () => {
   const provider = new firebase.auth.GoogleAuthProvider();
   firebase.auth().signInWithRedirect(provider);
 };
@@ -19,19 +20,17 @@ const Login = ({ error }) =>
         {appConfig.fullName}
       </h1>
       <Button.Group size="huge">
-        <Button color='google plus' onClick={handleLogin}>
+        <Button color='google plus' onClick={handleGoogleLogin}>
           <Icon name='google' /> Autenticar com Google
         </Button>
         <Button.Or text="ou" />
-        <Button onClick={handleLogin}>
-        <Icon name='mail' /> Autenticar com Email
-        </Button>
+        <LoginWithEmail />
       </Button.Group>
 
       {error
         ? <p className="login__error">
-            {error}
-          </p>
+          {error}
+        </p>
         : ""}
     </div>
   </Center>;
