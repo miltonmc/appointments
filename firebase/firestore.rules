@@ -5,7 +5,7 @@ service cloud.firestore {
         request.auth.token.firebase.sign_in_provider == 'password' ||
         (
           request.auth.token.firebase.sign_in_provider == 'google.com' &&
-          exists(/databases/$(database)/documents/allowed_google_users/$(request.auth.uid).data.email == request.auth.token.email)
+          get(/databases/$(database)/documents/allowed_google_users/$(request.auth.uid)).data.email == request.auth.token.email
         );
     }
   }
