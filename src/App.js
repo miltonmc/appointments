@@ -3,8 +3,7 @@ import firebase from "firebase";
 import "firebase/firestore";
 import Loading from "shared/Loading";
 import Login from "authentication/Login";
-import LogoutButton from "authentication/LogoutButton";
-import { FirestoreCollection } from "react-firestore";
+import LoggedApp from "LoggedApp";
 
 class App extends Component {
   constructor(props) {
@@ -24,27 +23,7 @@ class App extends Component {
     const { loading, user, error } = this.state;
     if (loading) return <Loading />;
 
-    return user ?
-      <FirestoreCollection
-        path="allowed_google_users"
-        render={({ isLoading, data }) => {
-          return isLoading ? (
-            <Loading />
-          ) : (
-            <div>
-              <h1>Allowed Google Users</h1>
-              <ul>
-                {data.map(user => (
-                  <li key={user.id}>
-                    {user.email}
-                  </li>
-                ))}
-              </ul>
-              <LogoutButton />
-            </div>
-        )}}
-      /> :
-      <Login error={error} />;
+    return user ? <LoggedApp /> : <Login error={error} />;
   }
 
   handleAuthStateChanged = user => {
