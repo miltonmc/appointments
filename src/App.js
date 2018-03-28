@@ -3,7 +3,7 @@ import firebase from "firebase";
 import "firebase/firestore";
 import Loading from "shared/Loading";
 import Login from "authentication/Login";
-import LogoutButton from "authentication/LogoutButton";
+import LoggedApp from "LoggedApp";
 
 class App extends Component {
   constructor(props) {
@@ -19,12 +19,11 @@ class App extends Component {
     };
   }
 
-
   render() {
     const { loading, user, error } = this.state;
     if (loading) return <Loading />;
 
-    return user ? <LogoutButton /> : <Login error={error} />;
+    return user ? <LoggedApp /> : <Login error={error} />;
   }
 
   handleAuthStateChanged = user => {
