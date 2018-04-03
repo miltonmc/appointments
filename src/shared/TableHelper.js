@@ -2,13 +2,10 @@ import React from "react";
 
 import { Button, Table, Loader } from "semantic-ui-react";
 
-
 const EmptyRow = props => {
   return (
     <Table.Row>
-      <Table.Cell colSpan="1000">
-        {props.children}
-      </Table.Cell>
+      <Table.Cell colSpan="1000">{props.children}</Table.Cell>
     </Table.Row>
   );
 };
@@ -23,20 +20,22 @@ const LoadingRow = () => {
   );
 };
 
-const ActionsCell = props =>
+const ActionsCell = props => (
   <Table.Cell collapsing>
     <Button.Group>
-      <Button
-        compact
-        icon="clone"
-        size="mini"
-        basic
-        title="Clonar"
-        onClick={event => {
-          event.preventDefault();
-          props.onClone();
-        }}
-      />
+      {props.notEditable ? null : (
+        <Button
+          compact
+          icon="edit"
+          size="mini"
+          basic
+          title="Editar"
+          onClick={event => {
+            event.preventDefault();
+            props.onEdit();
+          }}
+        />
+      )}
       <Button
         compact
         icon="remove"
@@ -49,6 +48,7 @@ const ActionsCell = props =>
         }}
       />
     </Button.Group>
-  </Table.Cell>;
+  </Table.Cell>
+);
 
 export { LoadingRow, EmptyRow, ActionsCell };
