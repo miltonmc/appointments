@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { withFirestore } from "react-firestore";
 import { Confirm } from 'semantic-ui-react';
 
