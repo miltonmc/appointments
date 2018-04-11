@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Button, Form, Icon, Message, Modal } from "semantic-ui-react";
+import CNPJ from "cnpj";
 
 export default class Item extends Component {
   state = { cnpj: this.props.cnpj || "", name: this.props.name || "" };
@@ -14,18 +15,20 @@ export default class Item extends Component {
 
   render() {
     const { name, cnpj } = this.state;
-    const { errorMessage, onClose } = this.props;
+    const { errorMessage, isNew, onClose, title } = this.props;
+    const isNotNew = !isNew;
     return (
-      <Modal size="mini" open={true} onClose={onClose}>
-        <Modal.Header content="Novo Convênio" />
+      <Modal size="mini" open onClose={onClose}>
+        <Modal.Header content={title} />
         <Modal.Content>
           <Form onSubmit={this.handleSubmit} error={!!errorMessage}>
             <Form.Input
-              required
-              label="CNPJ (apenas números)"
+              required={isNew}
+              label={`CNPJ${isNew ? ' (apenas números)' : ''}`}
               name="cnpj"
-              value={cnpj}
-              autoFocus
+              value={isNew ? cnpj : CNPJ.format(cnpj)}
+              autoFocus={isNew}
+              disabled={isNotNew}
               pattern="\d*"
               maxLength={14}
               onChange={this.handleChange}
@@ -35,11 +38,12 @@ export default class Item extends Component {
               label="Nome"
               name="name"
               value={name}
+              autoFocus={isNotNew}
               onChange={this.handleChange}
             />
             <Message error header="Dados inválidos" content={errorMessage} />
-            <Button color="green">
-              <Icon name="checkmark" /> Cadastrar
+            <Button color="blue">
+              <Icon name="checkmark" /> Salvar
             </Button>
             <Button type="button" onClick={onClose}>
               <Icon name="close" /> Cancelar
