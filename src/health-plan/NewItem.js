@@ -49,6 +49,8 @@ class NewItem extends Component {
         path="HealthPlan"
         render={fullPath => (
           <Item
+            title="Novo Convênio"
+            isNew
             errorMessage={errorMessage}
             onSubmit={(...props) => this.handleSubmit(fullPath, ...props)}
             onClose={onClose}

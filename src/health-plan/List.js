@@ -2,17 +2,22 @@ import React, { Component } from "react";
 import { Button, Header, Segment, Table } from "semantic-ui-react";
 import { FirestoreCollection } from "react-firestore";
 import { LoadingRow, EmptyRow, ActionsCell } from "shared/TableHelper";
+import EditItem from "./EditItem";
 import NewItem from "./NewItem";
 import CNPJ from "cnpj";
 import FirestorePath from "shared/FirestorePath";
 import ConfirmRemove from "shared/ConfirmRemove";
 
 export default class List extends Component {
-  state = { isNewItemVisible: false, isConfirmRemoveVisible: false };
+  state = { isNewItemVisible: false, isConfirmRemoveVisible: false, isEditing: false };
   handleNewItem = (visibility, message) => {
     this.setState({
       isNewItemVisible: visibility
     });
+  };
+
+  handleEditItem = (isEditing, item) => {
+    this.setState({ isEditing, item });
   };
 
   handleRemove = (itemPath, itemDescription) => {
@@ -33,31 +38,34 @@ export default class List extends Component {
 
   render() {
     const {
+      isEditing,
       isNewItemVisible,
       isConfirmRemoveVisible,
+      item,
       itemPath,
       itemDescription
     } = this.state;
+
+    let modal;
+    if (isNewItemVisible) {
+      modal = <NewItem onClose={message => this.handleNewItem(false, message)} />;
+    } else if (isEditing) {
+      modal = <EditItem item={item} onClose={() => this.handleEditItem(false, null)} />;
+    } else if (isConfirmRemoveVisible) {
+      modal = <ConfirmRemove path={itemPath} description={itemDescription} onClose={this.handleRemoveCofirmClose} />
+    }
+
     return (
       <Segment>
         <Header as="h1">Convênios</Header>
         <Table striped>
           <TableHeaders />
-          <TableBody onRemove={this.handleRemove} />
+          <TableBody onEdit={this.handleEditItem} onRemove={this.handleRemove} />
         </Table>
         <Button onClick={() => this.handleNewItem(true)} primary>
           Novo Convênio
         </Button>
-        {isNewItemVisible ? (
-          <NewItem onClose={message => this.handleNewItem(false, message)} />
-        ) : null}
-        {isConfirmRemoveVisible ? (
-          <ConfirmRemove
-            path={itemPath}
-            description={itemDescription}
-            onClose={this.handleRemoveCofirmClose}
-          />
-        ) : null}
+        {modal}
       </Segment>
     );
   }
@@ -73,7 +81,7 @@ const TableHeaders = () => (
   </Table.Header>
 );
 
-const TableBody = ({ onRemove }) => (
+const TableBody = ({ onRemove, onEdit }) => (
   <Table.Body>
     <FirestorePath
       path="HealthPlan"
@@ -91,10 +99,8 @@ const TableBody = ({ onRemove }) => (
                   <Table.Cell width={3}>{CNPJ.format(item.cnpj)}</Table.Cell>
                   <Table.Cell>{item.name}</Table.Cell>
                   <ActionsCell
-                    notEditable={true}
-                    onRemove={() =>
-                      onRemove(`${fullPath}/${item.id}`, item.name)
-                    }
+                    onEdit={() => onEdit(true, item)}
+                    onRemove={() => onRemove(`${fullPath}/${item.id}`, item.name)}
                   />
                 </Table.Row>
               ))
