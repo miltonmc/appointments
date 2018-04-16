@@ -38,7 +38,7 @@ class App extends Component {
   };
 
   validateGoogleUser = (user) => {
-    this.db.collection("allowed_google_users").get().then((querySnapshot) => {
+    this.db.collection("AllowedGoogleUsers").get().then((querySnapshot) => {
       const allowedGoogleUsers = [];
       querySnapshot.forEach((doc) => {
         allowedGoogleUsers.push(doc.data().email);

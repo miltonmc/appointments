@@ -9,10 +9,10 @@ import FirestorePath from "shared/FirestorePath";
 import ConfirmRemove from "shared/ConfirmRemove";
 
 export default class List extends Component {
-  state = { isNewItemVisible: false, isConfirmRemoveVisible: false, isEditing: false };
+  state = { isAdding: false, isRemoving: false, isEditing: false };
   handleNewItem = (visibility, message) => {
     this.setState({
-      isNewItemVisible: visibility
+      isAdding: visibility
     });
   };
 
@@ -22,7 +22,7 @@ export default class List extends Component {
 
   handleRemove = (itemPath, itemDescription) => {
     this.setState({
-      isConfirmRemoveVisible: true,
+      isRemoving: true,
       itemPath: itemPath,
       itemDescription: itemDescription
     });
@@ -30,7 +30,7 @@ export default class List extends Component {
 
   handleRemoveCofirmClose = message => {
     this.setState({
-      isConfirmRemoveVisible: false,
+      isRemoving: false,
       itemPath: "",
       itemDescription: ""
     });
@@ -39,19 +39,19 @@ export default class List extends Component {
   render() {
     const {
       isEditing,
-      isNewItemVisible,
-      isConfirmRemoveVisible,
+      isAdding,
+      isRemoving,
       item,
       itemPath,
       itemDescription
     } = this.state;
 
     let modal;
-    if (isNewItemVisible) {
+    if (isAdding) {
       modal = <NewItem onClose={message => this.handleNewItem(false, message)} />;
     } else if (isEditing) {
       modal = <EditItem item={item} onClose={() => this.handleEditItem(false, null)} />;
-    } else if (isConfirmRemoveVisible) {
+    } else if (isRemoving) {
       modal = <ConfirmRemove path={itemPath} description={itemDescription} onClose={this.handleRemoveCofirmClose} />
     }
 
