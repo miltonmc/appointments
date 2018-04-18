@@ -84,7 +84,7 @@ const TableHeaders = () => (
 const TableBody = ({ onRemove, onEdit }) => (
   <Table.Body>
     <FirestorePath
-      path="HealthPlan"
+      path="HealthPlans"
       render={fullPath => (
         <FirestoreCollection
           path={fullPath}

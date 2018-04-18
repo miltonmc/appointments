@@ -46,7 +46,7 @@ class NewItem extends Component {
     const { onClose } = this.props;
     return (
       <FirestorePath
-        path="HealthPlan"
+        path="HealthPlans"
         render={fullPath => (
           <Item
             title="Novo Convênio"
