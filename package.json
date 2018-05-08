@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "cnpj": "^1.0.2",
+    "cpf": "^1.0.6",
     "firebase": "^4.11.0",
     "moment": "^2.22.0",
     "react": "^16.2.0",
