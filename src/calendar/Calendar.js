@@ -12,47 +12,74 @@ moment.locale("pt-BR");
 BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment));
 
 export default class Calendar extends Component {
-  state = {}
-  handleSelect = slotInfo => {
+  state = {};
+  handleSelectNew = slotInfo => {
     this.setState({
-      addSlotInfo: slotInfo
+      event: slotInfo
     });
+  };
+
+  handleSelectExisting = event => {
+    this.setState({ event: event });
   };
 
   handleNewItem = () => {
     this.setState({
-      addSlotInfo: null
-    })
-  }
+      event: null
+    });
+  };
+
+  getEvents = data => {
+    return data.map(event => ({
+      id: event.id,
+      start: event.start,
+      end: event.end,
+      title: event.customer.name + " - " + event.healthPlan,
+      customer: event.customer,
+      healthPlan: event.healthPlan
+    }));
+  };
 
   render() {
-    // `selected slot: \n\nstart ${slotInfo.start.toLocaleString()} ` +
-    // `\nend: ${slotInfo.end.toLocaleString()}` +
-    // `\naction: ${slotInfo.action}`
-    const { addSlotInfo } = this.state;
-    const modal = addSlotInfo ? (
-      <NewItem start={addSlotInfo.start} end={addSlotInfo.end} onClose={() => this.handleNewItem()} />
+    const { event } = this.state;
+    const modal = event ? (
+      <NewItem onClose={() => this.handleNewItem()} {...event} />
     ) : null;
 
     return (
-      <Segment>
-        <Header as="h1">Agenda</Header>
-        <BigCalendar
-          events={[]}
-          defaultView="week"
-          views={["month", "week"]}
-          selectable
-          onSelectSlot={slotInfo => this.handleSelect(slotInfo)}
-          messages={{
-            today: "Hoje",
-            next: "Próximo",
-            previous: "Anterior",
-            month: "Mês",
-            week: "Semana"
-          }}
-        />
-        {modal}
-      </Segment>
+      <FirestorePath
+        path="Events"
+        render={fullPath => (
+          <FirestoreCollection
+            path={fullPath}
+            render={({ isLoading, data }) => {
+              const events = isLoading ? [] : this.getEvents(data);
+              return (
+                <Segment>
+                  <Header as="h1">Agenda</Header>
+                  <BigCalendar
+                    events={events}
+                    defaultView="day"
+                    step={30}
+                    selectable
+                    showMultiDayTimes
+                    onSelectSlot={slotInfo => this.handleSelectNew(slotInfo)}
+                    onSelectEvent={this.handleSelectExisting}
+                    messages={{
+                      today: "Hoje",
+                      next: "Próximo",
+                      previous: "Anterior",
+                      month: "Mês",
+                      week: "Semana"
+                    }}
+                  />
+                  {modal}
+                </Segment>
+              );
+            }}
+          />
+        )}
+      />
     );
   }
 }

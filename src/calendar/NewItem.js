@@ -5,7 +5,9 @@ import FirestorePath from "shared/FirestorePath";
 
 class NewItem extends Component {
   state = {};
-  handleSubmit = (fullPath, id, cnpj, name) => {
+  handleSubmit = (fullPath, { id, ...dataToAdd }) => {
+    const { firestore, onClose } = this.props;
+
     // if (!CNPJ.validate(cnpj)) {
     //   this.setState({
     //     errorMessage: "CNPJ inválido"
@@ -23,34 +25,44 @@ class NewItem extends Component {
     //     return;
     //   }
 
-    //   firestore
-    //     .doc(`${fullPath}/${cnpj}`)
-    //     .set({
-    //       cnpj: cnpj,
-    //       name: name
-    //     })
-    //     .then(() => {
-    //       onClose("Convênio criado com sucesso.");
-    //     })
-    //     .catch(error => {
-    //       this.setState({
-    //         errorMessage: error
-    //       });
-    //     });
-    // });
+    if (id) {
+      firestore
+        .doc(`${fullPath}/${id}`)
+        .set(dataToAdd)
+        .then(() => {
+          onClose("Evento alterado com sucesso.");
+        })
+        .catch(error => {
+          this.setState({
+            errorMessage: error
+          });
+        });
+    } else {
+      firestore
+        .collection(`${fullPath}`)
+        .add(dataToAdd)
+        .then(() => {
+          onClose("Evento criado com sucesso.");
+        })
+        .catch(error => {
+          this.setState({
+            errorMessage: error
+          });
+        });
+    }
   };
 
   render() {
     const { errorMessage } = this.state;
     return (
       <FirestorePath
-        path="Event"
+        path="Events"
         render={fullPath => (
           <Item
             title="Novo Evento"
             isNew
             errorMessage={errorMessage}
-            onSubmit={(...props) => this.handleSubmit(fullPath, ...props)}
+            onSubmit={data => this.handleSubmit(fullPath, data)}
             {...this.props}
           />
         )}

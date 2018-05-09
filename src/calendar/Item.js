@@ -1,42 +1,99 @@
 import React, { Component } from "react";
 import { Button, Form, Icon, Message, Modal } from "semantic-ui-react";
+import moment from "moment";
+import CustomerField from "./CustomerField";
+import HealthPlanField from "./HealthPlanField";
+import "./Item.css";
 
 export default class Item extends Component {
-  state = {};
+  state = {
+    startDate: moment(this.props.start || Date.now()).format("YYYY-MM-DD"),
+    startTime: moment(this.props.start || Date.now()).format("HH:mm"),
+    endDate: moment(this.props.end || Date.now()).format("YYYY-MM-DD"),
+    endTime: moment(this.props.end || Date.now()).format("HH:mm"),
+    customer: this.props.customer || "",
+    healthPlan: this.props.healthPlan || ""
+  };
 
   handleChange = (e, { name, value }) => this.setState({ [name]: value });
 
   handleSubmit = () => {
-    const { name, cnpj } = this.state;
+    const {
+      startDate,
+      startTime,
+      endDate,
+      endTime,
+      customer,
+      healthPlan
+    } = this.state;
     const { id, onSubmit } = this.props;
-    onSubmit(id, cnpj, name);
+    const start = moment(`${startDate} ${startTime}`).toDate();
+    const end = moment(`${endDate} ${endTime}`).toDate();
+    const customerData = {
+      id: customer.id,
+      name: customer.name
+    };
+    onSubmit({ id, start, end, customer: customerData, healthPlan });
   };
 
   render() {
-    const { name, cnpj } = this.state;
-    const { errorMessage, isNew, onClose, title, start, end } = this.props;
-    const isNotNew = !isNew;
-
-    const slot = `${start.toLocaleString()} até ${end.toLocaleString()}`;
-
-    const customers = [{
-      key: 'Francisco',
-      value: 'Francisco',
-      text: 'Francisco'
-    }, {
-      key: 'Milton',
-      value: 'Milton',
-      text: 'Milton'
-    }];
+    const {
+      startDate,
+      startTime,
+      endDate,
+      endTime,
+      customer,
+      healthPlan
+    } = this.state;
+    const { errorMessage, onClose, title } = this.props;
 
     return (
-      <Modal size="mini" open onClose={onClose}>
+      <Modal size="tiny" open onClose={onClose}>
         <Modal.Header content={title} />
         <Modal.Content>
-          <Form onSubmit={this.handleSubmit} error={!!errorMessage}>
-            <Form.Input label="Período" name="date" value={slot} disabled />
-            <Form.Dropdown label="Cliente" placeholder='Selecionar Cliente' fluid search selection options={customers} />
-
+          <Form onSubmit={this.handleSubmit} error={!!errorMessage} size="mini">
+            <Form.Group>
+              <Form.Input
+                width={7}
+                type="date"
+                name="startDate"
+                value={startDate}
+                onChange={this.handleChange}
+                required
+              />
+              <Form.Input
+                type="time"
+                name="startTime"
+                value={startTime}
+                onChange={this.handleChange}
+                required
+              />
+              <div className="calendar__new-item">até</div>
+              <Form.Input
+                width={7}
+                type="date"
+                name="endDate"
+                value={endDate}
+                required
+                onChange={this.handleChange}
+              />
+              <Form.Input
+                type="time"
+                name="endTime"
+                value={endTime}
+                onChange={this.handleChange}
+                required
+              />
+            </Form.Group>
+            <CustomerField
+              selectedCustomer={customer}
+              onChange={this.handleChange}
+            />
+            <HealthPlanField
+              selectedCustomer={customer}
+              selectedHealthPlan={healthPlan}
+              onChange={this.handleChange}
+            />
             <Message error header="Dados inválidos" content={errorMessage} />
             <Button color="blue">
               <Icon name="checkmark" /> Salvar
