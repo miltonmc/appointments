@@ -60,7 +60,7 @@ export default class Calendar extends Component {
                   <BigCalendar
                     defaultDate={new Date()}
                     events={events}
-                    views={["month", "week", "day"]}
+                    // views={["month", "week", "day"]}
                     defaultView="week"
                     step={30}
                     selectable
@@ -73,7 +73,8 @@ export default class Calendar extends Component {
                       previous: "Anterior",
                       month: "Mês",
                       week: "Semana",
-                      day: "Dia"
+                      day: "Dia",
+                      agenda: "Agenda"
                     }}
                     style={{ height: "100vh" }}
                     />
