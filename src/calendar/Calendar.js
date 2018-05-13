@@ -58,8 +58,10 @@ export default class Calendar extends Component {
                 <Segment>
                   <Header as="h1">Agenda</Header>
                   <BigCalendar
+                    defaultDate={new Date()}
                     events={events}
-                    defaultView="day"
+                    views={["month", "week", "day"]}
+                    defaultView="week"
                     step={30}
                     selectable
                     showMultiDayTimes
@@ -70,9 +72,11 @@ export default class Calendar extends Component {
                       next: "Próximo",
                       previous: "Anterior",
                       month: "Mês",
-                      week: "Semana"
+                      week: "Semana",
+                      day: "Dia"
                     }}
-                  />
+                    style={{ height: "100vh" }}
+                    />
                   {modal}
                 </Segment>
               );
