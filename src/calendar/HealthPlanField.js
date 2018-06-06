@@ -1,8 +1,7 @@
 import React from "react";
 import { Form } from "semantic-ui-react";
-import { FirestoreCollection, FirestoreDocument } from "react-firestore";
+import { FirestoreDocument } from "react-firestore";
 import FirestorePath from "shared/FirestorePath";
-import Loading from "shared/Loading";
 
 const HealthPlanField = ({
   selectedCustomer,

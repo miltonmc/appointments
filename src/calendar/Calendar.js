@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Header, Segment, Table } from "semantic-ui-react";
+import { Header, Segment } from "semantic-ui-react";
 import { FirestoreCollection } from "react-firestore";
 import FirestorePath from "shared/FirestorePath";
 import BigCalendar from "react-big-calendar";
@@ -60,7 +60,6 @@ export default class Calendar extends Component {
                   <BigCalendar
                     defaultDate={new Date()}
                     events={events}
-                    // views={["month", "week", "day"]}
                     defaultView="week"
                     step={30}
                     selectable

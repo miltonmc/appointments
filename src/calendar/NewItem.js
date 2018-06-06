@@ -8,23 +8,6 @@ class NewItem extends Component {
   handleSubmit = (fullPath, { id, ...dataToAdd }) => {
     const { firestore, onClose } = this.props;
 
-    // if (!CNPJ.validate(cnpj)) {
-    //   this.setState({
-    //     errorMessage: "CNPJ inválido"
-    //   });
-    //   return;
-    // }
-
-    // const { firestore, onClose } = this.props;
-    // const doc = firestore.doc(`${fullPath}/${cnpj}`);
-    // doc.get().then(snapShot => {
-    //   if (snapShot.exists) {
-    //     this.setState({
-    //       errorMessage: "CNPJ já existente"
-    //     });
-    //     return;
-    //   }
-
     if (id) {
       firestore
         .doc(`${fullPath}/${id}`)
