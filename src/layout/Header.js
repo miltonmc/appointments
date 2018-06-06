@@ -11,6 +11,7 @@ export default ({match}) => (
     <Menu borderless size="small">
       <Menu.Item header><img alt={appConfig.fullName} src={logo} /></Menu.Item>
       <Menu.Item as={Link} to="/" name="Convênios" active />
+      <Menu.Item as={Link} to="/calendar" name="Agenda" />
       <Menu.Item position="right">
         <LogoutButton />
       </Menu.Item>

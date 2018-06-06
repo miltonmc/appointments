@@ -5,7 +5,7 @@ import FirestorePath from "shared/FirestorePath";
 
 class EditItem extends Component {
   state = {};
-  
+
   handleSubmit = (fullPath, id, cnpj, name) => {
     const { firestore, onClose } = this.props;
     firestore.doc(`${fullPath}/${id}`).update({ name })
@@ -22,7 +22,7 @@ class EditItem extends Component {
     const { item, onClose } = this.props;
     return (
       <FirestorePath
-        path="HealthPlan"
+        path="HealthPlans"
         render={fullPath => (
           <Item
             title="Convênio"
