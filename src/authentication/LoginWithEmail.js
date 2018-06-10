@@ -42,7 +42,7 @@ class LoginWithEmail extends Component {
             </Form>
           </Modal.Content>
           <Modal.Actions>
-            <Button color='green' onClick={() => this.handleLogin(this.email, this.password)}>
+            <Button color="blue" onClick={() => this.handleLogin(this.email, this.password)}>
               <Icon name='checkmark' /> Login
             </Button>
           </Modal.Actions>
