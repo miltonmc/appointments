@@ -36,7 +36,8 @@ export default class Calendar extends Component {
       end: event.end,
       title: event.customer.name + " - " + event.healthPlan,
       customer: event.customer,
-      healthPlan: event.healthPlan
+      healthPlan: event.healthPlan,
+      notes: event.notes,
     }));
   };
 

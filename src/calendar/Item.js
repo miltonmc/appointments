@@ -12,7 +12,8 @@ export default class Item extends Component {
     endDate: moment(this.props.end || Date.now()).format("YYYY-MM-DD"),
     endTime: moment(this.props.end || Date.now()).format("HH:mm"),
     customer: this.props.customer || "",
-    healthPlan: this.props.healthPlan || ""
+    healthPlan: this.props.healthPlan || "",
+    notes: this.props.notes || "",
   };
 
   handleChange = (e, { name, value }) => this.setState({ [name]: value });
@@ -24,6 +25,7 @@ export default class Item extends Component {
       endDate,
       endTime,
       customer,
+      notes,
       healthPlan
     } = this.state;
     const { id, onSubmit } = this.props;
@@ -33,7 +35,7 @@ export default class Item extends Component {
       id: customer.id,
       name: customer.name
     };
-    onSubmit({ id, start, end, customer: customerData, healthPlan });
+    onSubmit({ id, start, end, customer: customerData, healthPlan, notes });
   };
 
   render() {
@@ -43,6 +45,7 @@ export default class Item extends Component {
       endDate,
       endTime,
       customer,
+      notes,
       healthPlan
     } = this.state;
     const { errorMessage, onClose, title } = this.props;
@@ -93,6 +96,13 @@ export default class Item extends Component {
               selectedCustomer={customer}
               selectedHealthPlan={healthPlan}
               onChange={this.handleChange}
+            />
+            <Form.TextArea
+                label='Notas'
+                rows='3'
+                name="notes"
+                value={notes}
+                onChange={this.handleChange}
             />
             <Message error header="Dados inválidos" content={errorMessage} />
             <Button color="blue">
