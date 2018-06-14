@@ -2,14 +2,16 @@ import React from "react";
 import { Route } from "react-router-dom";
 import HealthPlan from "health-plan/List";
 import Calendar from "calendar/Calendar";
-import { CALENDAR, HEALTH_PLAN } from "../shared/Routes";
+import { CALENDAR, CUSTOMER, HEALTH_PLAN } from "../shared/Routes";
 import "./Main.css";
+import Customer from "../customer/List";
 
 class Main extends React.Component {
   render() {
     return (
       <main>
         <Route exact path={CALENDAR} component={Calendar} />
+        <Route exact path={CUSTOMER} component={Customer} />
         <Route exact path={HEALTH_PLAN} component={HealthPlan} />
       </main>
     );
