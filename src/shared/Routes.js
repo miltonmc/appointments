@@ -1,5 +1,6 @@
 const CALENDAR = '/';
-const CUSTOMER = '/paciente';
-const HEALTH_PLAN = '/convenio';
+const CUSTOMER = '/pacientes';
+const EVENT = '/consultas';
+const HEALTH_PLAN = '/convenios';
 
-export { CALENDAR, CUSTOMER, HEALTH_PLAN }
+export { CALENDAR, CUSTOMER, EVENT, HEALTH_PLAN }

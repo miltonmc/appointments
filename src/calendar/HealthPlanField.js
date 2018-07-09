@@ -1,12 +1,14 @@
-import React from "react";
-import { Form } from "semantic-ui-react";
-import { FirestoreDocument } from "react-firestore";
-import FirestorePath from "shared/FirestorePath";
+import { FirestoreDocument } from 'react-firestore';
+import { Form } from 'semantic-ui-react';
+import React from 'react';
+import FirestorePath from '../shared/FirestorePath';
+import HealthPlanSelect from '../shared/HealthPlanSelect';
 
 const HealthPlanField = ({
+  healthPlans,
   selectedCustomer,
-  selectedHealthPlan = "",
-  onChange
+  selectedHealthPlanId = '',
+  onChange,
 }) => {
   //If selectedCustomerId is empty, we render a disabled Input.
   const disabledHealthPlan = (
@@ -32,72 +34,16 @@ const HealthPlanField = ({
             if (isLoading) {
               return disabledHealthPlan;
             }
-            //if customer has a healthPlan, we add it as an option to the dropbox
-            let options = [
-              {
-                key: "particular",
-                value: "particular",
-                text: "Particular"
-              }
-            ];
-            if (!customer.healthPlanId) {
-              return (
-                <HealthPlanField.Dropdown
-                  options={options}
-                  onChange={onChange}
-                  selectedHealthPlan={selectedHealthPlan}
-                />
-              );
-            }
-
-            return (
-              <FirestorePath
-                path={`HealthPlans/${customer.healthPlanId}`}
-                render={fullHealthPath => (
-                  <FirestoreDocument
-                    path={fullHealthPath}
-                    render={({ isLoading, data: healthPlan }) => {
-                      if (isLoading) {
-                        return disabledHealthPlan;
-                      }
-
-                      options.unshift({
-                        key: healthPlan.id,
-                        value: healthPlan.name,
-                        text: healthPlan.name
-                      });
-
-                      return (
-                        <HealthPlanField.Dropdown
-                          options={options}
-                          onChange={onChange}
-                          selectedHealthPlan={selectedHealthPlan}
-                        />
-                      );
-                    }}
-                  />
-                )}
-              />
-            );
+            //if customer has a healthPlan, we add it as an option to the dropdown
+            const options = [];
+            const healthPlan = healthPlans.docs.find(healthPlan => healthPlan.id === customer.healthPlanId)
+            healthPlan && options.push({ key: healthPlan.id, value: healthPlan.id, text: healthPlan.data().name });
+            return <HealthPlanSelect value={selectedHealthPlanId} onChange={onChange} options={options}/>
           }}
         />
       )}
     />
   );
 };
-
-HealthPlanField.Dropdown = ({ options, selectedHealthPlan = "", onChange }) => (
-  <Form.Dropdown
-    label="Plano de saúde"
-    name="healthPlan"
-    placeholder="Selecionar Plano"
-    value={selectedHealthPlan}
-    fluid
-    search
-    selection
-    onChange={onChange}
-    options={options}
-  />
-);
 
 export default HealthPlanField;
