@@ -9,7 +9,7 @@ import { CALENDAR, CUSTOMER, HEALTH_PLAN } from '../shared/Routes';
 
 export default ({match}) => (
   <header>
-    <Menu borderless size="small">
+    <Menu borderless stackable size="small">
       <Menu.Item header><img alt={appConfig.fullName} src={logo} /></Menu.Item>
       <Menu.Item as={NavLink} to={CALENDAR} exact name="Agenda" />
       <Menu.Item as={NavLink} to={CUSTOMER} name="Paciente" />
