@@ -2,9 +2,23 @@ import React, { Component } from "react";
 import { Button, Form, Icon, Message, Modal } from "semantic-ui-react";
 import CPF from "cpf";
 import HealthPlanSelector from "shared/HealthPlanSelector";
+import StateSelect from "shared/StatePlanSelect";
+import Sponsor from "./Sponsor";
+
+const addressTypes = [
+  { key: 'home', value: 'home', text: 'Casa' },
+  { key: 'work', value: 'work', text: 'Trabalho' },
+  { key: 'other', value: 'other', text: 'Outro' },
+];
+
+const genders = [
+  { key: 'f', value: 'f', text: 'Feminino' },
+  { key: 'm', value: 'm', text: 'Masculino' },
+];
 
 export default class Item extends Component {
   state = {
+    addressType: this.props.addressType || "",
     address: this.props.address || "",
     address2: this.props.address2 || "",
     neighborhood: this.props.neighborhood || "",
@@ -22,12 +36,17 @@ export default class Item extends Component {
     cell: this.props.cell || "",
     home: this.props.home || "",
     work: this.props.work || "",
+    facebook: this.props.facebook || "",
+    instagram: this.props.instagram || "",
+    twitter: this.props.twitter || "",
+    linkedin: this.props.linkedin || "",
+    sponsor: this.props.sponsor || "",
   };
 
   handleChange = (e, { name, value }) => this.setState({ [name]: value });
 
   handleSubmit = () => {
-    const { address, address2, neighborhood, birth, city, rg, cpf, email, gender, healthPlanId, name, number, state, zip, cell, home, work } = this.state;
+    const { addressType, address, address2, neighborhood, birth, city, rg, cpf, email, gender, healthPlanId, name, number, state, zip, cell, home, work, facebook, instagram, twitter, linkedin, sponsor } = this.state;
     const { id, onSubmit } = this.props;
 
     let errorMessage;
@@ -35,6 +54,7 @@ export default class Item extends Component {
 
     if (!cpf || CPF.isValid(cpf)) {
       customer.cpf = CPF.clear(cpf);
+      customer.addressType = addressType;
       customer.address = address;
       customer.address2 = address2;
       customer.neighborhood = neighborhood;
@@ -50,6 +70,11 @@ export default class Item extends Component {
       customer.cell = cell;
       customer.home = home;
       customer.work = work;
+      customer.facebook = facebook;
+      customer.instagram = instagram;
+      customer.twitter = twitter;
+      customer.linkedin = linkedin;
+      customer.sponsor = sponsor;
     } else {
       errorMessage = 'CPF inválido';
     }
@@ -57,42 +82,8 @@ export default class Item extends Component {
   };
 
   render() {
-    const { address, address2, neighborhood, birth, city, rg, cpf, email, gender, healthPlanId, name, number, state, zip, cell, home, work } = this.state;
+    const { addressType,address, address2, neighborhood, birth, city, rg, cpf, email, gender, healthPlanId, name, number, state, zip, cell, home, work, facebook, instagram, twitter, linkedin, sponsor } = this.state;
     const { errorMessage, onClose, title } = this.props;
-    const states = [
-      { key: 'AC', value: 'AC', text: 'Acre' },
-      { key: 'AL', value: 'AL', text: 'Alagoas' },
-      { key: 'AP', value: 'AP', text: 'Amapá' },
-      { key: 'AM', value: 'AM', text: 'Amazonas' },
-      { key: 'BA', value: 'BA', text: 'Bahia' },
-      { key: 'CE', value: 'CE', text: 'Ceará' },
-      { key: 'DF', value: 'DF', text: 'Distrito Federal' },
-      { key: 'ES', value: 'ES', text: 'Espírito Santo' },
-      { key: 'GO', value: 'GO', text: 'Goiás' },
-      { key: 'MA', value: 'MA', text: 'Maranhão' },
-      { key: 'MT', value: 'MT', text: 'Mato Grosso' },
-      { key: 'MS', value: 'MS', text: 'Mato Grosso do Sul' },
-      { key: 'MG', value: 'MG', text: 'Minas Gerais' },
-      { key: 'PA', value: 'PA', text: 'Pará' },
-      { key: 'PB', value: 'PB', text: 'Paraíba' },
-      { key: 'PR', value: 'PR', text: 'Paraná' },
-      { key: 'PE', value: 'PE', text: 'Pernambuco' },
-      { key: 'PI', value: 'PI', text: 'Piauí' },
-      { key: 'RJ', value: 'RJ', text: 'Rio de Janeiro' },
-      { key: 'RN', value: 'RN', text: 'Rio Grande do Norte' },
-      { key: 'RS', value: 'RS', text: 'Rio Grande do Sul' },
-      { key: 'RO', value: 'RO', text: 'Rondônia' },
-      { key: 'RR', value: 'RR', text: 'Roraima' },
-      { key: 'SC', value: 'SC', text: 'Santa Catarina' },
-      { key: 'SP', value: 'SP', text: 'São Paulo' },
-      { key: 'SE', value: 'SE', text: 'Sergipe' },
-      { key: 'TO', value: 'TO', text: 'Tocantins' },
-    ];
-
-    const genders = [
-      { key: 'f', value: 'f', text: 'Feminino' },
-      { key: 'm', value: 'm', text: 'Masculino' },
-    ];
 
     return (
       <Modal size="large" open onClose={onClose}>
@@ -181,14 +172,53 @@ export default class Item extends Component {
             </Form.Group>
             <Form.Group>
               <Form.Input
-                width={12}
+                width={4}
+                label="Facebook"
+                name="facebook"
+                value={facebook}
+                onChange={this.handleChange}
+              />
+              <Form.Input
+                width={4}
+                label="Instagram"
+                name="instagram"
+                value={instagram}
+                onChange={this.handleChange}
+              />
+              <Form.Input
+                width={4}
+                label="Twitter"
+                name="twitter"
+                value={twitter}
+                onChange={this.handleChange}
+              />
+              <Form.Input
+                width={4}
+                label="LinkedIn"
+                name="linkedin"
+                value={linkedin}
+                onChange={this.handleChange}
+              />
+            </Form.Group>
+            <Form.Group>
+            <Form.Select
+                width={4}
+                label='Tipo'
+                name='addressType'
+                value={addressType}
+                options={addressTypes}
+                placeholder='Tipo'
+                onChange={this.handleChange}
+              />
+              <Form.Input
+                width={10}
                 label="Endereço"
                 name="address"
                 value={address}
                 onChange={this.handleChange}
               />
               <Form.Input
-                width={4}
+                width={2}
                 label="Número"
                 name="number"
                 value={number}
@@ -219,13 +249,8 @@ export default class Item extends Component {
                 value={city}
                 onChange={this.handleChange}
               />
-              <Form.Select
-                width={4}
-                label='Estado'
-                name='state'
+              <StateSelect
                 value={state}
-                options={states}
-                placeholder='Estado'
                 onChange={this.handleChange}
               />
               <Form.Input
@@ -236,6 +261,7 @@ export default class Item extends Component {
                 onChange={this.handleChange}
               />
             </Form.Group>
+            <Sponsor cpf={sponsor} onChange={this.handleChange}/>
             <Message error header="Dados inválidos" content={errorMessage} />
             <Button color="blue">
               <Icon name="checkmark" /> Salvar

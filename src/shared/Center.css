@@ -8,3 +8,10 @@
   right: 0;
   top: 0;
 }
+
+.center2 {
+  display: inline-flex;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  vertical-align: baseline;
+}
