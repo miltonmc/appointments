@@ -4,6 +4,7 @@ import { FirestoreCollection } from "react-firestore";
 import FirestorePath from "shared/FirestorePath";
 import BigCalendar from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
+import "./calendar.css";
 import moment from "moment";
 import "moment/locale/pt-br";
 import NewItem from "./NewItem";
