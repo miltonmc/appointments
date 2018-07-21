@@ -9,7 +9,15 @@ class Sponsor extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { checked: !!props.cpf, error: false, cpf: props.cpf };
+
+        this.state = {
+            checked: !!props.cpf,
+            cpf: props.cpf,
+            error: false,
+            loading: !!props.cpf,
+            name: '',
+        };
+
         this.handleCheck = this.handleCheck.bind(this);
         this.getCustomerByCpf = this.getCustomerByCpf.bind(this);
 
@@ -37,7 +45,6 @@ class Sponsor extends Component {
         const { firestore } = this.props;
         const user = Firebase.auth().currentUser;
         const path = `/Users/${user.uid}/Customers`;
-        this.setState({ loading: true });
         firestore.collection(path).where('cpf', '==', cpf).onSnapshot(snapshot => {
             const name = (snapshot && snapshot.docs && snapshot.docs[0] && snapshot.docs[0].data().name) || '';
             this.setState({ name, loading: false, error: !(snapshot && snapshot.docs && snapshot.docs[0]) });
