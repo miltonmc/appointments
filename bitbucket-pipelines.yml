@@ -1,4 +1,4 @@
-image: node:6.9.4
+image: node:8
 
 pipelines:
   default:
@@ -7,8 +7,8 @@ pipelines:
           - node
         script: # Modify the commands below to build your repository.
           - if [ $BITBUCKET_BRANCH == 'master' ]; then
-          - npm install
-          - npm run build
-          - npm install -g firebase-tools
+          - yarn --frozen-lockfile
+          - yarn build
+          - yarn global add firebase-tools
           - firebase deploy --token=$FIREBASE_TOKEN --non-interactive
           - fi
