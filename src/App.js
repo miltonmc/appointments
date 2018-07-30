@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import firebase from "firebase";
-import "firebase/firestore";
+import firebase from 'firebase/app'
+import 'firebase/auth'
+import 'firebase/firestore';
 import Loading from "shared/Loading";
 import Login from "authentication/Login";
 import LoggedApp from "LoggedApp";
@@ -9,10 +10,9 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    this.auth = firebase.auth();
-    this.allowedGoogleUsers = [];
-    this.db = firebase.firestore();
-    this.auth.onAuthStateChanged(this.handleAuthStateChanged);
+    firebase.auth().onAuthStateChanged(this.handleAuthStateChanged);
+    this.firestore = firebase.firestore();
+    this.firestore.settings({ timestampsInSnapshots: true });
     this.state = {
       loading: true,
       errorMessage: null
@@ -27,36 +27,17 @@ class App extends Component {
   }
 
   handleAuthStateChanged = user => {
-    if (user && user.providerData[0].providerId === 'google.com') {
-      this.validateGoogleUser(user);
-    } else {
-      this.setState({
-        loading: false,
-        user: user
-      });
-    }
+    const promise = (user && user.providerData[0].providerId === 'google.com')
+      ? this.validateGoogleUser(user)
+      : Promise.resolve({ user });
+
+    promise.then(value => this.setState({ loading: false, ...value }));
   };
 
   validateGoogleUser = (user) => {
-    this.db.collection("AllowedGoogleUsers").get().then((querySnapshot) => {
-      const allowedGoogleUsers = [];
-      querySnapshot.forEach((doc) => {
-        allowedGoogleUsers.push(doc.data().email);
-      });
-
-      if (!allowedGoogleUsers.includes(user.email)) {
-        const errorMessage = `Email (${user.email}) sem permissão de acesso.`;
-        this.setState({
-          loading: false,
-          error: errorMessage
-        });
-      } else {
-        this.setState({
-          loading: false,
-          user: user
-        });
-      }
-    });
+    return this.firestore.collection('AllowedGoogleUsers').where('email', '==', user.email).get()
+      .then(snapshot => snapshot.empty ? { error: `Email (${user.email}) sem permissão de acesso.` } : { user })
+      .catch(error => ({ error: error.message }));
   }
 }
 
