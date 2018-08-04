@@ -1,13 +1,13 @@
-import React, { Component } from "react";
-import { Button, Form, Icon, Message, Modal } from "semantic-ui-react";
-import CPF from "cpf";
-import HealthPlanSelector from "shared/HealthPlanSelector";
-import StateSelect from "shared/StatePlanSelect";
-import Sponsor from "./Sponsor";
+import React, { Component } from 'react';
+import { Button, Form, Icon, Message, Modal } from 'semantic-ui-react';
+import CPF from 'cpf';
+import HealthPlanSelect from '../shared/HealthPlanSelect';
+import StateSelect from '../shared/StatePlanSelect';
+import Sponsor from './Sponsor';
 
 const addressTypes = [
-  { key: 'home', value: 'home', text: 'Casa' },
-  { key: 'work', value: 'work', text: 'Trabalho' },
+  { key: 'home', value: 'home', text: 'Residencia' },
+  { key: 'work', value: 'work', text: 'Comercial' },
   { key: 'other', value: 'other', text: 'Outro' },
 ];
 
@@ -18,29 +18,29 @@ const genders = [
 
 export default class Item extends Component {
   state = {
-    addressType: this.props.addressType || "",
-    address: this.props.address || "",
-    address2: this.props.address2 || "",
-    neighborhood: this.props.neighborhood || "",
-    birth: this.props.birth || "",
-    rg: this.props.rg || "",
-    cpf: this.props.cpf || "",
-    email: this.props.email || "",
-    gender: this.props.gender || "",
-    healthPlanId: this.props.healthPlanId || "",
-    name: this.props.name || "",
-    number: this.props.number || "",
-    city: this.props.city || "",
-    state: this.props.state || "",
-    zip: this.props.zip || "",
-    cell: this.props.cell || "",
-    home: this.props.home || "",
-    work: this.props.work || "",
-    facebook: this.props.facebook || "",
-    instagram: this.props.instagram || "",
-    twitter: this.props.twitter || "",
-    linkedin: this.props.linkedin || "",
-    sponsor: this.props.sponsor || "",
+    addressType: this.props.addressType || '',
+    address: this.props.address || '',
+    address2: this.props.address2 || '',
+    neighborhood: this.props.neighborhood || '',
+    birth: this.props.birth || '',
+    rg: this.props.rg || '',
+    cpf: this.props.cpf || '',
+    email: this.props.email || '',
+    gender: this.props.gender || '',
+    healthPlanId: this.props.healthPlanId || '',
+    name: this.props.name || '',
+    number: this.props.number || '',
+    city: this.props.city || '',
+    state: this.props.state || '',
+    zip: this.props.zip || '',
+    cell: this.props.cell || '',
+    home: this.props.home || '',
+    work: this.props.work || '',
+    facebook: this.props.facebook || '',
+    instagram: this.props.instagram || '',
+    twitter: this.props.twitter || '',
+    linkedin: this.props.linkedin || '',
+    sponsor: this.props.sponsor || '',
   };
 
   handleChange = (e, { name, value }) => this.setState({ [name]: value });
@@ -83,7 +83,7 @@ export default class Item extends Component {
 
   render() {
     const { addressType,address, address2, neighborhood, birth, city, rg, cpf, email, gender, healthPlanId, name, number, state, zip, cell, home, work, facebook, instagram, twitter, linkedin, sponsor } = this.state;
-    const { errorMessage, onClose, title } = this.props;
+    const { errorMessage, healthPlans, onClose, title } = this.props;
 
     return (
       <Modal size="large" open onClose={onClose}>
@@ -102,11 +102,11 @@ export default class Item extends Component {
               />
               <Form.Select
                 width={4}
-                label='Sexo'
-                name='gender'
+                label="Sexo"
+                name="gender"
                 value={gender}
                 options={genders}
-                placeholder='Sexo'
+                placeholder="Sexo"
                 onChange={this.handleChange}
               />
             </Form.Group>
@@ -144,9 +144,11 @@ export default class Item extends Component {
               />
             </Form.Group>
             <Form.Group>
-              <HealthPlanSelector
+              <HealthPlanSelect
+                width={7}
                 onChange={this.handleChange}
-                healthPlanId={healthPlanId}
+                options={healthPlans}
+                value={healthPlanId}
               />
               <Form.Input
                 width={3}

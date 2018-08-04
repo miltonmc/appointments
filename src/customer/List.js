@@ -1,13 +1,13 @@
-import React, { Component } from "react";
-import { Button, Header, Segment, Table } from "semantic-ui-react";
-import { FirestoreCollection, withFirestore } from "react-firestore";
-import { LoadingRow, EmptyRow, ActionsCell } from "shared/TableHelper";
-import EditItem from "./EditItem";
-import NewItem from "./NewItem";
-import CPF from "cpf";
-import FirestorePath from "shared/FirestorePath";
-import ConfirmRemove from "shared/ConfirmRemove";
-import firebase from 'firebase';
+import React, { Component } from 'react';
+import { Button, Header, Segment, Table } from 'semantic-ui-react';
+import { FirestoreCollection, withFirestore } from 'react-firestore';
+import { LoadingRow, EmptyRow, ActionsCell } from '../shared/TableHelper';
+import ConfirmRemove from '../shared/ConfirmRemove';
+import CPF from 'cpf';
+import EditItem from './EditItem';
+import Firebase from 'firebase';
+import FirestorePath from '../shared/FirestorePath';
+import NewItem from './NewItem';
 
 class List extends Component {
   state = { isNewItemVisible: false, isConfirmRemoveVisible: false, isEditing: false };
@@ -30,7 +30,7 @@ class List extends Component {
 
   componentDidMount() {
     const { firestore } = this.props;
-    const user = firebase.auth().currentUser;
+    const user = Firebase.auth().currentUser;
     const path = `/Users/${user.uid}/HealthPlans`;
 
     firestore.collection(path).onSnapshot(snapshot => {
@@ -51,7 +51,7 @@ class List extends Component {
 
     let modal;
     if (isNewItemVisible) {
-      modal = <NewItem onClose={message => this.handleNewItem(false, message)} />;
+      modal = <NewItem onClose={message => this.handleNewItem(false, message)} options={healthPlans}/>;
     } else if (isEditing) {
       modal = <EditItem item={item} onClose={() => this.handleEditItem(false, null)} />;
     } else if (isConfirmRemoveVisible) {

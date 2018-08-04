@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { withFirestore } from "react-firestore";
-import Item from "./Item.js";
+import Item from "./Item";
 import FirestorePath from "shared/FirestorePath";
 
 class NewItem extends Component {
@@ -19,13 +19,14 @@ class NewItem extends Component {
 
   render() {
     const { errorMessage } = this.state;
-    const { onClose } = this.props;
+    const { healthPlans, onClose } = this.props;
     return (
       <FirestorePath
         path="Customers"
         render={fullPath => (
           <Item
             title="Novo Paciente"
+            healthPlans={healthPlans}
             errorMessage={errorMessage}
             onSubmit={(...props) => this.handleSubmit(fullPath, ...props)}
             onClose={onClose}

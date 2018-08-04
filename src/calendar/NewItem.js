@@ -1,37 +1,27 @@
 import React, { Component } from "react";
 import { withFirestore } from "react-firestore";
-import Item from "./Item.js";
-import FirestorePath from "shared/FirestorePath";
+import Item from "./Item";
+import FirestorePath from "../shared/FirestorePath";
 
 class NewItem extends Component {
   state = {};
-  handleSubmit = (fullPath, { id, ...dataToAdd }) => {
+  
+  handleSubmit = (fullPath, { id, ...event }) => {
     const { firestore, onClose } = this.props;
 
+    if (!event || !event.customer || !event.customer.id){
+        this.setState({ errorMessage: 'O campo cliente deve ser preenchido!' })
+        return;
+    }
+
     if (id) {
-      firestore
-        .doc(`${fullPath}/${id}`)
-        .set(dataToAdd)
-        .then(() => {
-          onClose("Evento alterado com sucesso.");
-        })
-        .catch(error => {
-          this.setState({
-            errorMessage: error
-          });
-        });
+      firestore.doc(`${fullPath}/${id}`).set(event)
+        .then(() => onClose("Evento alterado com sucesso."))
+        .catch(errorMessage => this.setState({ errorMessage }));
     } else {
-      firestore
-        .collection(`${fullPath}`)
-        .add(dataToAdd)
-        .then(() => {
-          onClose("Evento criado com sucesso.");
-        })
-        .catch(error => {
-          this.setState({
-            errorMessage: error
-          });
-        });
+      firestore.collection(`${fullPath}`).add(event)
+        .then(() => onClose("Evento criado com sucesso."))
+        .catch(errorMessage => this.setState({ errorMessage }));
     }
   };
 
@@ -45,7 +35,7 @@ class NewItem extends Component {
             title="Novo Evento"
             isNew
             errorMessage={errorMessage}
-            onSubmit={data => this.handleSubmit(fullPath, data)}
+            onSubmit={event => this.handleSubmit(fullPath, event)}
             {...this.props}
           />
         )}

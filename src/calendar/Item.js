@@ -1,19 +1,19 @@
-import React, { Component } from "react";
-import { Button, Form, Icon, Message, Modal } from "semantic-ui-react";
-import moment from "moment";
-import CustomerField from "./CustomerField";
-import HealthPlanField from "./HealthPlanField";
-import "./Item.css";
+import { Button, Form, Icon, Message, Modal } from 'semantic-ui-react';
+import CustomerField from './CustomerField';
+import moment from 'moment';
+import React, { Component } from 'react';
+import HealthPlanField from './HealthPlanField';
+import './Item.css';
 
 export default class Item extends Component {
   state = {
-    startDate: moment(this.props.start || Date.now()).format("YYYY-MM-DD"),
-    startTime: moment(this.props.start || Date.now()).format("HH:mm"),
-    endDate: moment(this.props.end || Date.now()).format("YYYY-MM-DD"),
-    endTime: moment(this.props.end || Date.now()).format("HH:mm"),
-    customer: this.props.customer || "",
-    healthPlan: this.props.healthPlan || "",
-    notes: this.props.notes || "",
+    startDate: moment(this.props.start || Date.now()).format('YYYY-MM-DD'),
+    startTime: moment(this.props.start || Date.now()).format('HH:mm'),
+    endDate: moment(this.props.end || Date.now()).format('YYYY-MM-DD'),
+    endTime: moment(this.props.end || Date.now()).format('HH:mm'),
+    customer: this.props.customer || '',
+    healthPlanId: this.props.healthPlanId || '',
+    notes: this.props.notes || '',
   };
 
   handleChange = (e, { name, value }) => this.setState({ [name]: value });
@@ -26,7 +26,7 @@ export default class Item extends Component {
       endTime,
       customer,
       notes,
-      healthPlan
+      healthPlanId
     } = this.state;
     const { id, onSubmit } = this.props;
     const start = moment(`${startDate} ${startTime}`).toDate();
@@ -35,7 +35,7 @@ export default class Item extends Component {
       id: customer.id,
       name: customer.name
     };
-    onSubmit({ id, start, end, customer: customerData, healthPlan, notes });
+    onSubmit({ id, start, end, customer: customerData, healthPlanId, notes });
   };
 
   render() {
@@ -46,10 +46,9 @@ export default class Item extends Component {
       endTime,
       customer,
       notes,
-      healthPlan
+      healthPlanId
     } = this.state;
-    const { errorMessage, onClose, title } = this.props;
-
+    const { errorMessage, healthPlans, onClose, title } = this.props;
     return (
       <Modal size="tiny" open onClose={onClose}>
         <Modal.Header content={title} />
@@ -93,13 +92,14 @@ export default class Item extends Component {
               onChange={this.handleChange}
             />
             <HealthPlanField
+              healthPlans={healthPlans}
               selectedCustomer={customer}
-              selectedHealthPlan={healthPlan}
+              selectedHealthPlanId={healthPlanId}
               onChange={this.handleChange}
             />
             <Form.TextArea
-                label='Notas'
-                rows='3'
+                label="Notas"
+                rows="3"
                 name="notes"
                 value={notes}
                 onChange={this.handleChange}

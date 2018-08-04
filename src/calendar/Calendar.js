@@ -1,91 +1,92 @@
-import React, { Component } from "react";
-import { Header, Segment } from "semantic-ui-react";
-import { FirestoreCollection } from "react-firestore";
-import FirestorePath from "shared/FirestorePath";
-import BigCalendar from "react-big-calendar";
-import "react-big-calendar/lib/css/react-big-calendar.css";
-import moment from "moment";
-import "moment/locale/pt-br";
-import NewItem from "./NewItem";
+import React, {Component} from 'react';
+import { Header, Segment } from 'semantic-ui-react';
+import { withFirestore } from 'react-firestore';
+import BigCalendar from 'react-big-calendar';
+import Firebase from 'firebase';
+import moment from 'moment';
+import NewItem from './NewItem';
+import 'moment/locale/pt-br';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './Calendar.css';
 
-moment.locale("pt-BR");
+moment.locale('pt-BR');
 BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment));
 
-export default class Calendar extends Component {
-  state = {};
-  handleSelectNew = slotInfo => {
-    this.setState({
-      event: slotInfo
+class Calendar extends Component {
+  state = { events: [] };
+
+  handleEvent = event => this.setState({ event });
+
+  onCloseEvent = () => this.setState({ event: null });
+
+  getEvents(data, healthPlansHash) {
+    const getPlanName = (healthPlans, id) => (id && healthPlans[id] && healthPlans[id].name) || 'Particular';
+    return data.docs.map(doc => {
+      const event = doc.data();
+      const title = `[${getPlanName(healthPlansHash, event.healthPlanId)}] ${event.customer.name}`;
+      return {
+        id: doc.id,
+        title,
+        start: event.start,
+        end: event.end,
+        customer: event.customer,
+        healthPlanId: event.healthPlanId,
+        notes: event.notes,
+      };
     });
-  };
+  }
 
-  handleSelectExisting = event => {
-    this.setState({ event: event });
-  };
+  componentDidMount() {
+    const { firestore } = this.props;
+    const user = Firebase.auth().currentUser;
+    const healthPlansPath = `/Users/${user.uid}/HealthPlans`;
+    const eventPath = `/Users/${user.uid}/Events`;
 
-  handleNewItem = () => {
-    this.setState({
-      event: null
-    });
-  };
-
-  getEvents = data => {
-    return data.map(event => ({
-      id: event.id,
-      start: event.start,
-      end: event.end,
-      title: event.customer.name + " - " + event.healthPlan,
-      customer: event.customer,
-      healthPlan: event.healthPlan,
-      notes: event.notes,
-    }));
-  };
+    firestore.collection(healthPlansPath).onSnapshot(
+      healthPlans => firestore.collection(eventPath).onSnapshot(data => {
+        const healthPlansHash = {};
+        healthPlans.forEach(doc => healthPlansHash[doc.id] = {id: doc.id, ...doc.data()});
+        const events = this.getEvents(data, healthPlansHash)
+        this.setState({events, healthPlans});
+      })
+    );
+  }
 
   render() {
-    const { event } = this.state;
+    const { event, events, healthPlans } = this.state;
     const modal = event ? (
-      <NewItem onClose={() => this.handleNewItem()} {...event} />
+      <NewItem onClose={this.onCloseEvent} healthPlans={healthPlans} {...event} />
     ) : null;
 
     return (
-      <FirestorePath
-        path="Events"
-        render={fullPath => (
-          <FirestoreCollection
-            path={fullPath}
-            render={({ isLoading, data }) => {
-              const events = isLoading ? [] : this.getEvents(data);
-              return (
-                <Segment>
-                  <Header as="h1">Agenda</Header>
-                  <BigCalendar
-                    defaultDate={new Date()}
-                    events={events}
-                    defaultView="week"
-                    step={30}
-                    selectable
-                    showMultiDayTimes
-                    onSelectSlot={slotInfo => this.handleSelectNew(slotInfo)}
-                    onSelectEvent={this.handleSelectExisting}
-                    messages={{
-                      today: "Hoje",
-                      next: "Próximo",
-                      previous: "Anterior",
-                      month: "Mês",
-                      week: "Semana",
-                      day: "Dia",
-                      agenda: "Agenda"
-                    }}
-                    style={{ height: "100vh" }}
-                    />
-                  {modal}
-                </Segment>
-              );
-            }}
+      <Segment>
+        <Header as="h1">Agenda</Header>
+        <BigCalendar
+          formats={{ eventTimeRangeFormat: () => null }}
+          defaultDate={new Date()}
+          events={events}
+          views={['day', 'week', 'month']}
+          defaultView="day"
+          step={30}
+          selectable
+          showMultiDayTimes
+          onSelectSlot={this.handleEvent}
+          onSelectEvent={this.handleEvent}
+          messages={{
+            today: "Hoje",
+            next: "Próximo",
+            previous: "Anterior",
+            month: "Mês",
+            week: "Semana",
+            day: "Dia",
+            agenda: "Agenda"
+          }}
+          style={{ height: "100vh" }}
           />
-        )}
-      />
+        {modal}
+      </Segment>
     );
   }
 }
+
+export default withFirestore(Calendar);
