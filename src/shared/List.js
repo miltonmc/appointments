@@ -115,7 +115,7 @@ const TableBody = ({ emptyMessage, path, cells, onRemove, onEdit, sort }) => (
             ) : (
               data.map(item => (
                 <Table.Row key={item.id}>
-                  {cells.map((cell, idx) => <Table.Cell key={idx}>{displayItem(cell, item)}</Table.Cell>)}
+                  {cells.map((cell, idx) => <Table.Cell key={idx} {...cell}>{displayItem(cell, item)}</Table.Cell>)}
                   <ActionsCell
                     onEdit={() => onEdit(true, item)}
                     onRemove={() => onRemove(`${fullPath}/${item.id}`, item.name)}

@@ -1,125 +1,54 @@
 import React, { Component } from 'react';
-import { Button, Header, Segment, Table } from 'semantic-ui-react';
-import { FirestoreCollection, withFirestore } from 'react-firestore';
-import { LoadingRow, EmptyRow, ActionsCell } from '../shared/TableHelper';
-import ConfirmRemove from '../shared/ConfirmRemove';
+import { withFirestore } from 'react-firestore';
+import firebase from 'firebase/app'
+import 'firebase/auth'
 import CPF from 'cpf';
 import EditItem from './EditItem';
-import Firebase from 'firebase';
-import FirestorePath from '../shared/FirestorePath';
 import NewItem from './NewItem';
+import List from '../shared/List';
 
-class List extends Component {
-  state = { isNewItemVisible: false, isConfirmRemoveVisible: false, isEditing: false };
+const cells = healthPlanHash => [
+  { format: item => item.cpf ? CPF.format(item.cpf) : null, width: 3 },
+  { format: item => item.name },
+  { format: item => healthPlanHash && item.healthPlanId ? healthPlanHash[item.healthPlanId] : 'Particular' },
+];
 
-  handleNewItem = (isNewItemVisible, message) => this.setState({ isNewItemVisible });
+const columns = ['CPF', 'Nome', 'Convênio'];
 
-  handleEditItem = (isEditing, item) => this.setState({ isEditing, item });
+const newItem = healthPlans => props => <NewItem healthPlans={healthPlans} {...props}/>;
+const editItem = healthPlans => props => <EditItem healthPlans={healthPlans} {...props} />;
 
-  handleRemove = (itemPath, itemDescription) => this.setState({
-    isConfirmRemoveVisible: true,
-    itemPath,
-    itemDescription,
-  });
-
-  handleRemoveCofirmClose = message => this.setState({
-    isConfirmRemoveVisible: false,
-    itemPath: '',
-    itemDescription: '',
-  });
+class CustomerList extends Component {
+  state = {};
 
   componentDidMount() {
     const { firestore } = this.props;
-    const user = Firebase.auth().currentUser;
+    const user = firebase.auth().currentUser;
     const path = `/Users/${user.uid}/HealthPlans`;
 
     firestore.collection(path).onSnapshot(snapshot => {
-      this.setState({ healthPlans: snapshot && snapshot.docs });
+      const healthPlanHash = {};
+      snapshot && snapshot.docs.forEach(healthPlan => {
+        const name = healthPlan.data().name;
+        healthPlanHash[healthPlan.id] = name
+      });
+      this.setState({ healthPlanHash, healthPlans: snapshot });
     });
   }
 
   render() {
-    const {
-      isEditing,
-      isNewItemVisible,
-      isConfirmRemoveVisible,
-      item,
-      itemPath,
-      itemDescription,
-      healthPlans,
-    } = this.state;
-
-    let modal;
-    if (isNewItemVisible) {
-      modal = <NewItem onClose={message => this.handleNewItem(false, message)} options={healthPlans}/>;
-    } else if (isEditing) {
-      modal = <EditItem item={item} onClose={() => this.handleEditItem(false, null)} />;
-    } else if (isConfirmRemoveVisible) {
-      modal = <ConfirmRemove path={itemPath} description={itemDescription} onClose={this.handleRemoveCofirmClose} />
-    }
-
-    return (
-      <Segment>
-        <Header as="h1">Paciente</Header>
-        <Table striped>
-          <TableHeaders />
-          <TableBody onEdit={this.handleEditItem} onRemove={this.handleRemove} healthPlans={healthPlans}/>
-        </Table>
-        <Button onClick={() => this.handleNewItem(true)} primary>
-          Novo Paciente
-        </Button>
-        {modal}
-      </Segment>
-    );
+    const {healthPlanHash, healthPlans} = this.state;
+    return <List
+      cells={cells(healthPlanHash)}
+      columns={columns}
+      createButtonText="Novo Paciente"
+      editItem={editItem(healthPlans)}
+      newItem={newItem(healthPlans)}
+      title="Paciente"
+      emptyMessage="Nenhum paciente encontrado"
+      path="Customers"
+    />;
   }
 }
 
-const TableHeaders = () => (
-  <Table.Header>
-    <Table.Row>
-      <Table.HeaderCell>CPF</Table.HeaderCell>
-      <Table.HeaderCell>Nome</Table.HeaderCell>
-      <Table.HeaderCell>Convênio</Table.HeaderCell>
-      <Table.HeaderCell />
-    </Table.Row>
-  </Table.Header>
-);
-
-const getPlanName = (healthPlans, id) =>{
-  const healthPlan = healthPlans && healthPlans.find(plan => plan.id === id);
-  return healthPlan && healthPlan.data().name
-};
-
-const TableBody = ({ onRemove, onEdit, healthPlans }) => (
-  <Table.Body>
-    <FirestorePath
-      path="Customers"
-      render={fullPath => (
-        <FirestoreCollection
-          path={fullPath}
-          render={({ isLoading, data }) => {
-            return isLoading ? (
-              <LoadingRow />
-            ) : data.length === 0 ? (
-              <EmptyRow>Nenhum paciente encontrado</EmptyRow>
-            ) : (
-              data.map(item => (
-                <Table.Row key={item.id}>
-                  <Table.Cell width={3}>{item.cpf ? CPF.format(item.cpf) : null}</Table.Cell>
-                  <Table.Cell>{item.name}</Table.Cell>
-                  <Table.Cell>{item.healthPlanId ? getPlanName(healthPlans, item.healthPlanId) : 'Particular'}</Table.Cell>
-                  <ActionsCell
-                    onEdit={() => onEdit(true, item)}
-                    onRemove={() => onRemove(`${fullPath}/${item.id}`, item.name)}
-                  />
-                </Table.Row>
-              ))
-            );
-          }}
-        />
-      )}
-    />
-  </Table.Body>
-);
-
-export default withFirestore(List);
+export default withFirestore(CustomerList);
