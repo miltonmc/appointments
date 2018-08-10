@@ -11,7 +11,7 @@ const cells = (healthPlanHash) => [
   { format: (item) => healthPlanHash && item.healthPlanId ? healthPlanHash[item.healthPlanId] : 'Particular' },
 ];
 
-const columns = ['Horário', 'Paciente', 'Convenio'];
+const columns = ['Horário', 'Paciente', 'Convênio'];
 
 const newItem = (healthPlans) => (props) => <NewItem healthPlans={healthPlans} {...props} />;
 const editItem = (healthPlans) => (props) => {
