@@ -4,6 +4,7 @@ import { FirestoreCollection } from 'react-firestore';
 import { LoadingRow, EmptyRow, ActionsCell } from './TableHelper';
 import FirestorePath from './FirestorePath';
 import ConfirmRemove from './ConfirmRemove';
+import './List.css';
 
 export default class List extends Component {
   state = { isAdding: false, isRemoving: false, isEditing: false };
@@ -65,7 +66,12 @@ export default class List extends Component {
 
     return (
       <Segment>
-        <Header as="h1">{title || 'Items'}</Header>
+        <Header as="h1" className="list-header">
+          {title || 'Items'}
+          <Button onClick={() => this.handleNewItem(true)} primary>
+            {createButtonText || 'Novo Item'}
+          </Button>
+        </Header>
         <Table striped>
           <TableHeaders columns={columns}/>
           <TableBody
@@ -77,9 +83,6 @@ export default class List extends Component {
             sort={sort}
           />
         </Table>
-        <Button onClick={() => this.handleNewItem(true)} primary>
-          {createButtonText || 'Novo Item'}
-        </Button>
         {modal}
       </Segment>
     );
