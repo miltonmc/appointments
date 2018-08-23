@@ -6,7 +6,7 @@ import NewItem from '../calendar/NewItem';
 import List from '../shared/List';
 
 const cells = (healthPlanHash) => [
-  { format: (item) => moment(item.start).format('DD/MM/YYYY HH:mm')},
+  { format: (item) => moment(item.start.toDate()).format('DD/MM/YYYY HH:mm')},
   { format: (item) => item.customer.name },
   { format: (item) => healthPlanHash && item.healthPlanId ? healthPlanHash[item.healthPlanId] : 'Particular' },
 ];

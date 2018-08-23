@@ -27,8 +27,8 @@ class Calendar extends Component {
       return {
         id: doc.id,
         title,
-        start: event.start,
-        end: event.end,
+        start: event.start.toDate(),
+        end: event.end.toDate(),
         customer: event.customer,
         healthPlanId: event.healthPlanId,
         notes: event.notes,
