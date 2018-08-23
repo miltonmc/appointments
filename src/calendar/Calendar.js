@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Header, Segment } from 'semantic-ui-react';
+import { Button, Header, Segment } from 'semantic-ui-react';
 import { withFirestore } from 'react-firestore';
 import BigCalendar from 'react-big-calendar';
 import Firebase from 'firebase';
@@ -54,13 +54,16 @@ class Calendar extends Component {
 
   render() {
     const { event, events, healthPlans } = this.state;
-    const modal = event ? (
-      <NewItem onClose={this.onCloseEvent} healthPlans={healthPlans} {...event} />
-    ) : null;
+    const modal = event && <NewItem onClose={this.onCloseEvent} healthPlans={healthPlans} {...event} />;
 
     return (
       <Segment>
-        <Header as="h1">Agenda</Header>
+        <Header as="h1" className="calendar-header">
+          Agenda
+          <Button primary onClick={() => this.handleEvent({ start: moment().toDate(), end: moment().add(30,'minutes').toDate() })}>
+            Nova Consulta
+          </Button>
+        </Header>
         <BigCalendar
           formats={{ eventTimeRangeFormat: () => null }}
           defaultDate={new Date()}
