@@ -10,7 +10,7 @@
     "moment": "^2.22.0",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
-    "react-big-calendar": "^0.19.2",
+    "react-big-calendar": "^0.20.1",
     "react-dom": "^16.4.1",
     "react-firestore": "^0.8.1",
     "react-router-dom": "^4.3.1",

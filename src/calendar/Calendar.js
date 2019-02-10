@@ -10,7 +10,8 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './Calendar.css';
 
 moment.locale('pt-BR');
-BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment));
+
+const localizer = BigCalendar.momentLocalizer(moment) 
 
 class Calendar extends Component {
   state = { events: [] };
@@ -65,6 +66,7 @@ class Calendar extends Component {
           </Button>
         </Header>
         <BigCalendar
+          localizer={localizer}
           formats={{ eventTimeRangeFormat: () => null }}
           defaultDate={new Date()}
           events={events}
