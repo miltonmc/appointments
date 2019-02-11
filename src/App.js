@@ -27,7 +27,7 @@ class App extends Component {
   }
 
   handleAuthStateChanged = user => {
-    const promise = (user && user.providerData[0].providerId === 'google.com')
+    const promise = (user && user.providerData && user.providerData[0] && user.providerData[0].providerId === 'google.com')
       ? this.validateGoogleUser(user)
       : Promise.resolve({ user });
 
