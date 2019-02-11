@@ -75,12 +75,13 @@ export default class List extends Component {
         <Table striped>
           <TableHeaders columns={columns}/>
           <TableBody
-            cells={cells}
+            cells={cells.length === columns.length ? cells : cells.slice(0, columns.length)}
             emptyMessage={emptyMessage}
             path={path}
             onEdit={this.handleEditItem}
             onRemove={this.handleRemove}
             sort={sort}
+            composedName={cells[cells.length - 1].format}
           />
         </Table>
         {modal}
@@ -102,7 +103,7 @@ const displayItem = (cell, item) => {
   return cell.format ? cell.format(item) : item[cell.path];
 };
 
-const TableBody = ({ emptyMessage, path, cells, onRemove, onEdit, sort }) => (
+const TableBody = ({ emptyMessage, path, cells, onRemove, onEdit, sort, composedName }) => (
   <Table.Body>
     <FirestorePath
       path={path}
@@ -121,7 +122,7 @@ const TableBody = ({ emptyMessage, path, cells, onRemove, onEdit, sort }) => (
                   {cells.map((cell, idx) => <Table.Cell key={idx} {...cell}>{displayItem(cell, item)}</Table.Cell>)}
                   <ActionsCell
                     onEdit={() => onEdit(true, item)}
-                    onRemove={() => onRemove(`${fullPath}/${item.id}`, item.name)}
+                    onRemove={() => onRemove(`${fullPath}/${item.id}`, item.name || composedName(item))}
                   />
                 </Table.Row>
               ))

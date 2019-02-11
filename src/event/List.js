@@ -5,10 +5,14 @@ import moment from 'moment';
 import NewItem from '../calendar/NewItem';
 import List from '../shared/List';
 
+const healthPlanName = (item, healthPlanHash) =>
+  healthPlanHash && item.healthPlanId ? healthPlanHash[item.healthPlanId] : 'Particular';
+
 const cells = (healthPlanHash) => [
   { format: (item) => moment(item.start.toDate()).format('DD/MM/YYYY HH:mm')},
   { format: (item) => item.customer.name },
-  { format: (item) => healthPlanHash && item.healthPlanId ? healthPlanHash[item.healthPlanId] : 'Particular' },
+  { format: (item) => healthPlanName(item, healthPlanHash) },
+  { format: (item) => `[${healthPlanName(item, healthPlanHash)}] ${item.customer.name}` },
 ];
 
 const columns = ['Horário', 'Paciente', 'Convênio'];
