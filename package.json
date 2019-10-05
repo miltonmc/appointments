@@ -2,6 +2,9 @@
   "name": "appointments",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=8"
+  },
   "dependencies": {
     "@firebase/app-types": "^0.3.2",
     "cnpj": "^1.0.2",
@@ -18,12 +21,18 @@
     "semantic-ui-react": "^0.82.1"
   },
   "devDependencies": {
-    "react-scripts": "1.1.1"
+    "react-scripts": "3.2.0"
   },
   "scripts": {
     "start": "NODE_PATH=./src HTTPS=true react-scripts start",
     "build": "NODE_PATH=./src react-scripts build",
     "test": "NODE_PATH=./src react-scripts test --env=jsdom",
     "eject": "NODE_PATH=./src react-scripts eject"
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

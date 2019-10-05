@@ -2,7 +2,7 @@
 
 ## Requirements
 
-- [Node 6+](https://nodejs.org/en/download/)
+- [Node 8+](https://nodejs.org/en/download/)
 - [Git](https://git-scm.com/downloads)
 
 ### Frontend
