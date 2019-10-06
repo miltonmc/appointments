@@ -1,0 +1,28 @@
+name: Deploy application
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    name: Test environment
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Checkout repository
+        uses: actions/checkout@v1
+      - name: Fetch dependencies
+        run: yarn
+      - name: Build source code
+        run: yarn build
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@v1.1.0
+        with:
+          args: deploy --non-interactive
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
