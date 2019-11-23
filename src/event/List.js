@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withFirestore } from 'react-firestore';
-import Firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 import moment from 'moment';
 import NewItem from '../calendar/NewItem';
 import List from '../shared/List';
@@ -30,7 +31,7 @@ class EventList extends Component {
 
   componentDidMount() {
     const { firestore } = this.props;
-    const user = Firebase.auth().currentUser;
+    const user = firebase.auth().currentUser;
     const path = `/Users/${user.uid}/HealthPlans`;
 
     firestore.collection(path).onSnapshot(snapshot => {

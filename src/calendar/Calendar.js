@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import { Button, Header, Segment } from 'semantic-ui-react';
 import { withFirestore } from 'react-firestore';
 import BigCalendar from 'react-big-calendar';
-import Firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 import moment from 'moment';
 import NewItem from './NewItem';
 import 'moment/locale/pt-br';
@@ -39,7 +40,7 @@ class Calendar extends Component {
 
   componentDidMount() {
     const { firestore } = this.props;
-    const user = Firebase.auth().currentUser;
+    const user = firebase.auth().currentUser;
     const healthPlansPath = `/Users/${user.uid}/HealthPlans`;
     const eventPath = `/Users/${user.uid}/Events`;
 
