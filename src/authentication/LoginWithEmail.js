@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import * as firebase from "firebase";
+import firebase from 'firebase/app';
+import 'firebase/auth';
 import { Button, Form, Icon, Message, Modal } from 'semantic-ui-react';
 
 class LoginWithEmail extends Component {

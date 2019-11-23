@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withFirestore } from 'react-firestore';
-import firebase from 'firebase/app'
-import 'firebase/auth'
+import firebase from 'firebase/app';
+import 'firebase/auth';
 import CPF from 'cpf';
 import EditItem from './EditItem';
 import NewItem from './NewItem';

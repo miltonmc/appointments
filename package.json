@@ -6,10 +6,9 @@
     "node": ">=8"
   },
   "dependencies": {
-    "@firebase/app-types": "^0.3.2",
     "cnpj": "^1.0.2",
     "cpf": "^1.0.6",
-    "firebase": "^5.3.0",
+    "firebase": "^7.5.0",
     "moment": "^2.22.0",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
