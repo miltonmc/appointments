@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import firebase from 'firebase/app'
-import 'firebase/auth'
+import firebase from 'firebase/app';
+import 'firebase/auth';
 import 'firebase/firestore';
 import Loading from "shared/Loading";
 import Login from "authentication/Login";
@@ -12,7 +12,6 @@ class App extends Component {
 
     firebase.auth().onAuthStateChanged(this.handleAuthStateChanged);
     this.firestore = firebase.firestore();
-    this.firestore.settings({ timestampsInSnapshots: true });
     this.state = {
       loading: true,
       errorMessage: null

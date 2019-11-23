@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Form, Segment } from 'semantic-ui-react';
 import { withFirestore } from "react-firestore";
-import Firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 import CPF from 'cpf';
 import '../shared/Center.css';
 
@@ -43,7 +44,7 @@ class Sponsor extends Component {
 
     getCustomerByCpf(cpf) {
         const { firestore } = this.props;
-        const user = Firebase.auth().currentUser;
+        const user = firebase.auth().currentUser;
         const path = `/Users/${user.uid}/Customers`;
         firestore.collection(path).where('cpf', '==', cpf).onSnapshot(snapshot => {
             const name = (snapshot && snapshot.docs && snapshot.docs[0] && snapshot.docs[0].data().name) || '';
