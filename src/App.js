@@ -1,43 +1,50 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
-import Loading from "shared/Loading";
-import Login from "authentication/Login";
-import LoggedApp from "LoggedApp";
+import Loading from 'shared/Loading';
+import Login from 'authentication/Login';
+import LoggedApp from 'LoggedApp';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
+export default function App() {
+  const [context, setContext] = useState({ loading: true });
+  
+  useEffect(() => {
+    async function validateGoogleUser(user) {
+      
+      let errorMsg;
+      try {
+        const snapshot = await firebase.firestore()
+          .collection('AllowedGoogleUsers')
+          .where('email', '==', user.email)
+          .get();
+        errorMsg = snapshot.empty ? `Email (${user.email}) sem permissão de acesso.` : null;
+  
+      } catch (e) {
+        errorMsg = e.message;
+      }
+      return errorMsg;
+    }
 
-    firebase.auth().onAuthStateChanged(this.handleAuthStateChanged);
-    this.firestore = firebase.firestore();
-    this.state = {
-      loading: true,
-      errorMessage: null
-    };
-  }
+    async function handleAuthStateChanged(user) {
+      const context = { loading: false, user, error: null };
+      if (user?.providerData?.some(provider => provider?.providerId === 'google.com')) {
+        context.error = await validateGoogleUser(user)
+        if (context.error) {
+          context.user = null;
+        }
+      }
+      setContext(context);
+    }
 
-  render() {
-    const { loading, user, error } = this.state;
-    if (loading) return <Loading />;
-
-    return user ? <LoggedApp /> : <Login error={error} />;
-  }
-
-  handleAuthStateChanged = user => {
-    const promise = (user && user.providerData && user.providerData[0] && user.providerData[0].providerId === 'google.com')
-      ? this.validateGoogleUser(user)
-      : Promise.resolve({ user });
-
-    promise.then(value => this.setState({ loading: false, ...value }));
-  };
-
-  validateGoogleUser = (user) => {
-    return this.firestore.collection('AllowedGoogleUsers').where('email', '==', user.email).get()
-      .then(snapshot => snapshot.empty ? { error: `Email (${user.email}) sem permissão de acesso.` } : { user })
-      .catch(error => ({ error: error.message }));
-  }
+    firebase.auth().onAuthStateChanged(handleAuthStateChanged);
+  }, []);
+  
+  const { error, loading, user } = context;
+  if (loading)
+   return <Loading />;
+  else if (user)
+    return <LoggedApp />;
+  else
+    return <Login error={error} />;
 }
-
-export default App;
