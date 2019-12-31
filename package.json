@@ -20,7 +20,7 @@
     "semantic-ui-react": "^0.82.1"
   },
   "devDependencies": {
-    "react-scripts": "3.2.0"
+    "react-scripts": "3.3.0"
   },
   "scripts": {
     "start": "NODE_PATH=./src HTTPS=true react-scripts start",
