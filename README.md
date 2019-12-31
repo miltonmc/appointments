@@ -1,5 +1,7 @@
 # POINT HUB - Appointments
 
+[![Sonarcloud Status](https://sonarcloud.io/api/project_badges/measure?project=miltonmc_appointments&metric=alert_status)](https://sonarcloud.io/dashboard?id=miltonmc_appointments)
+
 ## Requirements
 
 - [Node 8+](https://nodejs.org/en/download/)
