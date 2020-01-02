@@ -15,7 +15,7 @@
     "react-big-calendar": "^0.20.1",
     "react-dom": "^16.4.1",
     "react-firestore": "^0.8.1",
-    "react-router-dom": "^4.3.1",
+    "react-router-dom": "^5.1.2",
     "semantic-ui-css": "2.3.3",
     "semantic-ui-react": "^0.82.1"
   },
