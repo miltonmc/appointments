@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Button, Header, Segment } from 'semantic-ui-react';
 import { withFirestore } from 'react-firestore';
-import BigCalendar from 'react-big-calendar';
+import { Calendar as BigCalendar, momentLocalizer } from 'react-big-calendar'
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import moment from 'moment';
@@ -12,7 +12,7 @@ import './Calendar.css';
 
 moment.locale('pt-BR');
 
-const localizer = BigCalendar.momentLocalizer(moment) 
+const localizer = momentLocalizer(moment) 
 
 class Calendar extends Component {
   state = { events: [] };
