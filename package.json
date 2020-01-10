@@ -8,7 +8,7 @@
   "dependencies": {
     "cnpj": "^1.0.2",
     "cpf": "^1.0.6",
-    "firebase": "^7.6.1",
+    "firebase": "^7.6.2",
     "moment": "^2.22.0",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
