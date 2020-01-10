@@ -53,7 +53,7 @@ export default class Item extends Component {
     const customer = { name };
 
     if (!cpf || CPF.isValid(cpf)) {
-      customer.cpf = CPF.clear(cpf);
+      customer.cpf = cpf;
       customer.addressType = addressType;
       customer.address = address;
       customer.address2 = address2;
