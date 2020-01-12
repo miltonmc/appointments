@@ -1,12 +1,12 @@
 import { withFirestore } from 'react-firestore';
-import CNPJ from 'cnpj';
+import { format } from 'cnpj';
 import React from 'react';
 import EditItem from './EditItem';
 import NewItem from './NewItem';
 import List from '../shared/List';
 
 const cells = [
-  { format: item => CNPJ.format(item.cnpj), width: 3 },
+  { format: item => format(item.cnpj), width: 3 },
   { format: item => item.name },
 ];
 

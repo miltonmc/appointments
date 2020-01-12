@@ -6,7 +6,7 @@
     "node": ">=8"
   },
   "dependencies": {
-    "cnpj": "^1.0.2",
+    "cnpj": "^3.0.0",
     "cpf": "^2.0.1",
     "firebase": "^7.6.2",
     "moment": "^2.22.0",
