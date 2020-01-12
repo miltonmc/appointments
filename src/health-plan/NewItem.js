@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { withFirestore } from "react-firestore";
 import Item from "./Item.js";
-import CNPJ from "cnpj";
+import { validate } from 'cnpj';
 import FirestorePath from "shared/FirestorePath";
 
 class NewItem extends Component {
   state = {};
   handleSubmit = (fullPath, id, cnpj, name) => {
-    if (!CNPJ.validate(cnpj)) {
+    if (!validate(cnpj)) {
       this.setState({
         errorMessage: "CNPJ inválido"
       });

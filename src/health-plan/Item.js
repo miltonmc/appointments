@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Button, Form, Icon, Message, Modal } from "semantic-ui-react";
-import CNPJ from "cnpj";
+import { format } from 'cnpj';
 
 export default class Item extends Component {
   state = { cnpj: this.props.cnpj || "", name: this.props.name || "" };
@@ -26,7 +26,7 @@ export default class Item extends Component {
               required={isNew}
               label={`CNPJ${isNew ? ' (apenas números)' : ''}`}
               name="cnpj"
-              value={isNew ? cnpj : CNPJ.format(cnpj)}
+              value={isNew ? cnpj : format(cnpj)}
               autoFocus={isNew}
               disabled={isNotNew}
               pattern="\d*"

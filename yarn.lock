@@ -2934,10 +2934,10 @@ clsx@^1.0.4:
   resolved "https://registry.yarnpkg.com/clsx/-/clsx-1.0.4.tgz#0c0171f6d5cb2fe83848463c15fcc26b4df8c2ec"
   integrity sha512-1mQ557MIZTrL/140j+JVdRM6e31/OA4vTYxXgqIIZlndyfjHpyawKZia1Im05Vp9BWmImkcNrNtFYQMyFcgJDg==
 
-cnpj@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/cnpj/-/cnpj-1.0.2.tgz#839db93ae71901543bafbddbfafdb4c6358c22cd"
-  integrity sha512-D2FfPOK/MZMgQFZzti6ZcclcRUw5b5lb7TiyuyWp3wP+TYe49CufHLBiYMlenRh5Ady45fnGQw3HAh/YMTMODg==
+cnpj@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/cnpj/-/cnpj-3.0.0.tgz#3d6225a9bed4b8b62404cdc9b7fab3a7c54e83e4"
+  integrity sha512-kpi0/5UyHLqIHVAp9wzhALt2IWNSV3KrqWqSLyo42aAoZrElnueN9QAhojb1gF4R+VOXHhywKRsLtjz9dIOfxw==
 
 co@^4.6.0:
   version "4.6.0"
