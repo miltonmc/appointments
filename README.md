@@ -1,6 +1,7 @@
 # POINT HUB - Appointments
 
 [![Sonarcloud Status](https://sonarcloud.io/api/project_badges/measure?project=miltonmc_appointments&metric=alert_status)](https://sonarcloud.io/dashboard?id=miltonmc_appointments)
+[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=miltonmc/appointments)](https://dependabot.com)
 
 ## Requirements
 
