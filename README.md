@@ -38,7 +38,7 @@ yarn
 yarn start
 ```
 
-This should open a browser on <https://localhost:3000.>
+This should open a browser on <https://localhost:3000>.
 
 ## Demo
 
