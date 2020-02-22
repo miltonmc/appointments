@@ -17,6 +17,7 @@ export default () => {
       trigger={
         <Image circular bordered size="mini" src={user.photoURL} />
       }
+      position="top right"
       offset={5}
     >
       <Item.Group>
