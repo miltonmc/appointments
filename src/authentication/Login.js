@@ -1,12 +1,12 @@
-import React from "react";
-import logo from "logo.svg";
-import "./Login.css";
-import Center from "shared/Center";
+import React from 'react';
+import logo from 'logo.svg';
+import './Login.css';
+import Center from 'shared/Center';
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import appConfig from "../appConfig";
+import appConfig from '../appConfig';
 import { Button, Icon } from 'semantic-ui-react';
-import LoginWithEmail from "./LoginWithEmail";
+import LoginWithEmail from './LoginWithEmail';
 
 const handleGoogleLogin = () => {
   const provider = new firebase.auth.GoogleAuthProvider();
@@ -32,7 +32,7 @@ const Login = ({ error }) =>
         ? <p className="login__error">
           {error}
         </p>
-        : ""}
+        : ''}
     </div>
   </Center>;
 

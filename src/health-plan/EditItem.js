@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import { withFirestore } from "react-firestore";
-import Item from "./Item.js";
-import FirestorePath from "shared/FirestorePath";
+import React, { Component } from 'react';
+import { withFirestore } from 'react-firestore';
+import Item from './Item.js';
+import FirestorePath from 'shared/FirestorePath';
 
 class EditItem extends Component {
   state = {};
@@ -9,7 +9,7 @@ class EditItem extends Component {
   handleSubmit = (fullPath, id, cnpj, name) => {
     const { firestore, onClose } = this.props;
     firestore.doc(`${fullPath}/${id}`).update({ name })
-      .then(() => { onClose("Convênio atualizado com sucesso."); })
+      .then(() => { onClose('Convênio atualizado com sucesso.'); })
       .catch(error => {
         this.setState({
           errorMessage: error

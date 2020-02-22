@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import { withFirestore } from "react-firestore";
-import Item from "./Item";
-import FirestorePath from "shared/FirestorePath";
+import React, { Component } from 'react';
+import { withFirestore } from 'react-firestore';
+import Item from './Item';
+import FirestorePath from 'shared/FirestorePath';
 
 class NewItem extends Component {
   state = {};
@@ -13,7 +13,7 @@ class NewItem extends Component {
 
     const { firestore, onClose } = this.props;
     firestore.collection(`${fullPath}`).add(customer)
-      .then(() => onClose("Convênio criado com sucesso."))
+      .then(() => onClose('Convênio criado com sucesso.'))
       .catch(error => this.setState({ errorMessage: error }));
   };
 

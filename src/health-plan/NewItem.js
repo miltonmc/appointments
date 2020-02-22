@@ -1,15 +1,15 @@
-import React, { Component } from "react";
-import { withFirestore } from "react-firestore";
-import Item from "./Item.js";
+import React, { Component } from 'react';
+import { withFirestore } from 'react-firestore';
+import Item from './Item.js';
 import { validate } from 'cnpj';
-import FirestorePath from "shared/FirestorePath";
+import FirestorePath from 'shared/FirestorePath';
 
 class NewItem extends Component {
   state = {};
   handleSubmit = (fullPath, id, cnpj, name) => {
     if (!validate(cnpj)) {
       this.setState({
-        errorMessage: "CNPJ inválido"
+        errorMessage: 'CNPJ inválido'
       });
       return;
     }
@@ -19,7 +19,7 @@ class NewItem extends Component {
     doc.get().then(snapShot => {
       if (snapShot.exists) {
         this.setState({
-          errorMessage: "CNPJ já existente"
+          errorMessage: 'CNPJ já existente'
         });
         return;
       }
@@ -31,7 +31,7 @@ class NewItem extends Component {
           name: name
         })
         .then(() => {
-          onClose("Convênio criado com sucesso.");
+          onClose('Convênio criado com sucesso.');
         })
         .catch(error => {
           this.setState({

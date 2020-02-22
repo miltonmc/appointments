@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form } from "semantic-ui-react";
+import { Form } from 'semantic-ui-react';
 
 const states = [
     { key: 'AC', value: 'AC', text: 'Acre' },

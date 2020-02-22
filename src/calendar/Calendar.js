@@ -79,15 +79,15 @@ class Calendar extends Component {
           onSelectSlot={this.handleEvent}
           onSelectEvent={this.handleEvent}
           messages={{
-            today: "Hoje",
-            next: "Próximo",
-            previous: "Anterior",
-            month: "Mês",
-            week: "Semana",
-            day: "Dia",
-            agenda: "Agenda"
+            today: 'Hoje',
+            next: 'Próximo',
+            previous: 'Anterior',
+            month: 'Mês',
+            week: 'Semana',
+            day: 'Dia',
+            agenda: 'Agenda'
           }}
-          style={{ height: "100vh" }}
+          style={{ height: '100vh' }}
           />
         {modal}
       </Segment>

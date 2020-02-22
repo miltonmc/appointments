@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import { withFirestore } from "react-firestore";
-import Item from "./Item";
-import FirestorePath from "../shared/FirestorePath";
+import React, { Component } from 'react';
+import { withFirestore } from 'react-firestore';
+import Item from './Item';
+import FirestorePath from '../shared/FirestorePath';
 
 class NewItem extends Component {
   state = {};
@@ -16,11 +16,11 @@ class NewItem extends Component {
 
     if (id) {
       firestore.doc(`${fullPath}/${id}`).set(event)
-        .then(() => onClose("Evento alterado com sucesso."))
+        .then(() => onClose('Evento alterado com sucesso.'))
         .catch(errorMessage => this.setState({ errorMessage }));
     } else {
       firestore.collection(`${fullPath}`).add(event)
-        .then(() => onClose("Evento criado com sucesso."))
+        .then(() => onClose('Evento criado com sucesso.'))
         .catch(errorMessage => this.setState({ errorMessage }));
     }
   };

@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import { Button, Table, Loader } from "semantic-ui-react";
+import { Button, Table, Loader } from 'semantic-ui-react';
 
 const EmptyRow = props => {
   return (

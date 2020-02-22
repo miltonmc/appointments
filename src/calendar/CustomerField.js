@@ -1,7 +1,7 @@
-import React from "react";
-import { Form } from "semantic-ui-react";
-import { FirestoreCollection } from "react-firestore";
-import FirestorePath from "shared/FirestorePath";
+import React from 'react';
+import { Form } from 'semantic-ui-react';
+import { FirestoreCollection } from 'react-firestore';
+import FirestorePath from 'shared/FirestorePath';
 
 export default ({ selectedCustomer = '', onChange }) => (
   <FirestorePath

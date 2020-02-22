@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Segment } from 'semantic-ui-react';
-import { withFirestore } from "react-firestore";
+import { withFirestore } from 'react-firestore';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import CPF from 'cpf';

@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import { Button, Form, Icon, Message, Modal } from "semantic-ui-react";
+import React, { Component } from 'react';
+import { Button, Form, Icon, Message, Modal } from 'semantic-ui-react';
 import { format } from 'cnpj';
 
 export default class Item extends Component {
-  state = { cnpj: this.props.cnpj || "", name: this.props.name || "" };
+  state = { cnpj: this.props.cnpj || '', name: this.props.name || '' };
 
   handleChange = (e, { name, value }) => this.setState({ [name]: value });
 
