@@ -7,7 +7,7 @@ import Login from 'authentication/Login';
 import LoggedApp from 'LoggedApp';
 
 export default function App() {
-  const [context, setContext] = useState({ loading: true });
+  const [state, setState] = useState({ loading: true });
   
   useEffect(() => {
     async function validateGoogleUser(user) {
@@ -27,23 +27,23 @@ export default function App() {
     }
 
     async function handleAuthStateChanged(user) {
-      const context = { loading: false, user, error: null };
+      const newState = { loading: false, loggedUser: user, error: null };
       if (user?.providerData?.some(provider => provider?.providerId === 'google.com')) {
-        context.error = await validateGoogleUser(user)
-        if (context.error) {
-          context.user = null;
+        newState.error = await validateGoogleUser(user)
+        if (newState.error) {
+          newState.loggedUser = null;
         }
       }
-      setContext(context);
+      setState(newState);
     }
 
     firebase.auth().onAuthStateChanged(handleAuthStateChanged);
   }, []);
   
-  const { error, loading, user } = context;
+  const { error, loading, loggedUser } = state;
   if (loading)
    return <Loading />;
-  else if (user)
+  else if (loggedUser)
     return <LoggedApp />;
   else
     return <Login error={error} />;

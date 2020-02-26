@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button, Form, Icon, Message, Modal } from 'semantic-ui-react';
 import CPF from 'cpf';
 import HealthPlanSelect from '../shared/HealthPlanSelect';
-import StateSelect from '../shared/StatePlanSelect';
+import StateSelect from '../components/StateSelect';
 import Sponsor from './Sponsor';
 
 const addressTypes = [

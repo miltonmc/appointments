@@ -36,7 +36,7 @@ const HealthPlanField = ({
             }
             //if customer has a healthPlan, we add it as an option to the dropdown
             const options = [];
-            const healthPlan = healthPlans.docs.find(healthPlan => healthPlan.id === customer.healthPlanId)
+            const healthPlan = healthPlans.docs.find(plan => plan.id === customer.healthPlanId)
             healthPlan && options.push({ key: healthPlan.id, value: healthPlan.id, text: healthPlan.data().name });
             return <HealthPlanSelect value={selectedHealthPlanId} onChange={onChange} options={options}/>
           }}
