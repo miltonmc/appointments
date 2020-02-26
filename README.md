@@ -1,12 +1,13 @@
-# POINT HUB - Appointments
+# Appointments
 
-[![Sonarcloud Status](https://sonarcloud.io/api/project_badges/measure?project=miltonmc_appointments&metric=alert_status)](https://sonarcloud.io/dashboard?id=miltonmc_appointments)
+[![Sonarcloud Status](https://sonarcloud.io/api/project_badges/measure?project=appointments&metric=alert_status)](https://sonarcloud.io/dashboard?id=appointments)
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=miltonmc/appointments)](https://dependabot.com)
 
 ## Requirements
 
-- [Node 8+](https://nodejs.org/en/download/)
 - [Git](https://git-scm.com/downloads)
+- [Node 8+](https://nodejs.org/en/download/)
+- [Yarn](https://yarnpkg.com/en/docs/install)
 
 ### Frontend
 
