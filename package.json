@@ -1,11 +1,15 @@
 {
   "name": "appointments",
   "version": "0.1.0",
+  "license": "MIT",
   "private": true,
   "engines": {
     "node": ">=8"
   },
   "dependencies": {
+    "@testing-library/jest-dom": "^5.1.1",
+    "@testing-library/react": "^9.4.1",
+    "@testing-library/user-event": "^10.0.0",
     "@types/jest": "^25.1.3",
     "@types/node": "^13.7.4",
     "@types/react": "^16.9.22",
@@ -14,23 +18,20 @@
     "cpf": "^2.0.1",
     "firebase": "^7.9.1",
     "moment": "^2.24.0",
-    "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-big-calendar": "^0.24.0",
     "react-dom": "^16.12.0",
     "react-firestore": "^1.0.1",
     "react-router-dom": "^5.1.2",
+    "react-scripts": "3.4.0",
     "semantic-ui-css": "2.4.1",
     "semantic-ui-react": "^0.88.2",
     "typescript": "^3.8.2"
   },
-  "devDependencies": {
-    "react-scripts": "3.4.0"
-  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -39,10 +40,16 @@
       "quotes": ["error", "single"]
     }
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }
