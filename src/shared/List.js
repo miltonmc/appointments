@@ -10,7 +10,7 @@ export default class List extends Component {
   state = { isAdding: false, isRemoving: false, isEditing: false };
   handleNewItem = (visibility, message) => {
     this.setState({
-      isAdding: visibility
+      isAdding: visibility,
     });
   };
 
@@ -22,7 +22,7 @@ export default class List extends Component {
     this.setState({
       isRemoving: true,
       itemPath: itemPath,
-      itemDescription: itemDescription
+      itemDescription: itemDescription,
     });
   };
 
@@ -30,38 +30,21 @@ export default class List extends Component {
     this.setState({
       isRemoving: false,
       itemPath: '',
-      itemDescription: ''
+      itemDescription: '',
     });
   };
 
   render() {
-    const {
-      isEditing,
-      isAdding,
-      isRemoving,
-      item,
-      itemPath,
-      itemDescription
-    } = this.state;
-    const {
-      cells,
-      columns,
-      createButtonText,
-      editItem,
-      emptyMessage,
-      newItem,
-      sort,
-      title,
-      path,
-    } = this.props
+    const { isEditing, isAdding, isRemoving, item, itemPath, itemDescription } = this.state;
+    const { cells, columns, createButtonText, editItem, emptyMessage, newItem, sort, title, path } = this.props;
 
     let modal;
     if (isAdding) {
       modal = newItem && newItem({ onClose: message => this.handleNewItem(false, message) });
     } else if (isEditing) {
-      modal = editItem && editItem({ item, onClose: () => this.handleEditItem(false, null)});
+      modal = editItem && editItem({ item, onClose: () => this.handleEditItem(false, null) });
     } else if (isRemoving) {
-      modal = <ConfirmRemove path={itemPath} description={itemDescription} onClose={this.handleRemoveCofirmClose} />
+      modal = <ConfirmRemove path={itemPath} description={itemDescription} onClose={this.handleRemoveCofirmClose} />;
     }
 
     return (
@@ -73,7 +56,7 @@ export default class List extends Component {
           </Button>
         </Header>
         <Table striped>
-          <TableHeaders columns={columns}/>
+          <TableHeaders columns={columns} />
           <TableBody
             cells={cells.length === columns.length ? cells : cells.slice(0, columns.length)}
             emptyMessage={emptyMessage}
@@ -90,10 +73,12 @@ export default class List extends Component {
   }
 }
 
-const TableHeaders = ({columns}) => (
+const TableHeaders = ({ columns }) => (
   <Table.Header>
     <Table.Row>
-      {columns.map((column, idx) => <Table.HeaderCell key={idx}>{column}</Table.HeaderCell>)}
+      {columns.map((column, idx) => (
+        <Table.HeaderCell key={idx}>{column}</Table.HeaderCell>
+      ))}
       <Table.HeaderCell />
     </Table.Row>
   </Table.Header>
@@ -119,7 +104,11 @@ const TableBody = ({ emptyMessage, path, cells, onRemove, onEdit, sort, composed
             ) : (
               data.map(item => (
                 <Table.Row key={item.id}>
-                  {cells.map((cell, idx) => <Table.Cell key={idx} {...cell}>{displayItem(cell, item)}</Table.Cell>)}
+                  {cells.map((cell, idx) => (
+                    <Table.Cell key={idx} {...cell}>
+                      {displayItem(cell, item)}
+                    </Table.Cell>
+                  ))}
                   <ActionsCell
                     onEdit={() => onEdit(true, item)}
                     onRemove={() => onRemove(`${fullPath}/${item.id}`, item.name || composedName(item))}

@@ -8,18 +8,17 @@ import LoggedApp from 'LoggedApp';
 
 export default function App() {
   const [state, setState] = useState({ loading: true });
-  
+
   useEffect(() => {
     async function validateGoogleUser(user) {
-      
       let errorMsg;
       try {
-        const snapshot = await firebase.firestore()
+        const snapshot = await firebase
+          .firestore()
           .collection('AllowedGoogleUsers')
           .where('email', '==', user.email)
           .get();
         errorMsg = snapshot.empty ? `Email (${user.email}) sem permissão de acesso.` : null;
-  
       } catch (e) {
         errorMsg = e.message;
       }
@@ -29,7 +28,7 @@ export default function App() {
     async function handleAuthStateChanged(user) {
       const newState = { loading: false, loggedUser: user, error: null };
       if (user?.providerData?.some(provider => provider?.providerId === 'google.com')) {
-        newState.error = await validateGoogleUser(user)
+        newState.error = await validateGoogleUser(user);
         if (newState.error) {
           newState.loggedUser = null;
         }
@@ -39,12 +38,9 @@ export default function App() {
 
     firebase.auth().onAuthStateChanged(handleAuthStateChanged);
   }, []);
-  
+
   const { error, loading, loggedUser } = state;
-  if (loading)
-   return <Loading />;
-  else if (loggedUser)
-    return <LoggedApp />;
-  else
-    return <Login error={error} />;
+  if (loading) return <Loading />;
+  else if (loggedUser) return <LoggedApp />;
+  else return <Login error={error} />;
 }

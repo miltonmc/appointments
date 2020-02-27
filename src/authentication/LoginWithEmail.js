@@ -19,9 +19,11 @@ export default function LoginWithEmail() {
       return;
     }
 
-    firebase.auth().signInWithEmailAndPassword(email, password)
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
       .then(close)
-      .catch(({message}) => setError(message));
+      .catch(({ message }) => setError(message));
   }
 
   return (
@@ -33,13 +35,9 @@ export default function LoginWithEmail() {
         <Modal.Header icon="mail" content="Autenticar com Email" />
         <Modal.Content>
           <Form onSubmit={handleLogin} error={!!error}>
-            <Form.Input required label="Email" onChange={(event, { value }) => email = value} />
-            <Form.Input required label="Senha" onChange={(event, { value }) => password = value} type="password" />
-            <Message
-              error
-              header="Email ou senha inválidos"
-              content={error}
-            />
+            <Form.Input required label="Email" onChange={(event, { value }) => (email = value)} />
+            <Form.Input required label="Senha" onChange={(event, { value }) => (password = value)} type="password" />
+            <Message error header="Email ou senha inválidos" content={error} />
           </Form>
         </Modal.Content>
         <Modal.Actions>

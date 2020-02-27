@@ -5,21 +5,25 @@ import FirestorePath from '../shared/FirestorePath';
 
 class NewItem extends Component {
   state = {};
-  
+
   handleSubmit = (fullPath, { id, ...event }) => {
     const { firestore, onClose } = this.props;
 
-    if (!event || !event.customer || !event.customer.id){
-        this.setState({ errorMessage: 'O campo cliente deve ser preenchido!' })
-        return;
+    if (!event || !event.customer || !event.customer.id) {
+      this.setState({ errorMessage: 'O campo cliente deve ser preenchido!' });
+      return;
     }
 
     if (id) {
-      firestore.doc(`${fullPath}/${id}`).set(event)
+      firestore
+        .doc(`${fullPath}/${id}`)
+        .set(event)
         .then(() => onClose('Evento alterado com sucesso.'))
         .catch(errorMessage => this.setState({ errorMessage }));
     } else {
-      firestore.collection(`${fullPath}`).add(event)
+      firestore
+        .collection(`${fullPath}`)
+        .add(event)
         .then(() => onClose('Evento criado com sucesso.'))
         .catch(errorMessage => this.setState({ errorMessage }));
     }

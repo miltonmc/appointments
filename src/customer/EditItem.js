@@ -5,15 +5,16 @@ import FirestorePath from 'shared/FirestorePath';
 
 class EditItem extends Component {
   state = {};
-  
+
   handleSubmit = (fullPath, id, custumer, errorMessage) => {
     if (errorMessage) {
-      this.setState({ errorMessage});
+      this.setState({ errorMessage });
       return;
     }
-    
+
     const { firestore, onClose } = this.props;
-    firestore.doc(`${fullPath}/${id}`)
+    firestore
+      .doc(`${fullPath}/${id}`)
       .update(custumer)
       .then(() => onClose('Convênio atualizado com sucesso.'))
       .catch(error => this.setState({ errorMessage: error }));
