@@ -13,6 +13,7 @@ firebase.initializeApp(firebaseConfig);
 ReactDOM.render(
   <FirestoreProvider firebase={firebase}>
     <App />
-  </FirestoreProvider>
-  , document.getElementById('root'));
+  </FirestoreProvider>,
+  document.getElementById('root')
+);
 serviceWorker.unregister();

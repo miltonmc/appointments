@@ -11,24 +11,24 @@
 
 ### Frontend
 
-| Description | Tech | Learning Resources |
-| --- | --- | --- |
-| View engine | React.js | [React course](https://reacttraining.com/online/react-fundamentals) |
-| UI Toolkit | Semantic-UI | [API](https://react.semantic-ui.com) |
+| Description | Tech        | Learning Resources                                                  |
+| ----------- | ----------- | ------------------------------------------------------------------- |
+| View engine | React.js    | [React course](https://reacttraining.com/online/react-fundamentals) |
+| UI Toolkit  | Semantic-UI | [API](https://react.semantic-ui.com)                                |
 
 ### Backend
 
-| Description | Tech | Learning Resources |
-| --- | --- | --- |
-| Authentication | Firebase auth | [Docs](https://firebase.google.com/docs/auth/) |
-| Database | Firebase Firestore | [Docs](https://cloud.google.com/firestore/docs/) |
+| Description    | Tech               | Learning Resources                               |
+| -------------- | ------------------ | ------------------------------------------------ |
+| Authentication | Firebase auth      | [Docs](https://firebase.google.com/docs/auth/)   |
+| Database       | Firebase Firestore | [Docs](https://cloud.google.com/firestore/docs/) |
 
 ### DevOps and Infrastructure
 
-| Description | Tech | Learning Resources |
-| --- | --- | --- |
-| Hosting | Firebase hosting | [Docs](https://firebase.google.com/docs/hosting/) |
-| Repo | GitHub | <https://github.com/miltonmc/appointments/> |
+| Description | Tech             | Learning Resources                                |
+| ----------- | ---------------- | ------------------------------------------------- |
+| Hosting     | Firebase hosting | [Docs](https://firebase.google.com/docs/hosting/) |
+| Repo        | GitHub           | <https://github.com/miltonmc/appointments/>       |
 
 ## Instalation
 

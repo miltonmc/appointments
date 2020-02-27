@@ -10,12 +10,11 @@ export default ({ selectedCustomer = '', onChange }) => (
       <FirestoreCollection
         path={fullPath}
         render={({ isLoading, data }) => {
-          const customers = data.map(item => {
-          return ({
+          const customers = data.map(item => ({
             key: item.id,
             value: item,
-            text: item.name
-          })});
+            text: item.name,
+          }));
           return (
             <Form.Dropdown
               label="Cliente"

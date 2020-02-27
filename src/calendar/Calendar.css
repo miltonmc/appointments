@@ -1,8 +1,8 @@
 .calendar-header {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .rbc-allday-cell {
-    display: none;
+  display: none;
 }

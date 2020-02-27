@@ -46,7 +46,31 @@ export default class Item extends Component {
   handleChange = (e, { name, value }) => this.setState({ [name]: value });
 
   handleSubmit = () => {
-    const { addressType, address, address2, neighborhood, birth, city, rg, cpf, email, gender, healthPlanId, name, number, state, zip, cell, home, work, facebook, instagram, twitter, linkedin, sponsor } = this.state;
+    const {
+      addressType,
+      address,
+      address2,
+      neighborhood,
+      birth,
+      city,
+      rg,
+      cpf,
+      email,
+      gender,
+      healthPlanId,
+      name,
+      number,
+      state,
+      zip,
+      cell,
+      home,
+      work,
+      facebook,
+      instagram,
+      twitter,
+      linkedin,
+      sponsor,
+    } = this.state;
     const { id, onSubmit } = this.props;
 
     let errorMessage;
@@ -82,7 +106,31 @@ export default class Item extends Component {
   };
 
   render() {
-    const { addressType,address, address2, neighborhood, birth, city, rg, cpf, email, gender, healthPlanId, name, number, state, zip, cell, home, work, facebook, instagram, twitter, linkedin, sponsor } = this.state;
+    const {
+      addressType,
+      address,
+      address2,
+      neighborhood,
+      birth,
+      city,
+      rg,
+      cpf,
+      email,
+      gender,
+      healthPlanId,
+      name,
+      number,
+      state,
+      zip,
+      cell,
+      home,
+      work,
+      facebook,
+      instagram,
+      twitter,
+      linkedin,
+      sponsor,
+    } = this.state;
     const { errorMessage, healthPlans, onClose, title } = this.props;
 
     return (
@@ -128,35 +176,12 @@ export default class Item extends Component {
                 maxLength={11}
                 onChange={this.handleChange}
               />
-              <Form.Input
-                width={4}
-                label={'Identidade'}
-                name="rg"
-                value={rg}
-                onChange={this.handleChange}
-              />
-              <Form.Input
-                width={6}
-                label={'Email'}
-                name="email"
-                value={email}
-                onChange={this.handleChange}
-              />
+              <Form.Input width={4} label={'Identidade'} name="rg" value={rg} onChange={this.handleChange} />
+              <Form.Input width={6} label={'Email'} name="email" value={email} onChange={this.handleChange} />
             </Form.Group>
             <Form.Group>
-              <HealthPlanSelect
-                width={7}
-                onChange={this.handleChange}
-                options={healthPlans}
-                value={healthPlanId}
-              />
-              <Form.Input
-                width={3}
-                label="Telefone Celular"
-                name="cell"
-                value={cell}
-                onChange={this.handleChange}
-              />
+              <HealthPlanSelect width={7} onChange={this.handleChange} options={healthPlans} value={healthPlanId} />
+              <Form.Input width={3} label="Telefone Celular" name="cell" value={cell} onChange={this.handleChange} />
               <Form.Input
                 width={3}
                 label="Telefone Residencial"
@@ -164,68 +189,26 @@ export default class Item extends Component {
                 value={home}
                 onChange={this.handleChange}
               />
-              <Form.Input
-                width={3}
-                label="Telefone Comercial"
-                name="work"
-                value={work}
-                onChange={this.handleChange}
-              />
+              <Form.Input width={3} label="Telefone Comercial" name="work" value={work} onChange={this.handleChange} />
             </Form.Group>
             <Form.Group>
-              <Form.Input
-                width={4}
-                label="Facebook"
-                name="facebook"
-                value={facebook}
-                onChange={this.handleChange}
-              />
-              <Form.Input
-                width={4}
-                label="Instagram"
-                name="instagram"
-                value={instagram}
-                onChange={this.handleChange}
-              />
-              <Form.Input
-                width={4}
-                label="Twitter"
-                name="twitter"
-                value={twitter}
-                onChange={this.handleChange}
-              />
-              <Form.Input
-                width={4}
-                label="LinkedIn"
-                name="linkedin"
-                value={linkedin}
-                onChange={this.handleChange}
-              />
+              <Form.Input width={4} label="Facebook" name="facebook" value={facebook} onChange={this.handleChange} />
+              <Form.Input width={4} label="Instagram" name="instagram" value={instagram} onChange={this.handleChange} />
+              <Form.Input width={4} label="Twitter" name="twitter" value={twitter} onChange={this.handleChange} />
+              <Form.Input width={4} label="LinkedIn" name="linkedin" value={linkedin} onChange={this.handleChange} />
             </Form.Group>
             <Form.Group>
-            <Form.Select
+              <Form.Select
                 width={4}
-                label='Tipo'
-                name='addressType'
+                label="Tipo"
+                name="addressType"
                 value={addressType}
                 options={addressTypes}
-                placeholder='Tipo'
+                placeholder="Tipo"
                 onChange={this.handleChange}
               />
-              <Form.Input
-                width={10}
-                label="Endereço"
-                name="address"
-                value={address}
-                onChange={this.handleChange}
-              />
-              <Form.Input
-                width={2}
-                label="Número"
-                name="number"
-                value={number}
-                onChange={this.handleChange}
-              />
+              <Form.Input width={10} label="Endereço" name="address" value={address} onChange={this.handleChange} />
+              <Form.Input width={2} label="Número" name="number" value={number} onChange={this.handleChange} />
             </Form.Group>
             <Form.Group>
               <Form.Input
@@ -244,26 +227,11 @@ export default class Item extends Component {
               />
             </Form.Group>
             <Form.Group>
-              <Form.Input
-                width={8}
-                label="Cidade"
-                name="city"
-                value={city}
-                onChange={this.handleChange}
-              />
-              <StateSelect
-                value={state}
-                onChange={this.handleChange}
-              />
-              <Form.Input
-                width={4}
-                label="CEP"
-                name="zip"
-                value={zip}
-                onChange={this.handleChange}
-              />
+              <Form.Input width={8} label="Cidade" name="city" value={city} onChange={this.handleChange} />
+              <StateSelect value={state} onChange={this.handleChange} />
+              <Form.Input width={4} label="CEP" name="zip" value={zip} onChange={this.handleChange} />
             </Form.Group>
-            <Sponsor cpf={sponsor} onChange={this.handleChange}/>
+            <Sponsor cpf={sponsor} onChange={this.handleChange} />
             <Message error header="Dados inválidos" content={errorMessage} />
             <Button color="blue">
               <Icon name="checkmark" /> Salvar

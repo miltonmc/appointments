@@ -13,27 +13,21 @@ const handleGoogleLogin = () => {
   firebase.auth().signInWithRedirect(provider);
 };
 
-const Login = ({ error }) =>
+const Login = ({ error }) => (
   <Center>
     <div className="login">
       <img alt={appConfig.fullName} src={logo} />
-      <h1 className="login__title">
-        {appConfig.fullName}
-      </h1>
+      <h1 className="login__title">{appConfig.fullName}</h1>
       <Button.Group size="huge">
-        <Button color='google plus' onClick={handleGoogleLogin}>
-          <Icon name='google' /> Autenticar com Google
+        <Button color="google plus" onClick={handleGoogleLogin}>
+          <Icon name="google" /> Autenticar com Google
         </Button>
         <Button.Or text="ou" />
         <LoginWithEmail />
       </Button.Group>
-
-      {error
-        ? <p className="login__error">
-          {error}
-        </p>
-        : ''}
+      {error ? <p className="login__error">{error}</p> : ''}
     </div>
-  </Center>;
+  </Center>
+);
 
 export default Login;

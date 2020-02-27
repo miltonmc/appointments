@@ -8,11 +8,13 @@ class EditItem extends Component {
 
   handleSubmit = (fullPath, id, cnpj, name) => {
     const { firestore, onClose } = this.props;
-    firestore.doc(`${fullPath}/${id}`).update({ name })
-      .then(() => { onClose('Convênio atualizado com sucesso.'); })
+    firestore
+      .doc(`${fullPath}/${id}`)
+      .update({ name })
+      .then(() => onClose('Convênio atualizado com sucesso.'))
       .catch(error => {
         this.setState({
-          errorMessage: error
+          errorMessage: error,
         });
       });
   };

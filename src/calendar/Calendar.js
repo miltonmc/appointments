@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { Button, Header, Segment } from 'semantic-ui-react';
 import { withFirestore } from 'react-firestore';
-import { Calendar as BigCalendar, momentLocalizer } from 'react-big-calendar'
+import { Calendar as BigCalendar, momentLocalizer } from 'react-big-calendar';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import moment from 'moment';
@@ -12,7 +12,7 @@ import './Calendar.css';
 
 moment.locale('pt-BR');
 
-const localizer = momentLocalizer(moment) 
+const localizer = momentLocalizer(moment);
 
 class Calendar extends Component {
   state = { events: [] };
@@ -44,12 +44,12 @@ class Calendar extends Component {
     const healthPlansPath = `/Users/${user.uid}/HealthPlans`;
     const eventPath = `/Users/${user.uid}/Events`;
 
-    firestore.collection(healthPlansPath).onSnapshot(
-      healthPlans => firestore.collection(eventPath).onSnapshot(data => {
+    firestore.collection(healthPlansPath).onSnapshot(healthPlans =>
+      firestore.collection(eventPath).onSnapshot(data => {
         const healthPlansHash = {};
-        healthPlans.forEach(doc => healthPlansHash[doc.id] = {id: doc.id, ...doc.data()});
-        const events = this.getEvents(data, healthPlansHash)
-        this.setState({events, healthPlans});
+        healthPlans.forEach(doc => (healthPlansHash[doc.id] = { id: doc.id, ...doc.data() }));
+        const events = this.getEvents(data, healthPlansHash);
+        this.setState({ events, healthPlans });
       })
     );
   }
@@ -62,7 +62,17 @@ class Calendar extends Component {
       <Segment>
         <Header as="h1" className="calendar-header">
           Agenda
-          <Button primary onClick={() => this.handleEvent({ start: moment().toDate(), end: moment().add(30,'minutes').toDate() })}>
+          <Button
+            primary
+            onClick={() =>
+              this.handleEvent({
+                start: moment().toDate(),
+                end: moment()
+                  .add(30, 'minutes')
+                  .toDate(),
+              })
+            }
+          >
             Nova Consulta
           </Button>
         </Header>
@@ -85,10 +95,10 @@ class Calendar extends Component {
             month: 'Mês',
             week: 'Semana',
             day: 'Dia',
-            agenda: 'Agenda'
+            agenda: 'Agenda',
           }}
           style={{ height: '100vh' }}
-          />
+        />
         {modal}
       </Segment>
     );

@@ -9,7 +9,7 @@ class NewItem extends Component {
   handleSubmit = (fullPath, id, cnpj, name) => {
     if (!validate(cnpj)) {
       this.setState({
-        errorMessage: 'CNPJ inválido'
+        errorMessage: 'CNPJ inválido',
       });
       return;
     }
@@ -19,7 +19,7 @@ class NewItem extends Component {
     doc.get().then(snapShot => {
       if (snapShot.exists) {
         this.setState({
-          errorMessage: 'CNPJ já existente'
+          errorMessage: 'CNPJ já existente',
         });
         return;
       }
@@ -28,14 +28,14 @@ class NewItem extends Component {
         .doc(`${fullPath}/${cnpj}`)
         .set({
           cnpj: cnpj,
-          name: name
+          name: name,
         })
         .then(() => {
           onClose('Convênio criado com sucesso.');
         })
         .catch(error => {
           this.setState({
-            errorMessage: error
+            errorMessage: error,
           });
         });
     });

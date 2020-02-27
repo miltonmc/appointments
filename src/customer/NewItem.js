@@ -7,12 +7,14 @@ class NewItem extends Component {
   state = {};
   handleSubmit = (fullPath, id, customer, errorMessage) => {
     if (errorMessage) {
-      this.setState({ errorMessage});
+      this.setState({ errorMessage });
       return;
     }
 
     const { firestore, onClose } = this.props;
-    firestore.collection(`${fullPath}`).add(customer)
+    firestore
+      .collection(`${fullPath}`)
+      .add(customer)
       .then(() => onClose('Convênio criado com sucesso.'))
       .catch(error => this.setState({ errorMessage: error }));
   };
