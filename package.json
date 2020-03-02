@@ -16,7 +16,7 @@
     "@types/react-dom": "^16.9.5",
     "cnpj": "^3.0.0",
     "cpf": "^2.0.1",
-    "firebase": "^7.9.1",
+    "firebase": "^7.9.3",
     "moment": "^2.24.0",
     "react": "^16.13.0",
     "react-big-calendar": "^0.24.0",
