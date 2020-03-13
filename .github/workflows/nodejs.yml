@@ -15,7 +15,7 @@ jobs:
         with:
           node-version: '12.x'
       - name: Checkout repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
       - name: Fetch dependencies
         run: yarn
       - name: Build source code
