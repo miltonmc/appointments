@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Form } from 'semantic-ui-react';
 
 const states = [
@@ -31,20 +31,15 @@ const states = [
   { key: 'TO', value: 'TO', text: 'Tocantins' },
 ];
 
-export default class StateSelect extends Component {
-  render() {
-    const { value, onChange } = this.props;
-    return (
-      <Form.Select
-        search
-        width={4}
-        label="Estado"
-        name="state"
-        value={value}
-        options={states}
-        placeholder="Estado"
-        onChange={onChange}
-      />
-    );
-  }
-}
+export default ({ value, onChange }: { value: string; onChange: () => void }) => (
+  <Form.Select
+    search
+    width={4}
+    label="Estado"
+    name="state"
+    value={value}
+    options={states}
+    placeholder="Estado"
+    onChange={onChange}
+  />
+);

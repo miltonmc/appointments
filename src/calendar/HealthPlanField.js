@@ -1,7 +1,7 @@
+import React from 'react';
 import { FirestoreDocument } from 'react-firestore';
 import { Form } from 'semantic-ui-react';
-import React from 'react';
-import FirestorePath from '../shared/FirestorePath';
+import FirestorePath from '../components/FirestorePath';
 import HealthPlanSelect from '../shared/HealthPlanSelect';
 
 const HealthPlanField = ({ healthPlans, selectedCustomer, selectedHealthPlanId = '', onChange }) => {

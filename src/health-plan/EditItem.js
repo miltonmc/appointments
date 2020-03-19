@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withFirestore } from 'react-firestore';
+import FirestorePath from '../components/FirestorePath';
 import Item from './Item.js';
-import FirestorePath from 'shared/FirestorePath';
 
 class EditItem extends Component {
   state = {};

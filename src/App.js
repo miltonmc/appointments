@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import Login from 'authentication/Login';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
-import Loading from 'shared/Loading';
-import Login from 'authentication/Login';
 import LoggedApp from 'LoggedApp';
+import React, { useEffect, useState } from 'react';
+import Loading from './components/Loading';
 
 export default function App() {
   const [state, setState] = useState({ loading: true });

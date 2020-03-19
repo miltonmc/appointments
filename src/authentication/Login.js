@@ -1,10 +1,10 @@
-import React from 'react';
-import logo from 'logo.svg';
-import Center from 'shared/Center';
+import Center from 'components/Center';
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import appConfig from '../appConfig';
+import logo from 'logo.svg';
+import React from 'react';
 import { Button, Icon } from 'semantic-ui-react';
+import appConfig from '../appConfig';
 import LoginWithEmail from './LoginWithEmail';
 
 const handleGoogleLogin = () => {

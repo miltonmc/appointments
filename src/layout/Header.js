@@ -1,10 +1,10 @@
-import React from 'react';
-import LogoutButton from 'authentication/LogoutButton';
-import { Menu } from 'semantic-ui-react';
-import { NavLink } from 'react-router-dom';
 import appConfig from 'appConfig';
+import LogoutButton from 'authentication/LogoutButton';
 import logo from 'logo.svg';
-import { CALENDAR, CUSTOMER, EVENT, HEALTH_PLAN } from '../shared/Routes';
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import { Menu } from 'semantic-ui-react';
+import { CALENDAR, CUSTOMER, EVENT, HEALTH_PLAN } from '../constants/Routes';
 
 export default ({ match }) => (
   <header>

@@ -1,7 +1,7 @@
+import React, { Component } from 'react';
 import { FirestoreCollection, withFirestore } from 'react-firestore';
 import { Form } from 'semantic-ui-react';
-import React, { Component } from 'react';
-import FirestorePath from './FirestorePath';
+import FirestorePath from '../components/FirestorePath';
 
 const select = ({ isLoading, value, options, onChange, width }) => (
   <Form.Select
