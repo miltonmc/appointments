@@ -1,8 +1,8 @@
+import { validate } from 'cnpj';
 import React, { Component } from 'react';
 import { withFirestore } from 'react-firestore';
+import FirestorePath from '../components/FirestorePath';
 import Item from './Item.js';
-import { validate } from 'cnpj';
-import FirestorePath from 'shared/FirestorePath';
 
 class NewItem extends Component {
   state = {};

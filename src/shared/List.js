@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Button, Header, Segment, Table } from 'semantic-ui-react';
 import { FirestoreCollection } from 'react-firestore';
-import { LoadingRow, EmptyRow, ActionsCell } from './TableHelper';
-import FirestorePath from './FirestorePath';
-import ConfirmRemove from './ConfirmRemove';
+import { Button, Header, Segment, Table } from 'semantic-ui-react';
+import ConfirmRemove from '../components/ConfirmRemove';
+import FirestorePath from '../components/FirestorePath';
+import { ActionsCell, EmptyRow, LoadingRow } from '../components/TableHelper';
 
 export default class List extends Component {
   state = { isAdding: false, isRemoving: false, isEditing: false };
