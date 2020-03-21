@@ -3,7 +3,6 @@ import CustomerField from './CustomerField';
 import moment from 'moment';
 import React, { Component } from 'react';
 import HealthPlanField from './HealthPlanField';
-import './Item.css';
 
 export default class Item extends Component {
   state = {

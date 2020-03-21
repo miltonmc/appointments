@@ -1,6 +1,5 @@
 import React from 'react';
 import logo from 'logo.svg';
-import './Login.css';
 import Center from 'shared/Center';
 import firebase from 'firebase/app';
 import 'firebase/auth';

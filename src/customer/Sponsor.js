@@ -4,7 +4,6 @@ import { withFirestore } from 'react-firestore';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import CPF from 'cpf';
-import '../shared/Center.css';
 
 class Sponsor extends Component {
   constructor(props) {
