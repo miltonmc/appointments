@@ -4,7 +4,6 @@ import { FirestoreCollection } from 'react-firestore';
 import { LoadingRow, EmptyRow, ActionsCell } from './TableHelper';
 import FirestorePath from './FirestorePath';
 import ConfirmRemove from './ConfirmRemove';
-import './List.css';
 
 export default class List extends Component {
   state = { isAdding: false, isRemoving: false, isEditing: false };

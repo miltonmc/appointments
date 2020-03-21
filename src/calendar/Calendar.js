@@ -8,7 +8,6 @@ import moment from 'moment';
 import NewItem from './NewItem';
 import 'moment/locale/pt-br';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import './Calendar.css';
 
 moment.locale('pt-BR');
 

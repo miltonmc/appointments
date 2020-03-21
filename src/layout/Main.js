@@ -3,7 +3,6 @@ import { Route } from 'react-router-dom';
 import HealthPlan from 'health-plan/List';
 import Calendar from 'calendar/Calendar';
 import { CALENDAR, CUSTOMER, EVENT, HEALTH_PLAN } from '../shared/Routes';
-import './Main.css';
 import Customer from '../customer/List';
 import Event from '../event/List';
 

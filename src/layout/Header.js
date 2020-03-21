@@ -4,7 +4,6 @@ import { Menu } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
 import appConfig from 'appConfig';
 import logo from 'logo.svg';
-import './Header.css';
 import { CALENDAR, CUSTOMER, EVENT, HEALTH_PLAN } from '../shared/Routes';
 
 export default ({ match }) => (
