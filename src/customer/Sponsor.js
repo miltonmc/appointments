@@ -47,7 +47,7 @@ class Sponsor extends Component {
     firestore
       .collection(path)
       .where('cpf', '==', cpf)
-      .onSnapshot(snapshot => {
+      .onSnapshot((snapshot) => {
         const name = (snapshot && snapshot.docs && snapshot.docs[0] && snapshot.docs[0].data().name) || '';
         this.setState({
           name,

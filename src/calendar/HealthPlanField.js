@@ -16,7 +16,7 @@ const HealthPlanField = ({ healthPlans, selectedCustomer, selectedHealthPlanId =
   return (
     <FirestorePath
       path={`Customers/${selectedCustomer.id}`}
-      render={fullCustomerPath => (
+      render={(fullCustomerPath) => (
         <FirestoreDocument
           path={fullCustomerPath}
           render={({ isLoading, data: customer }) => {
@@ -25,7 +25,7 @@ const HealthPlanField = ({ healthPlans, selectedCustomer, selectedHealthPlanId =
             }
             //if customer has a healthPlan, we add it as an option to the dropdown
             const options = [];
-            const healthPlan = healthPlans.docs.find(plan => plan.id === customer.healthPlanId);
+            const healthPlan = healthPlans.docs.find((plan) => plan.id === customer.healthPlanId);
             healthPlan &&
               options.push({
                 key: healthPlan.id,

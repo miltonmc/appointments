@@ -19,13 +19,13 @@ class NewItem extends Component {
         .doc(`${fullPath}/${id}`)
         .set(event)
         .then(() => onClose('Evento alterado com sucesso.'))
-        .catch(errorMessage => this.setState({ errorMessage }));
+        .catch((errorMessage) => this.setState({ errorMessage }));
     } else {
       firestore
         .collection(`${fullPath}`)
         .add(event)
         .then(() => onClose('Evento criado com sucesso.'))
-        .catch(errorMessage => this.setState({ errorMessage }));
+        .catch((errorMessage) => this.setState({ errorMessage }));
     }
   };
 
@@ -34,12 +34,12 @@ class NewItem extends Component {
     return (
       <FirestorePath
         path="Events"
-        render={fullPath => (
+        render={(fullPath) => (
           <Item
             title="Novo Evento"
             isNew
             errorMessage={errorMessage}
-            onSubmit={event => this.handleSubmit(fullPath, event)}
+            onSubmit={(event) => this.handleSubmit(fullPath, event)}
             {...this.props}
           />
         )}

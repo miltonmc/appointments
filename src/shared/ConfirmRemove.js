@@ -9,7 +9,7 @@ const handleConfirm = (firestore, path, onClose) => {
     .then(() => {
       onClose('Item removido com sucesso');
     })
-    .catch(error => {
+    .catch((error) => {
       onClose(`Falha ao remover item: ${error}`);
     });
 };

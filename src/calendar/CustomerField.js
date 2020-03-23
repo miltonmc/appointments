@@ -6,11 +6,11 @@ import FirestorePath from 'shared/FirestorePath';
 export default ({ selectedCustomer = '', onChange }) => (
   <FirestorePath
     path="Customers"
-    render={fullPath => (
+    render={(fullPath) => (
       <FirestoreCollection
         path={fullPath}
         render={({ isLoading, data }) => {
-          const customers = data.map(item => ({
+          const customers = data.map((item) => ({
             key: item.id,
             value: item,
             text: item.name,
