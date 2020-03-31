@@ -12,7 +12,7 @@ export default () => {
   const initials = (user.displayName
     ? user.displayName
         .split(' ')
-        .map(name => name.substring(0, 1))
+        .map((name) => name.substring(0, 1))
         .join('')
     : user.email.substring(0, 1)
   ).toUpperCase();

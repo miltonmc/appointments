@@ -12,7 +12,7 @@ class EditItem extends Component {
       .doc(`${fullPath}/${id}`)
       .update({ name })
       .then(() => onClose('Convênio atualizado com sucesso.'))
-      .catch(error => {
+      .catch((error) => {
         this.setState({
           errorMessage: error,
         });
@@ -25,7 +25,7 @@ class EditItem extends Component {
     return (
       <FirestorePath
         path="HealthPlans"
-        render={fullPath => (
+        render={(fullPath) => (
           <Item
             title="Convênio"
             {...item}

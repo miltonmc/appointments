@@ -16,7 +16,7 @@ class NewItem extends Component {
       .collection(`${fullPath}`)
       .add(customer)
       .then(() => onClose('Convênio criado com sucesso.'))
-      .catch(error => this.setState({ errorMessage: error }));
+      .catch((error) => this.setState({ errorMessage: error }));
   };
 
   render() {
@@ -25,7 +25,7 @@ class NewItem extends Component {
     return (
       <FirestorePath
         path="Customers"
-        render={fullPath => (
+        render={(fullPath) => (
           <Item
             title="Novo Paciente"
             healthPlans={healthPlans}

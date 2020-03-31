@@ -16,13 +16,13 @@ const localizer = momentLocalizer(moment);
 class Calendar extends Component {
   state = { events: [] };
 
-  handleEvent = event => this.setState({ event });
+  handleEvent = (event) => this.setState({ event });
 
   onCloseEvent = () => this.setState({ event: null });
 
   getEvents(data, healthPlansHash) {
     const getPlanName = (healthPlans, id) => (id && healthPlans[id] && healthPlans[id].name) || 'Particular';
-    return data.docs.map(doc => {
+    return data.docs.map((doc) => {
       const event = doc.data();
       const title = `[${getPlanName(healthPlansHash, event.healthPlanId)}] ${event.customer.name}`;
       return {
@@ -43,10 +43,10 @@ class Calendar extends Component {
     const healthPlansPath = `/Users/${user.uid}/HealthPlans`;
     const eventPath = `/Users/${user.uid}/Events`;
 
-    firestore.collection(healthPlansPath).onSnapshot(healthPlans =>
-      firestore.collection(eventPath).onSnapshot(data => {
+    firestore.collection(healthPlansPath).onSnapshot((healthPlans) =>
+      firestore.collection(eventPath).onSnapshot((data) => {
         const healthPlansHash = {};
-        healthPlans.forEach(doc => (healthPlansHash[doc.id] = { id: doc.id, ...doc.data() }));
+        healthPlans.forEach((doc) => (healthPlansHash[doc.id] = { id: doc.id, ...doc.data() }));
         const events = this.getEvents(data, healthPlansHash);
         this.setState({ events, healthPlans });
       })
@@ -66,9 +66,7 @@ class Calendar extends Component {
             onClick={() =>
               this.handleEvent({
                 start: moment().toDate(),
-                end: moment()
-                  .add(30, 'minutes')
-                  .toDate(),
+                end: moment().add(30, 'minutes').toDate(),
               })
             }
           >
