@@ -21,11 +21,11 @@ const select = ({ isLoading, value, options, onChange, width }) => (
 const firestoreSelect = ({ value, onChange, width }) => (
   <FirestorePath
     path="HealthPlans"
-    render={fullPath => (
+    render={(fullPath) => (
       <FirestoreCollection
         path={fullPath}
         render={({ isLoading, data }) => {
-          const options = data.map(item => ({
+          const options = data.map((item) => ({
             key: item.id,
             value: item.id,
             text: item.name,

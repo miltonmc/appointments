@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Button, Table, Loader } from 'semantic-ui-react';
 
-const EmptyRow = props => {
+const EmptyRow = (props) => {
   return (
     <Table.Row>
       <Table.Cell colSpan="1000">{props.children}</Table.Cell>
@@ -20,7 +20,7 @@ const LoadingRow = () => {
   );
 };
 
-const ActionsCell = props => (
+const ActionsCell = (props) => (
   <Table.Cell collapsing>
     <Button.Group>
       {props.notEditable ? null : (
@@ -30,7 +30,7 @@ const ActionsCell = props => (
           size="mini"
           basic
           title="Editar"
-          onClick={event => {
+          onClick={(event) => {
             event.preventDefault();
             props.onEdit();
           }}
@@ -42,7 +42,7 @@ const ActionsCell = props => (
         size="mini"
         basic
         title="Remover"
-        onClick={event => {
+        onClick={(event) => {
           event.preventDefault();
           props.onRemove();
         }}

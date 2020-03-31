@@ -8,18 +8,18 @@ import NewItem from './NewItem';
 import List from '../shared/List';
 import { generateHash } from '../utils/health-plan-utils';
 
-const cells = healthPlanHash => [
-  { format: item => (item.cpf ? CPF.format(item.cpf) : null), width: 3 },
-  { format: item => item.name },
+const cells = (healthPlanHash) => [
+  { format: (item) => (item.cpf ? CPF.format(item.cpf) : null), width: 3 },
+  { format: (item) => item.name },
   {
-    format: item => (healthPlanHash && item.healthPlanId ? healthPlanHash[item.healthPlanId] : 'Particular'),
+    format: (item) => (healthPlanHash && item.healthPlanId ? healthPlanHash[item.healthPlanId] : 'Particular'),
   },
 ];
 
 const columns = ['CPF', 'Nome', 'Convênio'];
 
-const newItem = healthPlans => props => <NewItem healthPlans={healthPlans} {...props} />;
-const editItem = healthPlans => props => <EditItem healthPlans={healthPlans} {...props} />;
+const newItem = (healthPlans) => (props) => <NewItem healthPlans={healthPlans} {...props} />;
+const editItem = (healthPlans) => (props) => <EditItem healthPlans={healthPlans} {...props} />;
 
 class CustomerList extends Component {
   state = {};
@@ -29,7 +29,7 @@ class CustomerList extends Component {
     const user = firebase.auth().currentUser;
     const path = `/Users/${user.uid}/HealthPlans`;
 
-    firestore.collection(path).onSnapshot(snapshot => {
+    firestore.collection(path).onSnapshot((snapshot) => {
       const healthPlanHash = generateHash(snapshot);
       this.setState({ healthPlanHash, healthPlans: snapshot });
     });

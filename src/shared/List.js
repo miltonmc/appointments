@@ -25,7 +25,7 @@ export default class List extends Component {
     });
   };
 
-  handleRemoveCofirmClose = message => {
+  handleRemoveCofirmClose = (message) => {
     this.setState({
       isRemoving: false,
       itemPath: '',
@@ -39,7 +39,7 @@ export default class List extends Component {
 
     let modal;
     if (isAdding) {
-      modal = newItem && newItem({ onClose: message => this.handleNewItem(false, message) });
+      modal = newItem && newItem({ onClose: (message) => this.handleNewItem(false, message) });
     } else if (isEditing) {
       modal = editItem && editItem({ item, onClose: () => this.handleEditItem(false, null) });
     } else if (isRemoving) {
@@ -91,7 +91,7 @@ const TableBody = ({ emptyMessage, path, cells, onRemove, onEdit, sort, composed
   <Table.Body>
     <FirestorePath
       path={path}
-      render={fullPath => (
+      render={(fullPath) => (
         <FirestoreCollection
           sort={sort}
           path={fullPath}
@@ -101,7 +101,7 @@ const TableBody = ({ emptyMessage, path, cells, onRemove, onEdit, sort, composed
             ) : data.length === 0 ? (
               <EmptyRow>{emptyMessage || 'Nenhum item encontrado'}</EmptyRow>
             ) : (
-              data.map(item => (
+              data.map((item) => (
                 <Table.Row key={item.id}>
                   {cells.map((cell, idx) => (
                     <Table.Cell key={idx} {...cell}>

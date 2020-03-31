@@ -10,19 +10,19 @@ import { generateHash } from '../utils/health-plan-utils';
 const healthPlanName = (item, healthPlanHash) =>
   healthPlanHash && item.healthPlanId ? healthPlanHash[item.healthPlanId] : 'Particular';
 
-const cells = healthPlanHash => [
-  { format: item => moment(item.start.toDate()).format('DD/MM/YYYY HH:mm') },
-  { format: item => item.customer.name },
-  { format: item => healthPlanName(item, healthPlanHash) },
+const cells = (healthPlanHash) => [
+  { format: (item) => moment(item.start.toDate()).format('DD/MM/YYYY HH:mm') },
+  { format: (item) => item.customer.name },
+  { format: (item) => healthPlanName(item, healthPlanHash) },
   {
-    format: item => `[${healthPlanName(item, healthPlanHash)}] ${item.customer.name}`,
+    format: (item) => `[${healthPlanName(item, healthPlanHash)}] ${item.customer.name}`,
   },
 ];
 
 const columns = ['Horário', 'Paciente', 'Convênio'];
 
-const newItem = healthPlans => props => <NewItem healthPlans={healthPlans} {...props} />;
-const editItem = healthPlans => props => {
+const newItem = (healthPlans) => (props) => <NewItem healthPlans={healthPlans} {...props} />;
+const editItem = (healthPlans) => (props) => {
   const { item, ...rest } = props;
   const title = item.customer.name + ' - ' + item.healthPlan;
   const newProps = { title, ...item, ...rest };
@@ -37,7 +37,7 @@ class EventList extends Component {
     const user = firebase.auth().currentUser;
     const path = `/Users/${user.uid}/HealthPlans`;
 
-    firestore.collection(path).onSnapshot(snapshot => {
+    firestore.collection(path).onSnapshot((snapshot) => {
       const healthPlanHash = generateHash(snapshot);
       this.setState({ healthPlanHash, healthPlans: snapshot });
     });

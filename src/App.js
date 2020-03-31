@@ -27,7 +27,7 @@ export default function App() {
 
     async function handleAuthStateChanged(user) {
       const newState = { loading: false, loggedUser: user, error: null };
-      if (user?.providerData?.some(provider => provider?.providerId === 'google.com')) {
+      if (user?.providerData?.some((provider) => provider?.providerId === 'google.com')) {
         newState.error = await validateGoogleUser(user);
         if (newState.error) {
           newState.loggedUser = null;

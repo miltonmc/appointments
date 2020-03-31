@@ -16,7 +16,7 @@ class NewItem extends Component {
 
     const { firestore, onClose } = this.props;
     const doc = firestore.doc(`${fullPath}/${cnpj}`);
-    doc.get().then(snapShot => {
+    doc.get().then((snapShot) => {
       if (snapShot.exists) {
         this.setState({
           errorMessage: 'CNPJ já existente',
@@ -33,7 +33,7 @@ class NewItem extends Component {
         .then(() => {
           onClose('Convênio criado com sucesso.');
         })
-        .catch(error => {
+        .catch((error) => {
           this.setState({
             errorMessage: error,
           });
@@ -47,7 +47,7 @@ class NewItem extends Component {
     return (
       <FirestorePath
         path="HealthPlans"
-        render={fullPath => (
+        render={(fullPath) => (
           <Item
             title="Novo Convênio"
             isNew
