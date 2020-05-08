@@ -16,7 +16,7 @@
     "@types/react-dom": "^16.9.7",
     "cnpj": "^3.0.0",
     "cpf": "^2.0.1",
-    "firebase": "^7.14.2",
+    "firebase": "^7.14.3",
     "husky": "^4.2.5",
     "lint-staged": "^10.2.2",
     "moment": "^2.25.3",
