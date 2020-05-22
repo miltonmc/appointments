@@ -30,7 +30,7 @@
     "react-scripts": "3.4.1",
     "semantic-ui-css": "2.4.1",
     "semantic-ui-react": "^0.88.2",
-    "typescript": "^3.9.2"
+    "typescript": "^3.9.3"
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
