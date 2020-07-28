@@ -1,9 +1,8 @@
-name: Deploy application
+name: CD
 
 on:
   push:
-    branches:
-      - master
+    branches: [main]
 
 jobs:
   deploy:
@@ -13,7 +12,7 @@ jobs:
       - name: Set up node
         uses: actions/setup-node@v1
         with:
-          node-version: '12.x'
+          node-version: '14.x'
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Fetch dependencies
@@ -21,7 +20,7 @@ jobs:
       - name: Build source code
         run: yarn build
       - name: Deploy to Firebase
-        uses: w9jds/firebase-action@v1.1.0
+        uses: w9jds/firebase-action@v1.5.0
         with:
           args: deploy --non-interactive
         env:
