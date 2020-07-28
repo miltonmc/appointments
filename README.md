@@ -2,7 +2,7 @@
 
 [![Sonarcloud Status](https://sonarcloud.io/api/project_badges/measure?project=appointments&metric=alert_status)](https://sonarcloud.io/dashboard?id=appointments)
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=miltonmc/appointments)](https://dependabot.com)
-[![Node.js CI](https://github.com/miltonmc/appointments/workflows/Node.js%20CI/badge.svg)](https://github.com/miltonmc/appointments/actions?query=workflow%3A%22Node.js+CI%22)
+[![CD](https://github.com/miltonmc/appointments/workflows/CD/badge.svg)](https://github.com/miltonmc/appointments/actions?query=workflow%3ACD)
 
 ## Requirements
 
