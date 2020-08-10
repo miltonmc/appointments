@@ -12,7 +12,7 @@
     "@testing-library/user-event": "^12.1.0",
     "@types/jest": "^26.0.9",
     "@types/node": "^14.0.27",
-    "@types/react": "^16.9.44",
+    "@types/react": "^16.9.46",
     "@types/react-dom": "^16.9.8",
     "cnpj": "^3.1.0",
     "cpf": "^2.0.1",
