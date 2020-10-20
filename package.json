@@ -18,7 +18,7 @@
     "cpf": "^2.0.1",
     "firebase": "^7.24.0",
     "husky": "^4.3.0",
-    "lint-staged": "^10.4.0",
+    "lint-staged": "^10.4.2",
     "moment": "^2.29.1",
     "node-sass": "^4.14.1",
     "prettier": "2.1.2",
