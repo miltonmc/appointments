@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import { withFirestore } from 'react-firestore';
+import CPF from 'cpf';
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import CPF from 'cpf';
+import React, { Component } from 'react';
+import { withFirestore } from 'react-firestore';
+import List from '../components/List';
+import { generateHash } from '../utils/health-plan-utils';
 import EditItem from './EditItem';
 import NewItem from './NewItem';
-import List from '../shared/List';
-import { generateHash } from '../utils/health-plan-utils';
 
 const cells = (healthPlanHash) => [
   { format: (item) => (item.cpf ? CPF.format(item.cpf) : null), width: 3 },

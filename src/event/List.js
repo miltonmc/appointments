@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import { withFirestore } from 'react-firestore';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import moment from 'moment';
+import React, { Component } from 'react';
+import { withFirestore } from 'react-firestore';
 import NewItem from '../calendar/NewItem';
-import List from '../shared/List';
+import List from '../components/List';
 import { generateHash } from '../utils/health-plan-utils';
 
 const healthPlanName = (item, healthPlanHash) =>
