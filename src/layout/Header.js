@@ -1,12 +1,12 @@
 import appConfig from 'appConfig';
-import LogoutButton from 'authentication/LogoutButton';
 import logo from 'logo.svg';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
+import LogoutButton from '../components/LogoutButton';
 import { CALENDAR, CUSTOMER, EVENT, HEALTH_PLAN } from '../constants/Routes';
 
-export default ({ match }) => (
+export default () => (
   <header>
     <Menu borderless stackable size="small">
       <Menu.Item header>
