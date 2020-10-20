@@ -1,7 +1,7 @@
-import React from 'react';
-import Header from 'layout/Header';
 import Main from 'layout/Main';
+import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
+import Header from './components/Header';
 
 export default () => (
   <Router>
