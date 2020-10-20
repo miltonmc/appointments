@@ -17,8 +17,6 @@
     "cnpj": "^3.1.0",
     "cpf": "^2.0.1",
     "firebase": "^7.24.0",
-    "husky": "^4.3.0",
-    "lint-staged": "^10.4.2",
     "moment": "^2.29.1",
     "node-sass": "^4.14.1",
     "prettier": "2.1.2",
@@ -32,25 +30,15 @@
     "semantic-ui-react": "^2.0.0",
     "typescript": "^4.0.3"
   },
-  "lint-staged": {
-    "**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
-      "prettier --write"
-    ]
-  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "prettier": "prettier --check **/*.{js,jsx,ts,tsx,json,css,scss,md}",
+    "prettier": "prettier --check **/*.{js,ts,tsx,json,scss,md}",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   },
   "browserslist": {
     "production": [
