@@ -3,8 +3,8 @@ import logo from 'logo.svg';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
-import LogoutButton from '../components/LogoutButton';
 import { CALENDAR, CUSTOMER, EVENT, HEALTH_PLAN } from '../constants/Routes';
+import LogoutButton from './LogoutButton';
 
 export default () => (
   <header>
