@@ -107,9 +107,9 @@ const TableBody: FunctionComponent<TableBodyProps> = ({
             ) : (
               data.map((item) => (
                 <Table.Row key={item.id}>
-                  {cells.map((cell, idx) => (
+                  {cells.map(({ format, ...cell }, idx) => (
                     <Table.Cell key={idx} {...cell}>
-                      {cell.format?.(item) ?? item[cell.path]}
+                      {format?.(item) ?? item[cell.path]}
                     </Table.Cell>
                   ))}
                   <ActionsCell
