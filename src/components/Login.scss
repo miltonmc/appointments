@@ -1,0 +1,14 @@
+.login {
+  padding: 2rem;
+  text-align: center;
+
+  &__error {
+    color: #d14836;
+    margin-top: 24px;
+  }
+
+  &__title {
+    margin: 24px 0 32px;
+    text-transform: uppercase;
+  }
+}
