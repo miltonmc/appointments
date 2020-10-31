@@ -1,9 +1,9 @@
-import Main from 'layout/Main';
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Header from './components/Header';
+import Main from './layout/Main';
 
-export default () => (
+const LoggedApp = () => (
   <Router>
     <div>
       <Header />
@@ -11,3 +11,5 @@ export default () => (
     </div>
   </Router>
 );
+
+export default LoggedApp;

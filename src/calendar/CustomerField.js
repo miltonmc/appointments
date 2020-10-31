@@ -1,9 +1,9 @@
-import FirestorePath from 'components/FirestorePath';
 import React from 'react';
 import { FirestoreCollection } from 'react-firestore';
 import { Form } from 'semantic-ui-react';
+import FirestorePath from '../components/FirestorePath';
 
-export default ({ selectedCustomer = '', onChange }) => (
+const CustomerField = ({ selectedCustomer = '', onChange }) => (
   <FirestorePath
     path="Customers"
     render={(fullPath) => (
@@ -34,3 +34,5 @@ export default ({ selectedCustomer = '', onChange }) => (
     )}
   />
 );
+
+export default CustomerField;
