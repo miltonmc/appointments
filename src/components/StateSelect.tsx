@@ -31,7 +31,7 @@ const states = [
   { key: 'TO', value: 'TO', text: 'Tocantins' },
 ];
 
-export default ({ value, onChange }: { value: string; onChange: () => void }) => (
+const StateSelect = ({ value, onChange }: { value: string; onChange: () => void }) => (
   <Form.Select
     search
     width={4}
@@ -43,3 +43,5 @@ export default ({ value, onChange }: { value: string; onChange: () => void }) =>
     onChange={onChange}
   />
 );
+
+export default StateSelect;

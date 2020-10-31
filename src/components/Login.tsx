@@ -1,11 +1,11 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import logo from 'logo.svg';
 import React, { FunctionComponent } from 'react';
 import { Button, Icon } from 'semantic-ui-react';
 import appConfig from '../appConfig';
-import Center from './Center';
 import LoginWithEmail from '../authentication/LoginWithEmail';
+import logo from '../logo.svg';
+import Center from './Center';
 
 const handleGoogleLogin = () => {
   const provider = new firebase.auth.GoogleAuthProvider();
