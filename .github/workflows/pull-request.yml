@@ -32,9 +32,8 @@ jobs:
           python-version: '3.7'
       - name: Install Required Python Modules
         run: |
-          echo "gitlint==0.13.1\npre-commit==2.1.1" >> .requirements
           python -m pip install --upgrade pip
           pip install -r .requirements
       - name: Commit Lint
         run: |
-          gitlint --commits origin/main..
+          gitlint --commits 'main..HEAD'
