@@ -1,18 +1,18 @@
-import Center from 'components/Center';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import logo from 'logo.svg';
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { Button, Icon } from 'semantic-ui-react';
 import appConfig from '../appConfig';
-import LoginWithEmail from './LoginWithEmail';
+import Center from './Center';
+import LoginWithEmail from '../authentication/LoginWithEmail';
 
 const handleGoogleLogin = () => {
   const provider = new firebase.auth.GoogleAuthProvider();
   firebase.auth().signInWithRedirect(provider);
 };
 
-const Login = ({ error }) => (
+const Login: FunctionComponent<LoginProps> = ({ error }) => (
   <Center>
     <div className="login">
       <img alt={appConfig.fullName} src={logo} />
@@ -30,3 +30,7 @@ const Login = ({ error }) => (
 );
 
 export default Login;
+
+interface LoginProps {
+  error: string;
+}
