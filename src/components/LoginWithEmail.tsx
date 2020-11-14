@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import React, { FunctionComponent, useState } from 'react';
 import { Button, Form, Icon, Message, Modal } from 'semantic-ui-react';
 
-export default function LoginWithEmail() {
+const LoginWithEmail: FunctionComponent = () => {
   const [isVisible, setVisibility] = useState(false);
-  const [error, setError] = useState();
-  let email;
-  let password;
+  const [error, setError] = useState<string>();
+  let email: string;
+  let password: string;
 
   function close() {
     setVisibility(false);
   }
 
-  function handleLogin() {
+  function handleLogin(): void {
     if (!email || !password) {
       setError('E-mail e Senha obrigatórios');
       return;
@@ -48,4 +48,6 @@ export default function LoginWithEmail() {
       </Modal>
     </div>
   );
-}
+};
+
+export default LoginWithEmail;
