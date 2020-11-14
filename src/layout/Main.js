@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import Calendar from '../calendar/Calendar';
+import Calendar from '../components/Calendar';
 import { CALENDAR, CUSTOMER, EVENT, HEALTH_PLAN } from '../constants/Routes';
 import Customer from '../customer/List';
 import Event from '../event/List';
