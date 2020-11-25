@@ -4,6 +4,8 @@
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=miltonmc/appointments)](https://dependabot.com)
 [![CD](https://github.com/miltonmc/appointments/workflows/CD/badge.svg)](https://github.com/miltonmc/appointments/actions?query=workflow%3ACD)
 
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
 ## Requirements
 
 - [Git](https://git-scm.com/downloads)
