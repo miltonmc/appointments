@@ -9685,10 +9685,10 @@ react-app-polyfill@^2.0.0:
     regenerator-runtime "^0.13.7"
     whatwg-fetch "^3.4.1"
 
-react-big-calendar@^0.30.0:
-  version "0.30.0"
-  resolved "https://registry.yarnpkg.com/react-big-calendar/-/react-big-calendar-0.30.0.tgz#58235e078978c9440f3de877035eea0510892d7f"
-  integrity sha512-YHrdEXa/Kas4gRvyo4q6Vadp8405nksGC3EcHdzLjNqzCSdpLZ1Gv5VgvTXWOfOwCmUtDZJf1rYiqpeF/jVVBA==
+react-big-calendar@^0.31.0:
+  version "0.31.0"
+  resolved "https://registry.yarnpkg.com/react-big-calendar/-/react-big-calendar-0.31.0.tgz#a2ba20df61d68a36ab544869015c3beb94269de4"
+  integrity sha512-GIWGQtT9sSP6IIn4CPn6ZWpaN7QtYZsBQlvnhkCTTu7OQ4nCAuj6UeNf6qZzLopjvLRXw3hhYQY8QOCzBRFscw==
   dependencies:
     "@babel/runtime" "^7.1.5"
     clsx "^1.0.4"
