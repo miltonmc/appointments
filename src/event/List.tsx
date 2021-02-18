@@ -7,22 +7,22 @@ import NewItem from '../calendar/NewItem';
 import List from '../components/List';
 import { generateHash } from '../utils/health-plan-utils';
 
-const healthPlanName = (item, healthPlanHash) =>
+const healthPlanName = (item: DataItem, healthPlanHash: HealthPlanHash) =>
   healthPlanHash && item.healthPlanId ? healthPlanHash[item.healthPlanId] : 'Particular';
 
-const cells = (healthPlanHash) => [
-  { format: (item) => moment(item.start.toDate()).format('DD/MM/YYYY HH:mm') },
-  { format: (item) => item.customer.name },
-  { format: (item) => healthPlanName(item, healthPlanHash) },
+const cells = (healthPlanHash: HealthPlanHash) => [
+  { format: (item: DataItem) => moment(item.start.toDate()).format('DD/MM/YYYY HH:mm') },
+  { format: (item: DataItem) => item.customer.name },
+  { format: (item: DataItem) => healthPlanName(item, healthPlanHash) },
   {
-    format: (item) => `[${healthPlanName(item, healthPlanHash)}] ${item.customer.name}`,
+    format: (item: DataItem) => `[${healthPlanName(item, healthPlanHash)}] ${item.customer.name}`,
   },
 ];
 
 const columns = ['Horário', 'Paciente', 'Convênio'];
 
-const newItem = (healthPlans) => (props) => <NewItem healthPlans={healthPlans} {...props} />;
-const editItem = (healthPlans) => (props) => {
+const newItem = (healthPlans: HealthPlan) => (props) => <NewItem healthPlans={healthPlans} {...props} />;
+const editItem = (healthPlans: HealthPlan) => (props) => {
   const { item, ...rest } = props;
   const title = item.customer.name + ' - ' + item.healthPlan;
   const newProps = { title, ...item, ...rest };
