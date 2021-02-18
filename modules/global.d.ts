@@ -17,4 +17,9 @@ interface HealthPlanHash {
   [key: string]: string;
 }
 
+/**
+ * Firebase alias
+ */
+
+type Firestore = firebase.default.firestore.Firestore;
 type Snapshot = firebase.default.firestore.QuerySnapshot<firebase.default.firestore.DocumentData>;

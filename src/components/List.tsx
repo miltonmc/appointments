@@ -119,7 +119,7 @@ const TableBody: React.FC<TableBodyProps> = ({ emptyMessage, path, cells, onRemo
               <Table.Row key={item.id}>
                 {cells.map(({ format, ...cell }, idx) => (
                   <Table.Cell key={idx} {...cell}>
-                    {format?.(item) ?? item[cell.path]}
+                    {format?.(item) ?? item[(cell as Cell).path]}
                   </Table.Cell>
                 ))}
                 <ActionsCell
@@ -140,8 +140,12 @@ interface Cell {
   path: string;
 }
 
+interface CellFormat {
+  format: (item: DataItem) => string;
+}
+
 interface ListProps extends TableHeadersProps {
-  cells: Cell[];
+  cells: Cell[] | CellFormat[];
   createButtonText: string;
   editItem: any;
   emptyMessage?: string;
@@ -152,7 +156,7 @@ interface ListProps extends TableHeadersProps {
 }
 
 interface TableBodyProps extends SemanticTableBodyProps {
-  cells: Cell[];
+  cells: Cell[] | CellFormat[];
   emptyMessage?: string;
   path: string;
   sort: string;
