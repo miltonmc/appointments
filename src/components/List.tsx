@@ -1,78 +1,95 @@
-import React, { Component, FunctionComponent } from 'react';
+import React, { useState } from 'react';
 import { FirestoreCollection } from 'react-firestore';
 import { Button, Header, Segment, Table, TableBodyProps as SemanticTableBodyProps } from 'semantic-ui-react';
 import ConfirmRemove from './ConfirmRemove';
 import FirestorePath from './FirestorePath';
 import { ActionsCell, EmptyRow, LoadingRow } from './TableHelper';
 
-export default class List extends Component<ListProps> {
-  state: ListState = { isAdding: false, isRemoving: false, isEditing: false };
-  handleNewItem = (visibility: boolean, message?: string) => {
-    this.setState({
-      isAdding: visibility,
-    });
-  };
+export default function List({
+  cells,
+  columns,
+  createButtonText,
+  editItem,
+  emptyMessage,
+  newItem,
+  sort,
+  title,
+  path,
+}: ListProps) {
+  const [isAdding, setAdding] = useState<boolean>(false);
+  const [{ isRemoving, itemPath, itemDescription }, setRemoving] = useState<{
+    isRemoving: boolean;
+    itemPath: string;
+    itemDescription?: string;
+  }>({
+    isRemoving: false,
+    itemPath: '',
+    itemDescription: '',
+  });
+  const [{ isEditing, item }, setEditing] = useState<{ isEditing: boolean; item: DataItem | null }>({
+    isEditing: false,
+    item: null,
+  });
 
-  handleEditItem = (isEditing: boolean, item: DataItem | null) => {
-    this.setState({ isEditing, item });
-  };
+  function handleNewItem(visibility: boolean, _message?: string) {
+    setAdding(visibility);
+  }
 
-  handleRemove = (itemPath: string, itemDescription?: string) => {
-    this.setState({
+  function handleEditItem(isEditing: boolean, item: DataItem | null) {
+    setEditing({ isEditing, item });
+  }
+
+  function handleRemove(itemPath: string, itemDescription?: string) {
+    setRemoving({
       isRemoving: true,
       itemPath,
       itemDescription,
     });
-  };
+  }
 
-  handleRemoveConfirmClose = (message: string) => {
-    this.setState({
+  function handleRemoveConfirmClose(message: string) {
+    setRemoving({
       isRemoving: false,
       itemPath: '',
       itemDescription: '',
     });
-  };
-
-  render() {
-    const { isEditing, isAdding, isRemoving, item, itemPath, itemDescription } = this.state;
-    const { cells, columns, createButtonText, editItem, emptyMessage, newItem, sort, title, path } = this.props;
-
-    let modal;
-    if (isAdding) {
-      modal = newItem?.({ onClose: (message: string) => this.handleNewItem(false, message) });
-    } else if (isEditing) {
-      modal = editItem?.({ item, onClose: () => this.handleEditItem(false, null) });
-    } else if (isRemoving) {
-      modal = <ConfirmRemove path={itemPath} description={itemDescription} onClose={this.handleRemoveConfirmClose} />;
-    }
-
-    return (
-      <Segment>
-        <Header as="h1" className="list-header">
-          {title || 'Items'}
-          <Button onClick={() => this.handleNewItem(true)} primary>
-            {createButtonText || 'Novo Item'}
-          </Button>
-        </Header>
-        <Table striped>
-          <TableHeaders columns={columns} />
-          <TableBody
-            cells={cells.length === columns.length ? cells : cells.slice(0, columns.length)}
-            emptyMessage={emptyMessage}
-            path={path}
-            onEdit={this.handleEditItem}
-            onRemove={this.handleRemove}
-            sort={sort}
-            nameComposer={cells[cells.length - 1].format}
-          />
-        </Table>
-        {modal}
-      </Segment>
-    );
   }
+
+  let modal;
+  if (isAdding) {
+    modal = newItem?.({ onClose: (message: string) => handleNewItem(false, message) });
+  } else if (isEditing) {
+    modal = editItem?.({ item, onClose: () => handleEditItem(false, null) });
+  } else if (isRemoving) {
+    modal = <ConfirmRemove path={itemPath} description={itemDescription} onClose={handleRemoveConfirmClose} />;
+  }
+
+  return (
+    <Segment>
+      <Header as="h1" className="list-header">
+        {title || 'Items'}
+        <Button onClick={() => handleNewItem(true)} primary>
+          {createButtonText || 'Novo Item'}
+        </Button>
+      </Header>
+      <Table striped>
+        <TableHeaders columns={columns} />
+        <TableBody
+          cells={cells.length === columns.length ? cells : cells.slice(0, columns.length)}
+          emptyMessage={emptyMessage}
+          path={path}
+          onEdit={handleEditItem}
+          onRemove={handleRemove}
+          sort={sort}
+          nameComposer={cells[cells.length - 1].format}
+        />
+      </Table>
+      {modal}
+    </Segment>
+  );
 }
 
-const TableHeaders: FunctionComponent<TableHeadersProps> = ({ columns }) => (
+const TableHeaders: React.FC<TableHeadersProps> = ({ columns }) => (
   <Table.Header>
     <Table.Row>
       {columns.map((column, idx) => (
@@ -83,15 +100,7 @@ const TableHeaders: FunctionComponent<TableHeadersProps> = ({ columns }) => (
   </Table.Header>
 );
 
-const TableBody: FunctionComponent<TableBodyProps> = ({
-  emptyMessage,
-  path,
-  cells,
-  onRemove,
-  onEdit,
-  sort,
-  nameComposer,
-}) => (
+const TableBody: React.FC<TableBodyProps> = ({ emptyMessage, path, cells, onRemove, onEdit, sort, nameComposer }) => (
   <Table.Body>
     <FirestorePath
       path={path}
@@ -140,15 +149,6 @@ interface ListProps extends TableHeadersProps {
   path: string;
   sort: string;
   title: string;
-}
-
-interface ListState {
-  isAdding: boolean;
-  isEditing: boolean;
-  isRemoving: boolean;
-  item?: string;
-  itemDescription?: string;
-  itemPath?: string;
 }
 
 interface TableBodyProps extends SemanticTableBodyProps {
