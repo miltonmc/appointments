@@ -1,7 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import moment from 'moment';
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import { withFirestore } from 'react-firestore';
 import NewItem from '../calendar/NewItem';
 import List from '../components/List';
@@ -29,36 +29,32 @@ const editItem = (healthPlans) => (props) => {
   return <NewItem healthPlans={healthPlans} {...newProps} />;
 };
 
-class EventList extends Component {
-  state = {};
+function EventList({ firestore }) {
+  const [{ healthPlanHash, healthPlans }, setState] = useState({});
 
-  componentDidMount() {
-    const { firestore } = this.props;
+  useEffect(() => {
     const user = firebase.auth().currentUser;
     const path = `/Users/${user.uid}/HealthPlans`;
 
     firestore.collection(path).onSnapshot((snapshot) => {
       const healthPlanHash = generateHash(snapshot);
-      this.setState({ healthPlanHash, healthPlans: snapshot });
+      setState({ healthPlanHash, healthPlans: snapshot });
     });
-  }
+  });
 
-  render() {
-    const { healthPlanHash, healthPlans } = this.state;
-    return (
-      <List
-        cells={cells(healthPlanHash)}
-        columns={columns}
-        createButtonText="Nova consulta"
-        editItem={editItem(healthPlans)}
-        newItem={newItem(healthPlans)}
-        title="Consultas"
-        emptyMessage="Nenhuma consulta encontrada"
-        path="Events"
-        sort="start:desc"
-      />
-    );
-  }
+  return (
+    <List
+      cells={cells(healthPlanHash)}
+      columns={columns}
+      createButtonText="Nova consulta"
+      editItem={editItem(healthPlans)}
+      newItem={newItem(healthPlans)}
+      title="Consultas"
+      emptyMessage="Nenhuma consulta encontrada"
+      path="Events"
+      sort="start:desc"
+    />
+  );
 }
 
 export default withFirestore(EventList);
