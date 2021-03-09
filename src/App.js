@@ -4,6 +4,7 @@ import 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import Loading from './components/Loading';
 import Login from './components/Login';
+import UserContext from './context/UserContext';
 import LoggedApp from './LoggedApp';
 
 export default function App() {
@@ -26,21 +27,23 @@ export default function App() {
     }
 
     async function handleAuthStateChanged(user) {
-      const newState = { loading: false, loggedUser: user, error: null };
-      if (user?.providerData?.some((provider) => provider?.providerId === 'google.com')) {
-        newState.error = await validateGoogleUser(user);
-        if (newState.error) {
-          newState.loggedUser = null;
-        }
-      }
-      setState(newState);
+      const error =
+        user?.providerData?.some((provider) => provider?.providerId === 'google.com') &&
+        (await validateGoogleUser(user));
+      setState({ loading: false, user: error ? null : user, error });
     }
 
     firebase.auth().onAuthStateChanged(handleAuthStateChanged);
   }, []);
 
-  const { error, loading, loggedUser } = state;
+  const { error, loading, user } = state;
   if (loading) return <Loading />;
-  else if (loggedUser) return <LoggedApp />;
-  else return <Login error={error} />;
+
+  return user ? (
+    <UserContext.Provider value={user}>
+      <LoggedApp />
+    </UserContext.Provider>
+  ) : (
+    <Login error={error} />
+  );
 }
