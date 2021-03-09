@@ -1,5 +1,4 @@
 import firebase from 'firebase/app';
-import 'firebase/auth';
 
 export function generateHash(snapshot: Snapshot) {
   const healthPlanHash: HealthPlanHash = {};

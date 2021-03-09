@@ -1,14 +1,15 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useContext } from 'react';
 import { Button, Image, Item, Popup } from 'semantic-ui-react';
+import UserContext from '../context/UserContext';
 
 const handleLogout = () => {
   firebase.auth().signOut();
 };
 
 const LogoutButton: FunctionComponent = () => {
-  const { displayName, email, photoURL } = firebase.auth().currentUser ?? {};
+  const { displayName, email, photoURL } = useContext(UserContext);
   const avatar = photoURL ? (
     <Image circular bordered size="mini" src={photoURL} />
   ) : (

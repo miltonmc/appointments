@@ -1,13 +1,13 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
-import { Button, Header, Segment } from 'semantic-ui-react';
-import { withFirestore } from 'react-firestore';
-import { Calendar as BigCalendar, momentLocalizer } from 'react-big-calendar';
 import firebase from 'firebase/app';
-import 'firebase/auth';
 import moment from 'moment';
-import NewItem from '../calendar/NewItem';
 import 'moment/locale/pt-br';
+import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
+import { Calendar as BigCalendar, momentLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
+import { withFirestore } from 'react-firestore';
+import { Button, Header, Segment } from 'semantic-ui-react';
+import NewItem from '../calendar/NewItem';
+import UserContext from '../context/UserContext';
 
 moment.locale('pt-BR');
 
@@ -34,16 +34,13 @@ const Calendar: FunctionComponent<CalendarProps> = ({ firestore }) => {
   const [events, setEvents] = useState<Appointment[]>([]);
   const [event, setEvent] = useState<Appointment | null>(null);
   const [healthPlans, setHealthPlans] = useState<HealthPlan[]>([]);
+  const { uid } = useContext(UserContext);
   const handleEvent = (event: Appointment) => setEvent(event);
   const onCloseEvent = () => setEvent(null);
 
   useEffect(() => {
-    const user = firebase.auth().currentUser as firebase.User;
-    if (!user) {
-      throw new Error(`[components/calendar] Current user is ${user}`);
-    }
-    const healthPlansPath = `/Users/${user.uid}/HealthPlans`;
-    const eventPath = `/Users/${user.uid}/Events`;
+    const healthPlansPath = `/Users/${uid}/HealthPlans`;
+    const eventPath = `/Users/${uid}/Events`;
 
     firestore.collection(healthPlansPath).onSnapshot((healthPlans) => {
       setHealthPlans((healthPlans as unknown) as HealthPlan[]);
@@ -54,7 +51,7 @@ const Calendar: FunctionComponent<CalendarProps> = ({ firestore }) => {
         setEvents(events);
       });
     });
-  }, [firestore]);
+  }, [firestore, uid]);
 
   const modal = event && <NewItem onClose={onCloseEvent} healthPlans={healthPlans} {...event} />;
 

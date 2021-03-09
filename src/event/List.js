@@ -1,10 +1,9 @@
-import firebase from 'firebase/app';
-import 'firebase/auth';
 import moment from 'moment';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { withFirestore } from 'react-firestore';
 import NewItem from '../calendar/NewItem';
 import List from '../components/List';
+import UserContext from '../context/UserContext';
 import { generateHash } from '../utils/health-plan-utils';
 
 const healthPlanName = (item, healthPlanHash) =>
@@ -31,16 +30,16 @@ const editItem = (healthPlans) => (props) => {
 
 function EventList({ firestore }) {
   const [{ healthPlanHash, healthPlans }, setState] = useState({});
+  const { uid } = useContext(UserContext);
 
   useEffect(() => {
-    const user = firebase.auth().currentUser;
-    const path = `/Users/${user.uid}/HealthPlans`;
+    const path = `/Users/${uid}/HealthPlans`;
 
     firestore.collection(path).onSnapshot((snapshot) => {
       const healthPlanHash = generateHash(snapshot);
       setState({ healthPlanHash, healthPlans: snapshot });
     });
-  });
+  }, [firestore, uid]);
 
   return (
     <List

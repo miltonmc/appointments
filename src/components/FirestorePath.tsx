@@ -1,6 +1,5 @@
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import { FunctionComponent, ReactElement } from 'react';
+import { FunctionComponent, ReactElement, useContext } from 'react';
+import UserContext from '../context/UserContext';
 
 type Props = {
   path: string;
@@ -8,9 +7,9 @@ type Props = {
 };
 
 const FirestorePath: FunctionComponent<Props> = ({ path, render }) => {
-  const userId = firebase.auth().currentUser?.uid;
-  console.assert(userId, '[components/FirestorePath] User not loaded');
-  const fullPath = `/Users/${userId}/${path}`;
+  const { uid } = useContext(UserContext);
+  console.assert(uid, '[components/FirestorePath] User not loaded');
+  const fullPath = `/Users/${uid}/${path}`;
   return render(fullPath);
 };
 

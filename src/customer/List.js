@@ -1,9 +1,9 @@
 import CPF from 'cpf';
-import firebase from 'firebase/app';
 import 'firebase/auth';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { withFirestore } from 'react-firestore';
 import List from '../components/List';
+import UserContext from '../context/UserContext';
 import { generateHash } from '../utils/health-plan-utils';
 import EditItem from './EditItem';
 import NewItem from './NewItem';
@@ -23,15 +23,16 @@ const editItem = (healthPlans) => (props) => <EditItem healthPlans={healthPlans}
 
 function CustomerList({ firestore }) {
   const [{ healthPlanHash, healthPlans }, setState] = useState({});
+  const { uid } = useContext(UserContext);
+
   useEffect(() => {
-    const user = firebase.auth().currentUser;
-    const path = `/Users/${user.uid}/HealthPlans`;
+    const path = `/Users/${uid}/HealthPlans`;
 
     firestore.collection(path).onSnapshot((snapshot) => {
       const healthPlanHash = generateHash(snapshot);
       setState({ healthPlanHash, healthPlans: snapshot });
     });
-  });
+  }, [firestore, uid]);
 
   return (
     <List
