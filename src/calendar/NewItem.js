@@ -1,51 +1,40 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { withFirestore } from 'react-firestore';
 import FirestorePath from '../components/FirestorePath';
 import Item from './Item';
 
-class NewItem extends Component {
-  state = {};
+function CalendarNewItem(props) {
+  const [errorMessage, setErrorMessage] = useState();
+  const { firestore, onClose } = props;
 
-  handleSubmit = (fullPath, { id, ...event }) => {
-    const { firestore, onClose } = this.props;
-
-    if (!event || !event.customer || !event.customer.id) {
-      this.setState({ errorMessage: 'O campo cliente deve ser preenchido!' });
+  async function handleSubmit(fullPath, { id, ...event }) {
+    if (!event?.customer?.id) {
+      setErrorMessage('O campo cliente deve ser preenchido!');
       return;
     }
 
-    if (id) {
-      firestore
-        .doc(`${fullPath}/${id}`)
-        .set(event)
-        .then(() => onClose('Evento alterado com sucesso.'))
-        .catch((errorMessage) => this.setState({ errorMessage }));
-    } else {
-      firestore
-        .collection(`${fullPath}`)
-        .add(event)
-        .then(() => onClose('Evento criado com sucesso.'))
-        .catch((errorMessage) => this.setState({ errorMessage }));
+    try {
+      id ? await firestore.doc(`${fullPath}/${id}`).set(event) : await firestore.collection(`${fullPath}`).add(event);
+      onClose('Evento salvo com sucesso.');
+    } catch (error) {
+      setErrorMessage(error.message);
     }
-  };
-
-  render() {
-    const { errorMessage } = this.state;
-    return (
-      <FirestorePath
-        path="Events"
-        render={(fullPath) => (
-          <Item
-            title="Novo Evento"
-            isNew
-            errorMessage={errorMessage}
-            onSubmit={(event) => this.handleSubmit(fullPath, event)}
-            {...this.props}
-          />
-        )}
-      />
-    );
   }
+
+  return (
+    <FirestorePath
+      path="Events"
+      render={(fullPath) => (
+        <Item
+          title="Novo Evento"
+          isNew
+          errorMessage={errorMessage}
+          onSubmit={(event) => handleSubmit(fullPath, event)}
+          {...props}
+        />
+      )}
+    />
+  );
 }
 
-export default withFirestore(NewItem);
+export default withFirestore(CalendarNewItem);
