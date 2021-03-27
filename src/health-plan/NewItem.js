@@ -1,64 +1,50 @@
 import { validate } from 'cnpj';
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { withFirestore } from 'react-firestore';
 import FirestorePath from '../components/FirestorePath';
 import Item from './Item.js';
 
-class NewItem extends Component {
-  state = {};
-  handleSubmit = (fullPath, id, cnpj, name) => {
+const HealthPlanNew = ({ firestore, onClose }) => {
+  const [errorMessage, setErrorMessage] = useState();
+
+  const handleSubmit = async (fullPath, _id, cnpj, name) => {
     if (!validate(cnpj)) {
-      this.setState({
-        errorMessage: 'CNPJ inválido',
-      });
+      setErrorMessage('CNPJ inválido');
       return;
     }
 
-    const { firestore, onClose } = this.props;
     const doc = firestore.doc(`${fullPath}/${cnpj}`);
-    doc.get().then((snapShot) => {
-      if (snapShot.exists) {
-        this.setState({
-          errorMessage: 'CNPJ já existente',
-        });
-        return;
-      }
+    const snapShot = await doc.get();
+    if (snapShot.exists) {
+      setErrorMessage('CNPJ já existente');
+      return;
+    }
 
-      firestore
-        .doc(`${fullPath}/${cnpj}`)
-        .set({
-          cnpj: cnpj,
-          name: name,
-        })
-        .then(() => {
-          onClose('Convênio criado com sucesso.');
-        })
-        .catch((error) => {
-          this.setState({
-            errorMessage: error,
-          });
-        });
-    });
+    try {
+      await firestore.doc(`${fullPath}/${cnpj}`).set({
+        cnpj: cnpj,
+        name: name,
+      });
+      onClose('Convênio criado com sucesso.');
+    } catch (error) {
+      setErrorMessage(error.message);
+    }
   };
 
-  render() {
-    const { errorMessage } = this.state;
-    const { onClose } = this.props;
-    return (
-      <FirestorePath
-        path="HealthPlans"
-        render={(fullPath) => (
-          <Item
-            title="Novo Convênio"
-            isNew
-            errorMessage={errorMessage}
-            onSubmit={(...props) => this.handleSubmit(fullPath, ...props)}
-            onClose={onClose}
-          />
-        )}
-      />
-    );
-  }
-}
+  return (
+    <FirestorePath
+      path="HealthPlans"
+      render={(fullPath) => (
+        <Item
+          title="Novo Convênio"
+          isNew
+          errorMessage={errorMessage}
+          onSubmit={(...args) => handleSubmit(fullPath, ...args)}
+          onClose={onClose}
+        />
+      )}
+    />
+  );
+};
 
-export default withFirestore(NewItem);
+export default withFirestore(HealthPlanNew);
