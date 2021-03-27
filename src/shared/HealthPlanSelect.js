@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { FirestoreCollection, withFirestore } from 'react-firestore';
+import React from 'react';
+import { FirestoreCollection } from 'react-firestore';
 import { Form } from 'semantic-ui-react';
 import FirestorePath from '../components/FirestorePath';
 
@@ -37,9 +37,6 @@ const firestoreSelect = ({ value, onChange, width }) => (
   />
 );
 
-class HealthPlanSelect extends Component {
-  render() {
-    return this.props.options ? select(this.props) : firestoreSelect(this.props);
-  }
-}
-export default withFirestore(HealthPlanSelect);
+const HealthPlanSelect = (props) => (props.options ? select(props) : firestoreSelect(props));
+
+export default HealthPlanSelect;
