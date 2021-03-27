@@ -6,17 +6,15 @@ import Customer from '../customer/List';
 import Event from '../event/List';
 import HealthPlan from '../health-plan/List';
 
-class Main extends React.Component {
-  render() {
-    return (
-      <main>
-        <Route exact path={CALENDAR} component={Calendar} />
-        <Route exact path={EVENT} component={Event} />
-        <Route exact path={CUSTOMER} component={Customer} />
-        <Route exact path={HEALTH_PLAN} component={HealthPlan} />
-      </main>
-    );
-  }
-}
+const Main = () => {
+  return (
+    <main>
+      <Route exact path={CALENDAR} component={Calendar} />
+      <Route exact path={EVENT} component={Event} />
+      <Route exact path={CUSTOMER} component={Customer} />
+      <Route exact path={HEALTH_PLAN} component={HealthPlan} />
+    </main>
+  );
+};
 
 export default Main;
