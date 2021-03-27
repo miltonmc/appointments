@@ -5,7 +5,7 @@ import { withFirestore } from 'react-firestore';
 import List from '../components/List';
 import UserContext from '../context/UserContext';
 import { generateHash } from '../utils/health-plan-utils';
-import EditItem from './EditItem';
+import CustomerItemEditable from './EditItem';
 import NewItem from './NewItem';
 
 const cells = (healthPlanHash) => [
@@ -19,7 +19,7 @@ const cells = (healthPlanHash) => [
 const columns = ['CPF', 'Nome', 'Convênio'];
 
 const newItem = (healthPlans) => (props) => <NewItem healthPlans={healthPlans} {...props} />;
-const editItem = (healthPlans) => (props) => <EditItem healthPlans={healthPlans} {...props} />;
+const editItem = (healthPlans) => (props) => <CustomerItemEditable healthPlans={healthPlans} {...props} />;
 
 function CustomerList({ firestore }) {
   const [{ healthPlanHash, healthPlans }, setState] = useState({});
