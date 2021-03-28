@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { withFirestore } from 'react-firestore';
 import FirestorePath from '../components/FirestorePath';
-import Item from './Item';
+import Customer from './Item';
 
 const CustomerNew = ({ firestore, healthPlans, onClose }) => {
   const [errorMessage, setErrorMessage] = useState();
@@ -23,7 +23,7 @@ const CustomerNew = ({ firestore, healthPlans, onClose }) => {
     <FirestorePath
       path="Customers"
       render={(fullPath) => (
-        <Item
+        <Customer
           title="Novo Paciente"
           healthPlans={healthPlans}
           errorMessage={errorMessage}
