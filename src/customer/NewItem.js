@@ -1,42 +1,38 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { withFirestore } from 'react-firestore';
 import FirestorePath from '../components/FirestorePath';
 import Item from './Item';
 
-class NewItem extends Component {
-  state = {};
-  handleSubmit = (fullPath, id, customer, errorMessage) => {
+const CustomerNew = ({ firestore, healthPlans, onClose }) => {
+  const [errorMessage, setErrorMessage] = useState();
+  const handleSubmit = async (fullPath, id, customer, errorMessage) => {
     if (errorMessage) {
-      this.setState({ errorMessage });
+      setErrorMessage(errorMessage);
       return;
     }
 
-    const { firestore, onClose } = this.props;
-    firestore
-      .collection(`${fullPath}`)
-      .add(customer)
-      .then(() => onClose('Convênio criado com sucesso.'))
-      .catch((error) => this.setState({ errorMessage: error }));
+    try {
+      await firestore.collection(fullPath).add(customer);
+      onClose('Convênio criado com sucesso.');
+    } catch (error) {
+      setErrorMessage(error.message);
+    }
   };
 
-  render() {
-    const { errorMessage } = this.state;
-    const { healthPlans, onClose } = this.props;
-    return (
-      <FirestorePath
-        path="Customers"
-        render={(fullPath) => (
-          <Item
-            title="Novo Paciente"
-            healthPlans={healthPlans}
-            errorMessage={errorMessage}
-            onSubmit={(...props) => this.handleSubmit(fullPath, ...props)}
-            onClose={onClose}
-          />
-        )}
-      />
-    );
-  }
-}
+  return (
+    <FirestorePath
+      path="Customers"
+      render={(fullPath) => (
+        <Item
+          title="Novo Paciente"
+          healthPlans={healthPlans}
+          errorMessage={errorMessage}
+          onSubmit={(...args) => handleSubmit(fullPath, ...args)}
+          onClose={onClose}
+        />
+      )}
+    />
+  );
+};
 
-export default withFirestore(NewItem);
+export default withFirestore(CustomerNew);
