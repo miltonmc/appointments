@@ -4,19 +4,25 @@ import 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import Loading from './components/Loading';
 import Login from './components/Login';
-import FirebaseContext from './context/FirebaseContext';
+import FirebaseContext, { Context } from './context/FirebaseContext';
 import LoggedApp from './LoggedApp';
 
-const isAllowedUsers = async (user) => {
+interface AppState {
+  context?: Context;
+  error?: string;
+  loading: boolean;
+}
+
+const isAllowedUsers = async (user: firebase.UserInfo): Promise<boolean> => {
   const snapshot = await firebase.firestore().collection('AllowedGoogleUsers').where('email', '==', user.email).get();
   return snapshot.empty;
 };
 
 export default function App() {
-  const [{ context, error, loading }, setState] = useState({ loading: true });
+  const [{ context, error, loading }, setState] = useState<AppState>({ loading: true });
 
-  const handleAuthStateChanged = async (loggedUser) => {
-    const state = { loading: false };
+  const handleAuthStateChanged = async (loggedUser: firebase.User | null) => {
+    const state: AppState = { loading: false };
     try {
       if (
         loggedUser?.providerData?.some((provider) => provider?.providerId === 'google.com') &&
