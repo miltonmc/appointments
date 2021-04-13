@@ -1,13 +1,15 @@
 import { validate } from 'cnpj';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { withFirestore } from 'react-firestore';
-import FirestorePath from '../components/FirestorePath';
-import Item from './Item.js';
+import FirebaseContext from '../context/FirebaseContext';
+import Item from './Item';
 
 const HealthPlanNew = ({ firestore, onClose }) => {
   const [errorMessage, setErrorMessage] = useState();
+  const { firestorePath } = useContext(FirebaseContext);
+  const fullPath = `${firestorePath}/HealthPlans`;
 
-  const handleSubmit = async (fullPath, _id, cnpj, name) => {
+  const handleSubmit = async (_id, cnpj, name) => {
     if (!validate(cnpj)) {
       setErrorMessage('CNPJ inválido');
       return;
@@ -31,20 +33,7 @@ const HealthPlanNew = ({ firestore, onClose }) => {
     }
   };
 
-  return (
-    <FirestorePath
-      path="HealthPlans"
-      render={(fullPath) => (
-        <Item
-          title="Novo Convênio"
-          isNew
-          errorMessage={errorMessage}
-          onSubmit={(...args) => handleSubmit(fullPath, ...args)}
-          onClose={onClose}
-        />
-      )}
-    />
-  );
+  return <Item title="Novo Convênio" isNew errorMessage={errorMessage} onSubmit={handleSubmit} onClose={onClose} />;
 };
 
 export default withFirestore(HealthPlanNew);

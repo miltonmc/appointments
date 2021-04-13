@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FirestoreDocument } from 'react-firestore';
 import { Form } from 'semantic-ui-react';
-import FirestorePath from '../components/FirestorePath';
+import FirebaseContext from '../context/FirebaseContext';
 import HealthPlanSelect from '../shared/HealthPlanSelect';
 
-const HealthPlanField = ({ healthPlans, selectedCustomer, selectedHealthPlanId = '', onChange }) => {
+const HealthPlanField = ({ healthPlanHash, selectedCustomer, selectedHealthPlanId = '', onChange }) => {
+  const { firestorePath } = useContext(FirebaseContext);
+
   //If selectedCustomerId is empty, we render a disabled Input.
   const disabledHealthPlan = (
     <Form.Input name="healtPlan" label="Plano de saúde" disabled placeholder="Escolha o Cliente" />
@@ -14,28 +16,24 @@ const HealthPlanField = ({ healthPlans, selectedCustomer, selectedHealthPlanId =
   }
 
   return (
-    <FirestorePath
-      path={`Customers/${selectedCustomer.id}`}
-      render={(fullCustomerPath) => (
-        <FirestoreDocument
-          path={fullCustomerPath}
-          render={({ isLoading, data: customer }) => {
-            if (isLoading) {
-              return disabledHealthPlan;
-            }
-            //if customer has a healthPlan, we add it as an option to the dropdown
-            const options = [];
-            const healthPlan = healthPlans.docs.find((plan) => plan.id === customer.healthPlanId);
-            healthPlan &&
-              options.push({
-                key: healthPlan.id,
-                value: healthPlan.id,
-                text: healthPlan.data().name,
-              });
-            return <HealthPlanSelect value={selectedHealthPlanId} onChange={onChange} options={options} />;
-          }}
-        />
-      )}
+    <FirestoreDocument
+      path={`${firestorePath}/Customers/${selectedCustomer.id}`}
+      render={({ isLoading, data: customer }) => {
+        if (isLoading) {
+          return disabledHealthPlan;
+        }
+        //if customer has a healthPlan, we add it as an option to the dropdown
+        const options = [];
+        const id = customer.healthPlanId;
+        const name = healthPlanHash[customer.healthPlanId];
+        name &&
+          options.push({
+            key: id,
+            value: id,
+            text: name,
+          });
+        return <HealthPlanSelect value={selectedHealthPlanId} onChange={onChange} options={options} />;
+      }}
     />
   );
 };

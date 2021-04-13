@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { FirestoreCollection } from 'react-firestore';
 import { Button, Header, Segment, Table, TableBodyProps as SemanticTableBodyProps } from 'semantic-ui-react';
+import FirebaseContext from '../context/FirebaseContext';
 import ConfirmRemove from './ConfirmRemove';
-import FirestorePath from './FirestorePath';
 import { ActionsCell, EmptyRow, LoadingRow } from './TableHelper';
 
 export default function List({
@@ -100,40 +100,40 @@ const TableHeaders: React.FC<TableHeadersProps> = ({ columns }) => (
   </Table.Header>
 );
 
-const TableBody: React.FC<TableBodyProps> = ({ emptyMessage, path, cells, onRemove, onEdit, sort, nameComposer }) => (
-  <Table.Body>
-    <FirestorePath
-      path={path}
-      render={(fullPath) => (
-        <FirestoreCollection
-          sort={sort}
-          path={fullPath}
-          render={({ isLoading, data }: FirestorePathRenderProps) => {
-            return isLoading ? (
-              <LoadingRow />
-            ) : data.length === 0 ? (
-              <EmptyRow>{emptyMessage ?? 'Nenhum item encontrado'}</EmptyRow>
-            ) : (
-              data.map((item) => (
-                <Table.Row key={item.id}>
-                  {cells.map(({ format, ...cell }, idx) => (
-                    <Table.Cell key={idx} {...cell}>
-                      {format?.(item) ?? item[cell.path]}
-                    </Table.Cell>
-                  ))}
-                  <ActionsCell
-                    onEdit={() => onEdit(true, item)}
-                    onRemove={() => onRemove(`${fullPath}/${item.id}`, item.name || nameComposer?.(item))}
-                  />
-                </Table.Row>
-              ))
-            );
-          }}
-        />
-      )}
-    />
-  </Table.Body>
-);
+const TableBody: React.FC<TableBodyProps> = ({ emptyMessage, path, cells, onRemove, onEdit, sort, nameComposer }) => {
+  const { firestorePath } = useContext(FirebaseContext);
+  const fullPath = `${firestorePath}/${path}`;
+
+  return (
+    <Table.Body>
+      <FirestoreCollection
+        sort={sort}
+        path={fullPath}
+        render={({ isLoading, data }: FirestoreRender) => {
+          return isLoading ? (
+            <LoadingRow />
+          ) : data.length === 0 ? (
+            <EmptyRow>{emptyMessage ?? 'Nenhum item encontrado'}</EmptyRow>
+          ) : (
+            data.map((item) => (
+              <Table.Row key={item.id}>
+                {cells.map(({ format, ...cell }, idx) => (
+                  <Table.Cell key={idx} {...cell}>
+                    {format?.(item) ?? item[cell.path]}
+                  </Table.Cell>
+                ))}
+                <ActionsCell
+                  onEdit={() => onEdit(true, item)}
+                  onRemove={() => onRemove(`${fullPath}/${item.id}`, item.name || nameComposer?.(item))}
+                />
+              </Table.Row>
+            ))
+          );
+        }}
+      />
+    </Table.Body>
+  );
+};
 
 interface Cell {
   format?: (item: DataItem) => string;

@@ -1,40 +1,38 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { withFirestore } from 'react-firestore';
-import FirestorePath from '../components/FirestorePath';
+import FirebaseContext from '../context/FirebaseContext';
 import Item from './Item';
 
-function CalendarNewItem(props) {
+const CalendarEventNew = ({ firestore, onClose, healthPlanHash, ...event }) => {
   const [errorMessage, setErrorMessage] = useState();
-  const { firestore, onClose } = props;
+  const { firestorePath } = useContext(FirebaseContext);
+  const eventPath = `${firestorePath}/Events`;
 
-  async function handleSubmit(fullPath, { id, ...event }) {
-    if (!event?.customer?.id) {
+  const handleSubmit = async ({ id, ...event }) => {
+    if (!event.customer?.id) {
       setErrorMessage('O campo cliente deve ser preenchido!');
       return;
     }
 
     try {
-      id ? await firestore.doc(`${fullPath}/${id}`).set(event) : await firestore.collection(`${fullPath}`).add(event);
+      id ? await firestore.doc(`${eventPath}/${id}`).set(event) : await firestore.collection(eventPath).add(event);
       onClose('Evento salvo com sucesso.');
     } catch (error) {
       setErrorMessage(error.message);
     }
-  }
+  };
 
   return (
-    <FirestorePath
-      path="Events"
-      render={(fullPath) => (
-        <Item
-          title="Novo Evento"
-          isNew
-          errorMessage={errorMessage}
-          onSubmit={(event) => handleSubmit(fullPath, event)}
-          {...props}
-        />
-      )}
+    <Item
+      title="Novo Evento"
+      isNew
+      errorMessage={errorMessage}
+      onSubmit={handleSubmit}
+      onClose={onClose}
+      healthPlanHash={healthPlanHash}
+      {...event}
     />
   );
-}
+};
 
-export default withFirestore(CalendarNewItem);
+export default withFirestore(CalendarEventNew);

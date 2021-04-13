@@ -8,7 +8,7 @@ export default function CalendarItem({
   id,
   errorMessage,
   healthPlanId: healthPlanIdProp,
-  healthPlans,
+  healthPlanHash,
   onClose,
   onSubmit,
   title,
@@ -56,7 +56,7 @@ export default function CalendarItem({
           </Form.Group>
           <CustomerField selectedCustomer={customer} onChange={handleChange} />
           <HealthPlanField
-            healthPlans={healthPlans}
+            healthPlanHash={healthPlanHash}
             selectedCustomer={customer}
             selectedHealthPlanId={healthPlanId}
             onChange={handleChange}

@@ -2,20 +2,22 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import React, { FunctionComponent, useContext } from 'react';
 import { Button, Image, Item, Popup } from 'semantic-ui-react';
-import UserContext from '../context/UserContext';
+import FirebaseContext from '../context/FirebaseContext';
 
 const handleLogout = () => {
   firebase.auth().signOut();
 };
 
 const LogoutButton: FunctionComponent = () => {
-  const { displayName, email, photoURL } = useContext(UserContext);
+  const {
+    loggedUser: { displayName, email, photoURL },
+  } = useContext(FirebaseContext);
   const avatar = photoURL ? (
     <Image circular bordered size="mini" src={photoURL} />
   ) : (
     <svg viewBox="0 0 24 24" height="32px">
       <circle fill="#a0d36a" cx="12" cy="12" r="12"></circle>
-      <text fill="#ffffff" font-size="12" text-anchor="middle" x="12" y="16">
+      <text fill="#ffffff" fontSize="12" textAnchor="middle" x="12" y="16">
         {displayName
           ?.split(' ')
           .map((name) => name.substring(0, 1))
