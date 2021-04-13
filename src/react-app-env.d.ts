@@ -1,5 +1,4 @@
 /// <reference types="react-scripts" />
-/// <reference types="firebase" />
 
 interface WithFirestoreProps {
   firestore: firebase.firestore.Firestore;
@@ -21,7 +20,7 @@ interface Appointment {
   notes?: string;
 }
 
-interface FirestorePathRenderProps {
+interface FirestoreRender {
   data: DataItem[];
   isLoading: boolean;
 }
@@ -32,14 +31,8 @@ interface HealthPlan {
 }
 
 interface HealthPlanHash {
-  [key: string]: HealthPlan;
+  [key: string]: string;
 }
 
-// // Type definitions for react-firestore 1.0.1
-// // Project: https://github.com/green-arrow/react-firestore
-// // Definitions by: Milton Castro <https://github.com/miltonmc>
-// // Definitions: https://github.com/miltonmc/appointments/blob/master/src/react-app-env.d.ts
-// // TypeScript Version: 3.0
 declare module 'react-firestore';
-
 declare module 'react-big-calendar';

@@ -3,57 +3,54 @@ import React, { useContext, useEffect, useState } from 'react';
 import { withFirestore } from 'react-firestore';
 import NewItem from '../calendar/NewItem';
 import List from '../components/List';
-import UserContext from '../context/UserContext';
+import FirebaseContext from '../context/FirebaseContext';
 import { generateHash } from '../utils/health-plan-utils';
 
 const healthPlanName = (item, healthPlanHash) =>
   healthPlanHash && item.healthPlanId ? healthPlanHash[item.healthPlanId] : 'Particular';
 
-const cells = (healthPlanHash) => [
-  { format: (item) => moment(item.start.toDate()).format('DD/MM/YYYY HH:mm') },
-  { format: (item) => item.customer.name },
-  { format: (item) => healthPlanName(item, healthPlanHash) },
-  {
-    format: (item) => `[${healthPlanName(item, healthPlanHash)}] ${item.customer.name}`,
-  },
-];
-
 const columns = ['Horário', 'Paciente', 'Convênio'];
 
-const newItem = (healthPlans) => (props) => <NewItem healthPlans={healthPlans} {...props} />;
-const editItem = (healthPlans) => (props) => {
-  const { item, ...rest } = props;
-  const title = item.customer.name + ' - ' + item.healthPlan;
-  const newProps = { title, ...item, ...rest };
-  return <NewItem healthPlans={healthPlans} {...newProps} />;
-};
+const EventList = ({ firestore }) => {
+  const [healthPlanHash, setHealthPlanHash] = useState({});
+  const { firestorePath } = useContext(FirebaseContext);
 
-function EventList({ firestore }) {
-  const [{ healthPlanHash, healthPlans }, setState] = useState({});
-  const { uid } = useContext(UserContext);
+  const cells = [
+    { format: (item) => moment(item.start.toDate()).format('DD/MM/YYYY HH:mm') },
+    { format: (item) => item.customer.name },
+    { format: (item) => healthPlanName(item, healthPlanHash) },
+    {
+      format: (item) => `[${healthPlanName(item, healthPlanHash)}] ${item.customer.name}`,
+    },
+  ];
+  const newItem = (props) => <NewItem healthPlanHash={healthPlanHash} {...props} />;
+  const editItem = (props) => {
+    const { item, ...rest } = props;
+    const title = item.customer.name + ' - ' + item.healthPlan;
+    const newProps = { title, ...item, ...rest };
+    return <NewItem healthPlanHash={healthPlanHash} {...newProps} />;
+  };
 
   useEffect(() => {
-    const path = `/Users/${uid}/HealthPlans`;
-
-    firestore.collection(path).onSnapshot((snapshot) => {
+    return firestore.collection(`${firestorePath}/HealthPlans`).onSnapshot((snapshot) => {
       const healthPlanHash = generateHash(snapshot);
-      setState({ healthPlanHash, healthPlans: snapshot });
+      setHealthPlanHash(healthPlanHash);
     });
-  }, [firestore, uid]);
+  }, [firestore, firestorePath]);
 
   return (
     <List
-      cells={cells(healthPlanHash)}
+      cells={cells}
       columns={columns}
       createButtonText="Nova consulta"
-      editItem={editItem(healthPlans)}
-      newItem={newItem(healthPlans)}
+      editItem={editItem}
+      newItem={newItem}
       title="Consultas"
       emptyMessage="Nenhuma consulta encontrada"
       path="Events"
       sort="start:desc"
     />
   );
-}
+};
 
 export default withFirestore(EventList);

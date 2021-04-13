@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FirestoreCollection } from 'react-firestore';
 import { Form } from 'semantic-ui-react';
-import FirestorePath from '../components/FirestorePath';
+import FirebaseContext from '../context/FirebaseContext';
 
-const select = ({ isLoading, value, options, onChange, width }) => (
+const Select = ({ isLoading, value, options, onChange, width }) => (
   <Form.Select
     loading={isLoading}
     width={width}
@@ -18,25 +18,24 @@ const select = ({ isLoading, value, options, onChange, width }) => (
   />
 );
 
-const firestoreSelect = ({ value, onChange, width }) => (
-  <FirestorePath
-    path="HealthPlans"
-    render={(fullPath) => (
-      <FirestoreCollection
-        path={fullPath}
-        render={({ isLoading, data }) => {
-          const options = data.map((item) => ({
-            key: item.id,
-            value: item.id,
-            text: item.name,
-          }));
-          return select({ isLoading, value, options, onChange, width });
-        }}
-      />
-    )}
-  />
-);
+const FirestoreSelect = ({ value, onChange, width }) => {
+  const { firestorePath } = useContext(FirebaseContext);
 
-const HealthPlanSelect = (props) => (props.options ? select(props) : firestoreSelect(props));
+  return (
+    <FirestoreCollection
+      path={`${firestorePath}/HealthPlans`}
+      render={({ isLoading, data }) => {
+        const options = data.map((item) => ({
+          key: item.id,
+          value: item.id,
+          text: item.name,
+        }));
+        return Select({ isLoading, value, options, onChange, width });
+      }}
+    />
+  );
+};
+
+const HealthPlanSelect = (props) => (props.options ? Select(props) : FirestoreSelect(props));
 
 export default HealthPlanSelect;

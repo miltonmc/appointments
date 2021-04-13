@@ -2,18 +2,18 @@ import CPF from 'cpf';
 import React, { useContext, useEffect, useState } from 'react';
 import { withFirestore } from 'react-firestore';
 import { Form, Segment } from 'semantic-ui-react';
-import UserContext from '../context/UserContext';
+import FirebaseContext from '../context/FirebaseContext';
 
 function Sponsor({ firestore, cpf: cpfProps, onChange }) {
-  const { uid } = useContext(UserContext);
+  const { firestorePath } = useContext(FirebaseContext);
   const [cpf, setCPF] = useState(cpfProps);
   const [checked, setChecked] = useState(!!cpfProps);
   const [{ error, loading, name }, setState] = useState({ loading: !!cpfProps, name: '' });
 
   useEffect(() => {
     if (CPF.isValid(cpf)) {
-      firestore
-        .collection(`/Users/${uid}/Customers`)
+      return firestore
+        .collection(`${firestorePath}/Customers`)
         .where('cpf', '==', cpf)
         .onSnapshot((snapshot) => {
           const customers = snapshot?.docs?.[0]?.data();
@@ -31,7 +31,7 @@ function Sponsor({ firestore, cpf: cpfProps, onChange }) {
         error: cpf.length === 11,
       });
     }
-  }, [firestore, onChange, uid, cpf]);
+  }, [firestore, onChange, firestorePath, cpf]);
 
   return (
     <Segment>

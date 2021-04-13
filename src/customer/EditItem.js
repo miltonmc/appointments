@@ -1,39 +1,26 @@
-import React, { useState } from 'react';
-import { withFirestore } from 'react-firestore';
-import FirestorePath from '../components/FirestorePath';
-import Customer from './Item.js';
+import React, { useContext, useState } from 'react';
+import FirebaseContext from '../context/FirebaseContext';
+import Customer from './Item';
 
-const CustomerItemEditable = ({ firestore, item, onClose }) => {
+const CustomerEdit = ({ firestore, item, onClose }) => {
   const [errorMessage, setErrorMessage] = useState();
+  const { firestorePath } = useContext(FirebaseContext);
 
-  const handleSubmit = async (fullPath, id, custumer, errorMessage) => {
+  const handleSubmit = async (id, custumer, errorMessage) => {
     if (errorMessage) {
       setErrorMessage(errorMessage);
       return;
     }
 
     try {
-      await firestore.doc(`${fullPath}/${id}`).update(custumer);
+      await firestore.doc(`${firestorePath}/Customers/${id}`).update(custumer);
       onClose('Convênio atualizado com sucesso.');
     } catch (error) {
       setErrorMessage(error.message);
     }
   };
 
-  return (
-    <FirestorePath
-      path="Customers"
-      render={(fullPath) => (
-        <Customer
-          title="Paciente"
-          {...item}
-          errorMessage={errorMessage}
-          onSubmit={(...args) => handleSubmit(fullPath, ...args)}
-          onClose={onClose}
-        />
-      )}
-    />
-  );
+  return <Customer title="Paciente" errorMessage={errorMessage} onSubmit={handleSubmit} onClose={onClose} {...item} />;
 };
 
-export default withFirestore(CustomerItemEditable);
+export default CustomerEdit;
