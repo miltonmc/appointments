@@ -24,7 +24,7 @@ const Login: FunctionComponent<LoginProps> = ({ error }) => (
         <Button.Or text="ou" />
         <LoginWithEmail />
       </Button.Group>
-      {error ? <p className="login__error">{error}</p> : ''}
+      {error && <p className="login__error">{error}</p>}
     </div>
   </Center>
 );
@@ -32,5 +32,5 @@ const Login: FunctionComponent<LoginProps> = ({ error }) => (
 export default Login;
 
 interface LoginProps {
-  error: string;
+  error?: string;
 }
