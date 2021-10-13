@@ -1,5 +1,3 @@
-import firebase from 'firebase/app';
-
 export function generateHash(snapshot: Snapshot) {
   const healthPlanHash: HealthPlanHash = {};
   snapshot?.docs.forEach((healthPlan) => {
@@ -8,5 +6,3 @@ export function generateHash(snapshot: Snapshot) {
   });
   return healthPlanHash;
 }
-
-type Snapshot = firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData>;
