@@ -4408,10 +4408,10 @@ clsx@^1.0.4, clsx@^1.1.1:
   resolved "https://registry.yarnpkg.com/clsx/-/clsx-1.1.1.tgz#98b3134f9abbdf23b2663491ace13c5c03a73188"
   integrity sha512-6/bPho624p3S2pMyvP5kKBPXnI3ufHLObBFCfgx+LkeR5lg2XYy2hqZqUf45ypD8COn2bhgGJSUE+l5dhNBieA==
 
-cnpj@^3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/cnpj/-/cnpj-3.2.0.tgz#fd9d398b20ba5288fd21087341fbbe928f23aaf2"
-  integrity sha512-s1kWUAXfSJY5IKu60TjqjZr591xJKRo7KrDAoVrKHvIl9YGlw1eb/0Ax8BtizClZ5zbUmQs00jblqwAt13KSYA==
+cnpj@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/cnpj/-/cnpj-4.0.1.tgz#9a3b59980c7748ee6a52478c79af0d79cce4db68"
+  integrity sha512-DlUYT0loX2LoSy7wFwEOu40SMMPN/3ZaloUNv8O+PRSksSoYLk1fQx1x5PzSo2WHRDn5ySV7JXYbg3TpDsQ2rA==
 
 co@^4.6.0:
   version "4.6.0"
