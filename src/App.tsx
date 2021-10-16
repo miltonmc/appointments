@@ -31,7 +31,7 @@ export default function App() {
         state.error = `Email (${loggedUser.email}) sem permissão de acesso.`;
       }
     } catch (e) {
-      state.error = e.message;
+      state.error = (e as Error).message;
     }
 
     if (loggedUser && !state.error) {
