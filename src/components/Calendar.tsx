@@ -1,4 +1,4 @@
-import firebase from 'firebase/app';
+import firebase from 'firebase/compat/app';
 import moment from 'moment';
 import 'moment/locale/pt-br';
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';

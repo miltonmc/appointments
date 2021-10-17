@@ -1,5 +1,5 @@
 import CPF from 'cpf';
-import 'firebase/auth';
+import 'firebase/compat/auth';
 import React, { useContext, useEffect, useState } from 'react';
 import { withFirestore } from 'react-firestore';
 import List from '../components/List';
