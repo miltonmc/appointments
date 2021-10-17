@@ -1,4 +1,4 @@
-import firebase from 'firebase/app';
+import firebase from 'firebase/compat/app';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { FirestoreProvider } from 'react-firestore';
