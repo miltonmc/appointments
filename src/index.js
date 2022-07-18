@@ -1,6 +1,5 @@
 import firebase from 'firebase/compat/app';
-import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { FirestoreProvider } from 'react-firestore';
 import App from './App';
 import './application.scss';
@@ -9,10 +8,11 @@ import * as serviceWorker from './serviceWorker';
 
 firebase.initializeApp(firebaseConfig);
 
-ReactDOM.render(
+const container = document.getElementById('root');
+const root = createRoot(container);
+root.render(
   <FirestoreProvider firebase={firebase}>
     <App />
-  </FirestoreProvider>,
-  document.getElementById('root')
+  </FirestoreProvider>
 );
 serviceWorker.unregister();
