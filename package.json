@@ -4,7 +4,8 @@
   "license": "MIT",
   "private": true,
   "engines": {
-    "node": ">=8"
+    "node": "^14.20.1",
+    "yarn": "^1.22.19"
   },
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
