@@ -9,8 +9,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Requirements
 
 - [Git](https://git-scm.com/downloads)
-- [Node 8+](https://nodejs.org/en/download/)
-- [Yarn](https://yarnpkg.com/en/docs/install)
+- [Node v14.20.1](https://nodejs.org/en/download/)
+- [Yarn v1.22.19](https://yarnpkg.com/en/docs/install)
 
 ### Frontend
 
